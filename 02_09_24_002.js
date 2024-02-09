@@ -1,5 +1,3 @@
-alert("new test message");
-
 const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
@@ -135,7 +133,7 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "right:645px; bottom:30px; display:none");
+    span2.setAttribute("style", "right:500%; bottom:200%; display:none");
     list.appendChild(span2);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");

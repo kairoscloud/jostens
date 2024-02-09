@@ -134,7 +134,7 @@ function AddSchoolFunc() {
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
     span2.setAttribute("style", "right:10%; bottom:1%; display:none");
-    document.getElementById("newspan1").appendChild(span2);
+    span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");
     span3.setAttribute("class", "tooltip-inner");

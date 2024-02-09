@@ -133,7 +133,7 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "right:90%; bottom:10%; display:none");
+    span2.setAttribute("style", "margin-left:10%; margin-top:10%; display:none");
     list.appendChild(span2);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");

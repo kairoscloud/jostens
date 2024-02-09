@@ -116,6 +116,7 @@ function AddSchoolFunc() {
     span.setAttribute("data-tooltip", "tooltip");
     span.setAttribute("data-placement", "top");
     span.setAttribute("data-original-title", "Add School Contact");
+    span.setAttribute("style", "display:inline");
     var list = document.getElementsByClassName("bulk-actions-list")[0];
     list.insertBefore(span, list.children[0]);
     var btn = document.createElement('button');
@@ -133,7 +134,7 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "right:10%; bottom:1%; display:none");
+    span2.setAttribute("style", "display:inline");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");

@@ -294,7 +294,7 @@ function CopyBtnFunc() {
     span3.setAttribute("class", "tooltip-inner");
     span3.innerText = "Copy School Settings";
     document.getElementById("copyspan2").appendChild(span3);
-    document.getElementById("copybtn1").addEventListener('click', myClick2);
+    document.getElementById("copybtn1").addEventListener('click', myClick3);
     document.getElementById("copyspan1").addEventListener('mouseover', myHover3);
     document.getElementById("copyspan1").addEventListener('mouseout', myHover3);
   }

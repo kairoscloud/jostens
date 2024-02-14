@@ -133,7 +133,7 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18%; left:2%");
+    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:2%");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");
@@ -185,7 +185,7 @@ function PasteBtnFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "pastespan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18%; left:6%");
+    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:5%");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "pastespan3");
@@ -287,7 +287,7 @@ function CopyBtnFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "copyspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18%; left:10%");
+    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:9%");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "copyspan3");

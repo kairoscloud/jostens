@@ -133,12 +133,11 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute");
+    span2.setAttribute("style", "display:none; position:absolute; bottom:85%");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");
     span3.setAttribute("class", "tooltip-inner");
-    span3.setAttribute("style", "bottom:50%");
     span3.innerText = "Add School Contact";
     document.getElementById("newspan2").appendChild(span3);
     document.getElementById("newbtn1").addEventListener('click', myClick);

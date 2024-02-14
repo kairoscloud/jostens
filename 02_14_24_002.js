@@ -134,7 +134,7 @@ function AddSchoolFunc() {
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:inline; left:50%");
+    span2.setAttribute("style", "left:50%");
     span.insertBefore(span2, span.children[0]);
     var span3 = document.createElement('span');
     span3.setAttribute("id", "newspan3");

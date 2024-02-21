@@ -66,7 +66,6 @@ function viewFunc() {
 function pageFunc() {
   var sn = document.getElementsByName("contact.school_name")[0].value;
   var schoolcode = encodeURIComponent(sn);
-  alert(schoolcode);
   var link1 = document.getElementsByName("contact.landing_page_1")[0].value;
   var pageURL = "https://sites.jostens.co/manager?s=" + schoolcode + "&a=" + link1 + "&b=" + "&c=" + "&d=";
   window.open(pageURL);

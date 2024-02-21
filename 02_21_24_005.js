@@ -45,8 +45,8 @@ function DetailFunc() {
         var manager = document.querySelector('[data-id="button_1708538695853"]').getAttribute("link");
         var sn = document.getElementsByName("contact.school_name")[0].value;
         var schoolcode = encodeURIComponent(sn);
-        manager.replace("SCHOOL_NAME", schoolcode);
-        document.querySelector('[data-id="button_1708538695853"]').setAttribute('link', manager);
+        var link = manager.replace("SCHOOL_NAME", schoolcode);
+        document.querySelector('[data-id="button_1708538695853"]').setAttribute('link', link);
         var e = document.getElementsByName("contact.school_name")[0];
         if (e === undefined || e === null) {
           document.querySelector('[protected_name="school_info"]').firstChild.click();

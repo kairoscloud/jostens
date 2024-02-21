@@ -42,7 +42,11 @@ function DetailFunc() {
         document.querySelector('[protected_name="general_info"]').style.display = "none";
         document.querySelector('[protected_name="additional_info"]').style.display = "none";
         document.querySelector('[data-id="button_1701800376469"]').addEventListener('click', viewFunc);
-        document.querySelector('[data-id="button_1708538695853"]').addEventListener('click', pageFunc);
+        var manager = document.querySelector('[data-id="button_1708538695853"]').getAttribute("link");
+        var sn = document.getElementsByName("contact.school_name")[0].value;
+        var schoolcode = encodeURIComponent(sn);
+        manager.replace("SCHOOL_NAME", schoolcode);
+        document.querySelector('[data-id="button_1708538695853"]').setAttribute('link', manager);
         var e = document.getElementsByName("contact.school_name")[0];
         if (e === undefined || e === null) {
           document.querySelector('[protected_name="school_info"]').firstChild.click();
@@ -61,14 +65,6 @@ function DetailFunc() {
 function viewFunc() {
   var link = "https://" + ShortURL;
   window.open(link);
-}
-
-function pageFunc() {
-  var sn = document.getElementsByName("contact.school_name")[0].value;
-  var schoolcode = encodeURIComponent(sn);
-  var link1 = document.getElementsByName("contact.landing_page_1")[0].value;
-  var pageURL = "https://sites.jostens.co/manager?s=" + schoolcode + "&a=" + link1 + "&b=" + "&c=" + "&d=";
-  window.open(pageURL);
 }
 
 function ContactsFunc() {

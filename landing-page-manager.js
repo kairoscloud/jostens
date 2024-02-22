@@ -1,3 +1,5 @@
+alert("Test Alert on Page");
+
 // Page Parameters
 var getPageParameter = function getPageParameter(page, sParam) {
   var sPageURL = page,

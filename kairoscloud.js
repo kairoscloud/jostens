@@ -1,4 +1,4 @@
-alert("alert: true");
+alert("alert:test");
 
 const JostensTimer = setTimeout(JostensFunc, 2000);
 

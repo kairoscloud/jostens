@@ -1,4 +1,4 @@
-alert("Test Alert on Page");
+alert("New Test Alert");
 
 // Page Parameters
 var getPageParameter = function getPageParameter(page, sParam) {

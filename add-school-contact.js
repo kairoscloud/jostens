@@ -32,6 +32,7 @@ function loadFunc() {
     } else {
       window.pidv = true;
     }
+    // Location ID Missing
     if (lidv === false && pidv === true) {
       alert("ERROR CODE 301: Please contact support.");
       document.getElementsByClassName("col-12 menu-field-wrap")[8].style.display = "none";
@@ -41,6 +42,7 @@ function loadFunc() {
         bubbles: true
       }));
     }
+    // User Phone Missing
     if (lidv === true && pidv === false) {
       alert("ERROR CODE 201: You will NOT be notified about the status of this submission.");
       var startUrl = "https://app.kairoscloud.io/location/";
@@ -52,11 +54,13 @@ function loadFunc() {
         bubbles: true
       }));
     }
+    // Both Params Missing
     if (lidv === false && pidv === false) {
       alert("ERROR CODE 502: Please contact support.");
       document.getElementsByClassName("col-12 menu-field-wrap")[8].style.display = "none";
       document.getElementById('mediaslink').href = "javascript:void(0);";
     }
+    // Both Params Present
     if (lidv === true && pidv === true) {
       var startUrl = "https://app.kairoscloud.io/location/";
       var endUrl = "/medias";

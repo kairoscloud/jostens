@@ -1,5 +1,40 @@
+// Load Function
+const myInterval = setInterval(intFunc, 100);
+
+function intFunc() {
+  var a = document.getElementById('mediaimage');
+  if (a === undefined || a === null) {} {
+    // Client Location ID
+window.locationid = getPageParameter('id');
+if (locationid === "" || locationid === undefined) {
+  alert("ERROR CODE 301: Please contact support.");
+  document.getElementById('mediaslink').href = "javascript:void(0);";
+} else {
+  var startUrl = "https://app.kairoscloud.io/location/";
+  var endUrl = "/medias";
+  var mediasUrl = startUrl + locationid + endUrl;
+  document.getElementById('mediaslink').href = mediasUrl;
+  document.getElementById("4VnDd3UjXSNaugruH3k2").value = locationid;
+  document.getElementById("4VnDd3UjXSNaugruH3k2").dispatchEvent(new Event("input", {
+    bubbles: true
+  }));
+}
+    document.getElementById('pastebutton').addEventListener('click', pastebtn);
+    document.getElementById('clearbutton1').addEventListener('click', clearFunction1);
+    document.getElementById('mybutton2').addEventListener('click', MyFunc2);
+    
+
+
+  var x = document.getElementById("kNki5hB6i5ZvqlBEWjeT");
+  if (x === undefined || x === null) {} {
+    //encode
+    //user phone
+    //location id
+  }
+}
+
 // Page Parameters
-var getPageParameter = function getPageParameter(sParam) {
+window.getPageParameter = function getPageParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
     sURLVariables = sPageURL.split('&'),
     sParameterName,
@@ -65,29 +100,5 @@ function MyFunc2() {
   } else {
     x.style.display = "block";
     document.getElementById("mybutton2").innerHTML = "Is the background of my logo transparent? ↑"
-  }
-}
-
-// Page Interval
-const myInterval = setInterval(intFunc, 100);
-
-function intFunc() {
-  var a = document.getElementById('pastebutton');
-  if (a === undefined || a === null) {} {
-    a.addEventListener('click', pastebtn);
-  }
-  var b = document.getElementById('clearbutton1');
-  if (b === undefined || b === null) {} {
-    b.addEventListener('click', clearFunction1);
-  }
-  var c = document.getElementById('mybutton2');
-  if (c === undefined || c === null) {} {
-    c.addEventListener('click', MyFunc2);
-  }
-  var x = document.getElementById("kNki5hB6i5ZvqlBEWjeT");
-  if (x === undefined || x === null) {} {
-    //encode
-    //user phone
-    //location id
   }
 }

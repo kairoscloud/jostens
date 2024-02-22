@@ -1,3 +1,4 @@
+// Example Header
 const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {

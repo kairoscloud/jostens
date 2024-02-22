@@ -1,3 +1,24 @@
+// URL Parameters
+window.encodedURI = window.location.search.substring(1);
+window.decodedURI = decodeURIComponent(encodedURI);
+window.settings = decodedURI.replace(/\+/g, ' ');
+window.getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = settings,
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i;
+  for (i = 0; i < sURLVariables.length; i++) {
+    sParameterName = sURLVariables[i].split('=');
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true :
+        decodeURIComponent(sParameterName[1]);
+    }
+  }
+}
+var pnl = document.getElementById("sub-heading-mj-k4aCoe1");
+var pnd = "tel:7858404264‬";
+pnl.children[0].children[0].children[0].children[0].href = pnd;
+
 // Load Function
 window.iframe = document.getElementById("iframe").contentWindow.document;
 const loaderText = setTimeout(loadFunc, 10000);
@@ -16,10 +37,10 @@ function refreshFunc() {
 }
 
 window.MyStart = setInterval(startFunc, 50);
-// var s1 = getUrlParameter('s');
-// var s2 = encodeURIComponent('s1');
-// var schoolinfo = encodeURIComponent('s2')
-window.defaultURL = "ha=Senior Families&ba=Important Graduation Information Below!&pa=Everything you need to know to order your graduation products.&ot=Grad Order Due Date:&od=Wednesday, October 30th&va=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745462516526e2344a2.mp4&vb=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745e0653a318a129693.mp4&vc=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe7451cd52f29dc008c28.mp4&vd=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745138859936393908a.mp4&ah=1 MINUTE, 38 SECONDS&at=Introduction to the Process&bh=2 MINUTES, 18 SECONDS&bt=Most Popular Way to Order&ch=1 MINUTE, 44 SECONDS&ct=Upgrade Announcing Graduation&dh=1 MINUTE, 56 SECONDS&dt=Walk You Through the Website&ob=Order Now&bl=https://www.jostens.com/&ft=Your school’s graduation partner since 1979.&rn=Jeff Heline&ph=7858404264‬&em=jeff.heline@jostens.com";
+var s = getUrlParameter('s');
+var s1 = encodeURIComponent('s');
+var s2 = encodeURIComponent('s1')
+window.defaultURL = s2 + "ha=Senior Families&ba=Important Graduation Information Below!&pa=Everything you need to know to order your graduation products.&ot=Grad Order Due Date:&od=Wednesday, October 30th&va=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745462516526e2344a2.mp4&vb=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745e0653a318a129693.mp4&vc=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe7451cd52f29dc008c28.mp4&vd=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745138859936393908a.mp4&ah=1 MINUTE, 38 SECONDS&at=Introduction to the Process&bh=2 MINUTES, 18 SECONDS&bt=Most Popular Way to Order&ch=1 MINUTE, 44 SECONDS&ct=Upgrade Announcing Graduation&dh=1 MINUTE, 56 SECONDS&dt=Walk You Through the Website&ob=Order Now&bl=https://www.jostens.com/&ft=Your school’s graduation partner since 1979.&rn=Jeff Heline&ph=7858404264‬&em=jeff.heline@jostens.com";
 
 function startFunc() {
   var x = iframe.getElementById("closebtn");
@@ -141,27 +162,6 @@ function startFunc() {
     window.editorInt = setInterval(editorFunc, 50);
   }
 }
-
-// URL Parameters
-window.encodedURI = window.location.search.substring(1);
-window.decodedURI = decodeURIComponent(encodedURI);
-window.settings = decodedURI.replace(/\+/g, ' ');
-window.getUrlParameter = function getUrlParameter(sParam) {
-  var sPageURL = settings,
-    sURLVariables = sPageURL.split('&'),
-    sParameterName,
-    i;
-  for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split('=');
-    if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined ? true :
-        decodeURIComponent(sParameterName[1]);
-    }
-  }
-}
-var pnl = document.getElementById("sub-heading-mj-k4aCoe1");
-var pnd = "tel:7858404264‬";
-pnl.children[0].children[0].children[0].children[0].href = pnd;
 
 // Import Settings
 function importSwitch() {

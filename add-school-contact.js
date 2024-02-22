@@ -19,12 +19,30 @@ window.loadInterval = setInterval(loadFunc, 100);
 function loadFunc() {
   var a = document.getElementById('mediaimage');
   if (a === undefined || a === null) {} {
-    // Client Location ID
+    // Check for Params
     window.locationid = getPageParameter('id');
     if (locationid === "" || locationid === undefined) {
-      alert("ERROR CODE 301: Please contact support.");
-      document.getElementById('mediaslink').href = "javascript:void(0);";
+      window.lidv = false;
     } else {
+      window.lidv = true;
+    }
+    window.userphone = getPageParameter('p');
+    if (userphone === "" || userphone === undefined) {
+      window.pidv = false;
+    } else {
+      window.pidv = true;
+    }
+    if (lidv === false && pidv === true) {
+      alert("ERROR CODE 301: Please contact support.");
+      document.getElementsByClassName("col-12 menu-field-wrap")[8].style.display = "none";
+      document.getElementById('mediaslink').href = "javascript:void(0);";
+      document.getElementById("rty6ckbPMktzvsYSAW1M").value = userphone;
+      document.getElementById("rty6ckbPMktzvsYSAW1M").dispatchEvent(new Event("input", {
+        bubbles: true
+      }));
+    }
+    if (lidv === true && pidv === false) {
+      alert("ERROR CODE 201: You will NOT be notified about the status of this submission.");
       var startUrl = "https://app.kairoscloud.io/location/";
       var endUrl = "/medias";
       var mediasUrl = startUrl + locationid + endUrl;
@@ -34,11 +52,20 @@ function loadFunc() {
         bubbles: true
       }));
     }
-    // User Phone
-    window.userphone = getPageParameter('p');
-    if (userphone === "" || userphone === undefined) {
-      alert("ERROR CODE 201: User phone number missing. You will NOT be notified about the status of this submission.");
-    } else {
+    if (lidv === false && pidv === false) {
+      alert("ERROR CODE 502: Please contact support.");
+      document.getElementsByClassName("col-12 menu-field-wrap")[8].style.display = "none";
+      document.getElementById('mediaslink').href = "javascript:void(0);";
+    }
+    if (lidv === true && pidv === true) {
+      var startUrl = "https://app.kairoscloud.io/location/";
+      var endUrl = "/medias";
+      var mediasUrl = startUrl + locationid + endUrl;
+      document.getElementById('mediaslink').href = mediasUrl;
+      document.getElementById("4VnDd3UjXSNaugruH3k2").value = locationid;
+      document.getElementById("4VnDd3UjXSNaugruH3k2").dispatchEvent(new Event("input", {
+        bubbles: true
+      }));
       document.getElementById("rty6ckbPMktzvsYSAW1M").value = userphone;
       document.getElementById("rty6ckbPMktzvsYSAW1M").dispatchEvent(new Event("input", {
         bubbles: true

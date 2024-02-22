@@ -152,7 +152,7 @@ function AddSchoolFunc() {
 }
 
 function myClick() {
-  document.querySelector('[title="Add School Contact"]').click();
+  document.getElementsByClassName("add-school-contact")[0].click();
 }
 
 function myHover() {

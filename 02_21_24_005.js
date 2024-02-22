@@ -1,4 +1,4 @@
-alert("test alert");
+alert("new testing alert");
 
 const JostensTimer = setTimeout(JostensFunc, 2000);
 

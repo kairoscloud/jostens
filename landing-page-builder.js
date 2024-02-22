@@ -96,7 +96,7 @@ function startFunc() {
     iframe.getElementById('continuebtn').addEventListener('click', contFunc);
     iframe.getElementById("saveswitch").addEventListener('click', saveFunc);
     x.addEventListener('click', closeFunc);
-    // Check for IDs
+    // Check for Params
     window.locationid = getUrlParameter('id');
     window.schoolid = getUrlParameter('si');
     if (locationid === "" || locationid === undefined) {

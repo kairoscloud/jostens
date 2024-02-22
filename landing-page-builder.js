@@ -160,7 +160,7 @@ window.getUrlParameter = function getUrlParameter(sParam) {
   }
 }
 var pnl = document.getElementById("sub-heading-mj-k4aCoe1");
-var pnd = "tel:+17858404264‬";
+var pnd = "tel:7858404264‬";
 pnl.children[0].children[0].children[0].children[0].href = pnd;
 
 // Import Settings

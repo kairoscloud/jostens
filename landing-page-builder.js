@@ -16,10 +16,10 @@ function refreshFunc() {
 }
 
 window.MyStart = setInterval(startFunc, 50);
-var s1 = getUrlParameter('s');
-var s2 = encodeURIComponent('s1');
-var schoolinfo = encodeURIComponent('s2')
-window.defaultURL = schoolinfo + "&ha=Senior Families&ba=Important Graduation Information Below!&pa=Everything you need to know to order your graduation products.&ot=Grad Order Due Date:&od=Wednesday, October 30th&va=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745462516526e2344a2.mp4&vb=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745e0653a318a129693.mp4&vc=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe7451cd52f29dc008c28.mp4&vd=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745138859936393908a.mp4&ah=1 MINUTE, 38 SECONDS&at=Introduction to the Process&bh=2 MINUTES, 18 SECONDS&bt=Most Popular Way to Order&ch=1 MINUTE, 44 SECONDS&ct=Upgrade Announcing Graduation&dh=1 MINUTE, 56 SECONDS&dt=Walk You Through the Website&ob=Order Now&bl=https://www.jostens.com/&ft=Your school’s graduation partner since 1979.&rn=Jeff Heline&ph=7858404264‬&em=jeff.heline@jostens.com";
+// var s1 = getUrlParameter('s');
+// var s2 = encodeURIComponent('s1');
+// var schoolinfo = encodeURIComponent('s2')
+window.defaultURL = "ha=Senior Families&ba=Important Graduation Information Below!&pa=Everything you need to know to order your graduation products.&ot=Grad Order Due Date:&od=Wednesday, October 30th&va=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745462516526e2344a2.mp4&vb=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745e0653a318a129693.mp4&vc=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe7451cd52f29dc008c28.mp4&vd=https://storage.googleapis.com/msgsndr/yfyIrXrm61r57rx3ex4N/media/65cbe745138859936393908a.mp4&ah=1 MINUTE, 38 SECONDS&at=Introduction to the Process&bh=2 MINUTES, 18 SECONDS&bt=Most Popular Way to Order&ch=1 MINUTE, 44 SECONDS&ct=Upgrade Announcing Graduation&dh=1 MINUTE, 56 SECONDS&dt=Walk You Through the Website&ob=Order Now&bl=https://www.jostens.com/&ft=Your school’s graduation partner since 1979.&rn=Jeff Heline&ph=7858404264‬&em=jeff.heline@jostens.com";
 
 function startFunc() {
   var x = iframe.getElementById("closebtn");

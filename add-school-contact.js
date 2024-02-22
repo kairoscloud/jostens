@@ -14,9 +14,9 @@ window.getPageParameter = function getPageParameter(sParam) {
 }
 
 // Load Function
-const myInterval = setInterval(intFunc, 100);
+window.loadInterval = setInterval(loadFunc, 100);
 
-function intFunc() {
+function loadFunc() {
   var a = document.getElementById('mediaimage');
   if (a === undefined || a === null) {} {
     // Client Location ID
@@ -37,7 +37,7 @@ function intFunc() {
     // User Phone
     window.userphone = getPageParameter('p');
     if (userphone === "" || userphone === undefined) {
-      alert("ERROR CODE 201: User phone number missing. You will not be notified about the status of this submission.");
+      alert("ERROR CODE 201: User phone number missing. You will NOT be notified about the status of this submission.");
     } else {
       document.getElementById("rty6ckbPMktzvsYSAW1M").value = userphone;
       document.getElementById("rty6ckbPMktzvsYSAW1M").dispatchEvent(new Event("input", {
@@ -48,18 +48,24 @@ function intFunc() {
     document.getElementById('pastebutton').addEventListener('click', pastebtn);
     document.getElementById('clearbutton1').addEventListener('click', clearFunction1);
     document.getElementById('mybutton2').addEventListener('click', MyFunc2);
-    // Encoded URL
-    var mascot = document.getElementById("DzcUKIO0kLtT5Xv5SP2D").value;
-    var school = document.getElementById("zCxe90EEKqnbK7aqJp4n").value;
-    var location = document.getElementById("US1EIuubo877vgGIwNQU").value;
-    var logo = document.getElementById("nxxune9mCfHvnxhZl3dO").value;
-    var id = document.getElementById("4VnDd3UjXSNaugruH3k2").value;
-    var phone = document.getElementById("rty6ckbPMktzvsYSAW1M").value;
-    var url = "ma=" + mascot + "&hs=" + school + "&cs=" + location + "&ml=" + logo + "&id=" + id + "&up=" + phone;
-    var url1 = encodeURIComponent(url);
-    var url2 = encodeURIComponent(url1);
-    document.getElementById("kNki5hB6i5ZvqlBEWjeT").value = url2;
+    // Finish
+    clearInterval(loadInterval);
+    window.editorInt = setInterval(editorFunc, 100);
   }
+}
+
+// Editor Function
+function editorFunc() {
+  var mascot = document.getElementById("DzcUKIO0kLtT5Xv5SP2D").value;
+  var school = document.getElementById("zCxe90EEKqnbK7aqJp4n").value;
+  var location = document.getElementById("US1EIuubo877vgGIwNQU").value;
+  var logo = document.getElementById("nxxune9mCfHvnxhZl3dO").value;
+  var id = document.getElementById("4VnDd3UjXSNaugruH3k2").value;
+  var phone = document.getElementById("rty6ckbPMktzvsYSAW1M").value;
+  var url = "ma=" + mascot + "&hs=" + school + "&cs=" + location + "&ml=" + logo + "&id=" + id + "&up=" + phone;
+  var url1 = encodeURIComponent(url);
+  var url2 = encodeURIComponent(url1);
+  document.getElementById("kNki5hB6i5ZvqlBEWjeT").value = url2;
 }
 
 // Paste Logo Button

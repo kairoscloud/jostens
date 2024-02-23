@@ -15,9 +15,11 @@ function authcodeFunc() {
   window.url = window.location.href;
   window.code = url.split("code=")[1];
   document.getElementById("sub-heading-_9WWOhxpa1").children[0].children[0].children[0].innerText = code;
+  document.getElementById("sub-heading-_9WWOhxpa1").children[0].classList.remove("hide");
 }
 
 // Copy Code Function
 function copyCode() {
   navigator.clipboard.writeText(code);
+  document.getElementById("button-ydAztZSX3U_btn").style = "background-color:red";
 }

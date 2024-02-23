@@ -22,5 +22,4 @@ function editorFunc() {
   document.getElementById("CFX6jNxLm6WeiJaeUb3o").dispatchEvent(new Event("input", {
     bubbles: true
   }));
-  document.getElementById("sub-heading-WG6XAr3yzg").children[0].children[0].children[0].innerText = url;
 }

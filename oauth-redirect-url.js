@@ -23,5 +23,5 @@ function authcodeFunc() {
 // Copy Code Function
 function copyCode() {
   navigator.clipboard.writeText(code);
-  document.getElementById("button-ydAztZSX3U_btn").style = "background-color: #191919";
+  document.getElementById("button-ydAztZSX3U_btn").style = "background-color: #4c4c4c";
 }

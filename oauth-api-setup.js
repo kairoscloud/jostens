@@ -20,7 +20,7 @@ function editorFunc() {
   var secret = document.getElementById("elUUxg52bvrZQbXeNkQi").value;
   var sso = document.getElementById("FTHAL47JZmnqQZIwyvc9").value;
   var scope = document.getElementById("bwsVb6yruPE21WBFcCSM").value;
-  var url = "https://marketplace.gohighlevel.com/oauth/chooselocation?response_type=code&redirect_uri=https://oauth.kairoscloud.io&client_id=" + id +"&scope=" + scope;
+  var url = "https://marketplace.gohighlevel.com/oauth/chooselocation?response_type=code&redirect_uri=https://oauth.kairoscloud.io/redirect-url&client_id=" + id +"&scope=" + scope;
   document.getElementById("CFX6jNxLm6WeiJaeUb3o").value = url;
   document.getElementById("CFX6jNxLm6WeiJaeUb3o").dispatchEvent(new Event("input", {
     bubbles: true

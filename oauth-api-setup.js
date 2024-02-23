@@ -5,6 +5,7 @@ function loadFunc() {
   var x = document.getElementById("loaddiv");
   if (x === undefined || x === null) {} else {
     document.getElementsByClassName("col-12")[9].style.display = "none";
+    document.getElementById("row-vmRU-jtNzU").classList.remove("hide");
     window.editorInt = setInterval(editorFunc, 100);
     clearInterval(loadInt);
   }
@@ -22,4 +23,5 @@ function editorFunc() {
   document.getElementById("CFX6jNxLm6WeiJaeUb3o").dispatchEvent(new Event("input", {
     bubbles: true
   }));
+  document.getElementById("sub-heading-WG6XAr3yzg").children[0].children[0].children[0].children[0].href = url;
 }

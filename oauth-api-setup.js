@@ -5,7 +5,6 @@ function loadFunc() {
   var x = document.getElementById("loaddiv");
   if (x === undefined || x === null) {} else {
     document.getElementsByClassName("col-12")[9].style.display = "none";
-    document.getElementById("button-66js3W3L3y_btn").addEventListener('click', continueFunc);
     window.editorInt = setInterval(editorFunc, 100);
     clearInterval(loadInt);
   }

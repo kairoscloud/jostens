@@ -20,7 +20,25 @@ function fillformFunc() {
   var fill = url.split("?")[1];
   if (fill === undefined || fill === null || fill === "") {} else {
     var id = fill.split("id=")[1].split("&sec=")[0];
-    alert(id);
+    document.getElementById("DMqsWSFgrZGG6HSv8ZGS").value = id;
+    document.getElementById("DMqsWSFgrZGG6HSv8ZGS").dispatchEvent(new Event("input", {
+      bubbles: true
+    }));
+    var sec = fill.split("sec=")[1].split("&sso=")[0];
+    document.getElementById("elUUxg52bvrZQbXeNkQi").value = id;
+    document.getElementById("elUUxg52bvrZQbXeNkQi").dispatchEvent(new Event("input", {
+      bubbles: true
+    }));
+    var sso = fill.split("sso=")[1].split("&sco=")[0];
+    document.getElementById("FTHAL47JZmnqQZIwyvc9").value = id;
+    document.getElementById("FTHAL47JZmnqQZIwyvc9").dispatchEvent(new Event("input", {
+      bubbles: true
+    }));
+    var sco = fill.split("&sco=")[1];
+    document.getElementById("bwsVb6yruPE21WBFcCSM").value = id;
+    document.getElementById("bwsVb6yruPE21WBFcCSM").dispatchEvent(new Event("input", {
+      bubbles: true
+    }));
   }
 }
 

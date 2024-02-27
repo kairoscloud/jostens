@@ -97,6 +97,9 @@ function editorFunc() {
   var url1 = encodeURIComponent(url);
   var url2 = encodeURIComponent(url1);
   document.getElementById("kNki5hB6i5ZvqlBEWjeT").value = url2;
+  document.getElementById('kNki5hB6i5ZvqlBEWjeT').dispatchEvent(new Event("input", {
+    bubbles: true
+  }));
 }
 
 // Paste Logo Button

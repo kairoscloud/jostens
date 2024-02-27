@@ -4,7 +4,7 @@ window.loadInt = setInterval(loadFunc, 100);
 function loadFunc() {
   var x = document.getElementById("loaddiv");
   if (x === undefined || x === null) {} else {
-    document.getElementsByClassName("col-12")[9].style.display = "none";
+    document.getElementsByClassName("col-12")[8].style.display = "none";
     document.getElementById("row-vmRU-jtNzU").classList.remove("hide");
     document.getElementById("row-_YL_7azO14").classList.remove("hide");
     document.getElementById("sub-heading-WG6XAr3yzg").children[0].children[0].children[0].children[0].addEventListener('click', urlFunc);
@@ -42,6 +42,6 @@ function editorFunc() {
 // Authorization URL Function
 function urlFunc() {
   document.getElementById("form-U6L7OZsxzGYub8vgDGtq").parentElement.classList.remove("d-none");
-  document.getElementsByClassName("col-12")[9].style.display = "block";
+  document.getElementsByClassName("col-12")[8].style.display = "block";
   document.getElementById("row-_YL_7azO14").style.display = "none";
 }

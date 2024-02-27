@@ -10,7 +10,15 @@ function loadFunc() {
     document.getElementById("sub-heading-WG6XAr3yzg").children[0].children[0].children[0].children[0].addEventListener('click', urlFunc);
     window.editorInt = setInterval(editorFunc, 100);
     clearInterval(loadInt);
+    fillformFunc();
   }
+}
+
+// Fill Form Function
+function fillformFunc() {
+  var url = window.location.href;
+  var fill = url.split("?")[1];
+  alert(fill);
 }
 
 // Editor Function

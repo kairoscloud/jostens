@@ -18,7 +18,10 @@ function loadFunc() {
 function fillformFunc() {
   var url = window.location.href;
   var fill = url.split("?")[1];
-  alert(fill);
+  if (fill === undefined || fill === null || fill === "") {} else {
+    var id = fill.split("id=")[1].split("&sec=")[0];
+    alert(id);
+  }
 }
 
 // Editor Function

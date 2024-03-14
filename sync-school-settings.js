@@ -1,6 +1,7 @@
 // Forward URL
 var url = window.location.href;
 var status = url.includes("contact_id");
+alert(status);
 if (status === true) {
   var newurl = url.replace("contact_id", "school_id");
   window.open(newurl);

@@ -5,6 +5,9 @@ if (status === "true") {
   var newurl = url.replace("contact_id", "school_id");
   window.location.replace(newurl);
 }
+if (status === "false") {
+  window.loadInterval = setInterval(loadFunc, 100);
+}
 
 // Page Parameters
 window.getPageParameter = function getPageParameter(sParam) {
@@ -22,8 +25,6 @@ window.getPageParameter = function getPageParameter(sParam) {
 }
 
 // Load Function
-window.loadInterval = setInterval(loadFunc, 100);
-
 function loadFunc() {
   var a = document.getElementsByClassName('btn btn-dark button-element')[0];
   if (a === undefined || a === null) {} {

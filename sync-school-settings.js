@@ -54,7 +54,7 @@ function loadFunc() {
     }
     // User Phone Missing
     if (lidv === true && cidv === true && pidv === false) {
-      alert("ERROR CODE 201: You will NOT be notified about the status of this submission.");
+      alert("ERROR CODE 201: You will NOT be notified about the status of this sync.");
       document.getElementById("4VnDd3UjXSNaugruH3k2").value = locationid;
       document.getElementById("4VnDd3UjXSNaugruH3k2").dispatchEvent(new Event("input", {
         bubbles: true

@@ -88,6 +88,10 @@ function loadFunc() {
       document.getElementsByTagName("p")[2].style = "font-weight:bold";
       var school = schoolname.replace(/\+/g, " ");
       document.getElementsByTagName("p")[2].innerText = school;
+      document.getElementById("zCxe90EEKqnbK7aqJp4n").value = school;
+      document.getElementById("zCxe90EEKqnbK7aqJp4n").dispatchEvent(new Event("input", {
+        bubbles: true
+      }));
     }
     // Finish
     clearInterval(loadInterval);

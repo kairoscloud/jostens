@@ -56,7 +56,7 @@ function loadFunc() {
       }));
     }
     // All Params Present
-    if (lidv === true && pidv === true) {
+    if (lidv === true && cidv === true && pidv === true) {
       document.getElementById("4VnDd3UjXSNaugruH3k2").value = locationid;
       document.getElementById("4VnDd3UjXSNaugruH3k2").dispatchEvent(new Event("input", {
         bubbles: true

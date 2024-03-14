@@ -77,7 +77,7 @@ function loadFunc() {
       document.getElementsByTagName("p")[2].innerText = "No school found.";
     } else {
       document.getElementsByTagName("p")[2].style = "font-weight:bold";
-      var school = schoolname.replace(/+/g, " ");
+      var school = schoolname.replace(/"+"/g, " ");
       document.getElementsByTagName("p")[2].innerText = school;
     }
     // Finish

@@ -26,7 +26,7 @@ function loadFunc() {
     } else {
       window.lidv = true;
     }
-    window.contactid = getPageParameter('contact_id');
+    window.contactid = getPageParameter('school_id');
     if (contactid === "" || contactid === undefined) {
       window.cidv = false;
     } else {

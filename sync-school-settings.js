@@ -3,7 +3,7 @@ var url = window.location.href;
 var status = url.includes("contact_id");
 if (status === "true") {
   var newurl = url.replace("contact_id", "school_id");
-  window.open(newurl);
+  window.location.replace(newurl);
 }
 
 // Page Parameters

@@ -47,13 +47,23 @@ function loadFunc() {
     } else {
       window.pidv = true;
     }
-    // Location ID or Contact ID Missing
-    if (lidv === false || cidv === false) {
+    // Location ID Missing
+    if (lidv === false || cidv === true) {
       alert("ERROR CODE 301: Please contact support.");
       document.getElementsByClassName("col-12")[2].style.display = "none";
     }
+    // Contact ID Missing
+    if (lidv === true || cidv === false) {
+      alert("ERROR CODE 302: Please contact support.");
+      document.getElementsByClassName("col-12")[2].style.display = "none";
+    }
+    // Location ID and Contact ID Missing
+    if (lidv === false || cidv === false) {
+      alert("ERROR CODE 303: Please contact support.");
+      document.getElementsByClassName("col-12")[2].style.display = "none";
+    }
     // User Phone Missing
-    if (lidv === true && cidv === true && pidv === false) {
+    if (pidv === false) {
       alert("ERROR CODE 201: You will NOT be notified about the status of this sync.");
       document.getElementById("4VnDd3UjXSNaugruH3k2").value = locationid;
       document.getElementById("4VnDd3UjXSNaugruH3k2").dispatchEvent(new Event("input", {

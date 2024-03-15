@@ -34,7 +34,7 @@ function fillformFunc() {
     document.getElementById("FTHAL47JZmnqQZIwyvc9").dispatchEvent(new Event("input", {
       bubbles: true
     }));
-    var sco = fill.split("&sco=")[1].replace("+", " ");
+    var sco = fill.split("&sco=")[1].replace(/\+/g, " ");
     document.getElementById("bwsVb6yruPE21WBFcCSM").value = sco;
     document.getElementById("bwsVb6yruPE21WBFcCSM").dispatchEvent(new Event("input", {
       bubbles: true

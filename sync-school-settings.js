@@ -48,17 +48,17 @@ function loadFunc() {
       window.pidv = true;
     }
     // Location ID Missing
-    if (lidv === false || cidv === true) {
+    if (lidv === false && cidv === true) {
       alert("ERROR CODE 301: Please contact support.");
       document.getElementsByClassName("col-12")[2].style.display = "none";
     }
     // Contact ID Missing
-    if (lidv === true || cidv === false) {
+    if (lidv === true && cidv === false) {
       alert("ERROR CODE 302: Please contact support.");
       document.getElementsByClassName("col-12")[2].style.display = "none";
     }
     // Location ID and Contact ID Missing
-    if (lidv === false || cidv === false) {
+    if (lidv === false && cidv === false) {
       alert("ERROR CODE 303: Please contact support.");
       document.getElementsByClassName("col-12")[2].style.display = "none";
     }

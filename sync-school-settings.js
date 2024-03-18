@@ -96,7 +96,8 @@ function loadFunc() {
       document.getElementsByTagName("p")[2].innerText = "No school found.";
     } else {
       document.getElementsByTagName("p")[2].style = "font-weight:bold";
-      var school = schoolname.replace(/\+/g, " ");
+      var replace = schoolname.replace(/\+/g, " ");
+      var school = replace.toLowerCase();
       document.getElementsByTagName("p")[2].innerText = school;
       document.getElementById("zCxe90EEKqnbK7aqJp4n").value = school;
       document.getElementById("zCxe90EEKqnbK7aqJp4n").dispatchEvent(new Event("input", {

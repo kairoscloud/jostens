@@ -1,4 +1,35 @@
-document.addEventListener('DOMContentLoaded', function() { // Only do this when the page is fully loaded.
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if the Media Library element is present
+    function checkMediaLibrary() {
+        // Find all h2 elements
+        var h2Elements = document.getElementsByTagName('h2');
+        
+        // Loop through all h2 elements to find the one with the text "Media Library"
+        for (var i = 0; i < h2Elements.length; i++) {
+            if (h2Elements[i].textContent.trim() === 'Media Library') {
+                deleteElems(); // delete
+                return true; // Element found, exit the function
+            }
+        }
+        return false; // Element not found
+    }
+
+    // Initial check in case the element is already present
+    if (!checkMediaLibrary()) {
+        // If not found, set up a MutationObserver to watch for changes in the DOM
+        var observer = new MutationObserver(function(mutationsList, observer) {
+            if (checkMediaLibrary()) {
+                // Disconnect the observer if the element is found
+                observer.disconnect();
+            }
+        });
+
+        // Start observing the document body for changes
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+});
+
+function deleteElems(){
 
 // Delete the "media library" title.
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,5 +77,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
 }

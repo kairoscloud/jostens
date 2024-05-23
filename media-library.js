@@ -1,6 +1,4 @@
-alert("start");
-setTimeout(deleteElems, 15000);
-alert("end");
+setTimeout(deleteElems, 25000);
 
 function deleteElems(){
 

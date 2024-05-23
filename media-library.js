@@ -1,7 +1,7 @@
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Start");
-}
+    
+alert("Start");
 
 setTimeout(deleteElems(), 10000);
 setTimeout(deleteiframeElems(), 15000);
@@ -24,9 +24,9 @@ function deleteElems(){
 
 }
 
-function deleteiframeElems(){
-    
-(document.querySelector('.mx-4.mt-5.hl-card')).remove();
+function deleteiframeElems(){    
+    (document.querySelector('.mx-4.mt-5.hl-card')).remove();
+    alert("removal attempted");
+}
 
-    
 }

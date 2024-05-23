@@ -20,6 +20,7 @@ function deleteElems(){
 }
 
 
+alert(window.location.href);
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
     alert("target window");
 

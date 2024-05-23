@@ -1,5 +1,5 @@
-alert("start");
 setTimeout(deleteElems(), 10000);
+setTimeout(deleteiframeElems(), 15000);
 
 function deleteElems(){
 
@@ -17,36 +17,11 @@ function deleteElems(){
         }
     }
 
+}
 
-// Delete the "create image using AI" banner
-
-    // Find the button with the specified ID
-    var button = document.getElementById('imageAI');
+function deleteiframeElems(){
     
-    // Check if the button exists
-    if (button) {
-        // Navigate up to the parent div with class 'hl-card-content'
-        var parentDiv = button.closest('.hl-card-content');
-        
-        // Check if the parent div exists
-        if (parentDiv) {
-            // Remove the parent div
-            parentDiv.parentNode.removeChild(parentDiv);
-        }
-    }
+document.querySelector('.mx-4.mt-5.hl-card');
 
-
-// Delete the back button
-
-    // Find all span elements with the specified class
-    var spanElements = document.querySelectorAll('.n-button__content');
     
-    // Loop through all span elements to find the one containing the "Back" text
-    spanElements.forEach(function(span) {
-        if (span.textContent.trim() === 'Back') {
-            // Remove the parent element of the found span
-            span.parentNode.removeChild(span);
-        }
-    });
-
 }

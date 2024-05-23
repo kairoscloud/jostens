@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() { // Only do this when the page is fully loaded.
+
 // Delete the "media library" title.
 document.addEventListener('DOMContentLoaded', function() {
     // Find all h2 elements
@@ -44,3 +46,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+}

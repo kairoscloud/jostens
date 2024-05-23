@@ -1,3 +1,4 @@
+alert("test1");
 document.addEventListener('DOMContentLoaded', function() {
     // Function to check if the Media Library element is present
     function checkMediaLibrary() {

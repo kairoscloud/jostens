@@ -21,13 +21,12 @@ function deleteElems(){
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
 
-    removeElementRepeatedly('.mx-4.mt-5.hl-card', 1000);
+    removeElementRepeatedly(1000);
 
-function removeElementRepeatedly(selector, interval) {
+function removeElementRepeatedly(interval) {
     var checkInterval = setInterval(function() {
-        var elementToRemove = document.querySelector(selector);
         if (elementToRemove !== null) {
-            elementToRemove.remove();
+            document.querySelector('.mx-4.mt-5.hl-card')).remove();
             clearInterval(checkInterval); // Stop checking once the element is removed
         }
     }, interval);

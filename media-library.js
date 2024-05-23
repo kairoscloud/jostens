@@ -1,5 +1,5 @@
-alert("test1");
 document.addEventListener('DOMContentLoaded', function() {
+    alert("DOM loaded");
     // Function to check if the Media Library element is present
     function checkMediaLibrary() {
         // Find all h2 elements

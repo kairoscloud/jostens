@@ -1,3 +1,4 @@
+console.log("script loaded!");
 setTimeout(deleteElems(), 10000);
 
 function deleteElems(){
@@ -20,6 +21,7 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
+    alert("target window");
 
     removeElementRepeatedly(1000);
 

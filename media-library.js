@@ -1,3 +1,4 @@
+console.log("deletion script starting");
 setTimeout(deleteElems(), 10000);
 setTimeout(deleteiframeElems(), 15000);
 

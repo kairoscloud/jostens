@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    alert("test1");
     // Find the iframe element with the specific src attribute
     var iframe = document.querySelector('iframe[src="https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias"]');
     
     // Check if the iframe exists
     if (iframe) {
+        alert("test2");
         // Add an event listener to trigger when the iframe has loaded
         iframe.addEventListener('load', function() {
+            alert("test3");
             deleteElems(); // delete elements
         });
     }

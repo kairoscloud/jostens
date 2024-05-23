@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Delete the back button
 document.addEventListener('DOMContentLoaded', function() {
     // Find all span elements with the specified class
     var spanElements = document.querySelectorAll('.n-button__content');

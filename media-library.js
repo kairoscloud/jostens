@@ -20,7 +20,16 @@ function deleteElems(){
 }
 
 
-alert(window.location.href);
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("target window");
+    
+    removeElementRepeatedly(1000);
+
+function removeElementRepeatedly(interval) {
+    var checkInterval = setInterval(function() {
+        if (elementToRemove !== null) {
+            (document.querySelector('.mx-4.mt-5.hl-card')).remove();
+            clearInterval(checkInterval); // Stop checking once the element is removed
+        }
+    }, interval);
+}
 }

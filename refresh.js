@@ -3,8 +3,6 @@
 // for now, everything is just media-library.js
 // I'll fix this after that's done.
 
-alert("test!");
-
 var head= document.getElementsByTagName('head')[0];
 var script= document.createElement('script');
 var id = Math.random().toString(36).slice(2, 7);

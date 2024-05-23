@@ -1,35 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the iframe element
-    var iframe = document.querySelector('iframe[src="https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias"]');
-    
-    // Check if the iframe exists
-    if (iframe) {
-        // Add an event listener to the iframe to detect when it loads
-        iframe.addEventListener('load', function() {
-            // Access the iframe's content
-            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            
-            // Function to check for the "Back" button
-            function checkForBackButton() {
-                var spanElements = iframeDoc.querySelectorAll('.n-button__content');
-                spanElements.forEach(function(span) {
-                    if (span.textContent.trim() === 'Back') {
-                        deleteElems(); // delete
-                    }
-                });
+    // Function to check if the Media Library element is present
+    function checkMediaLibrary() {
+        // Find all h2 elements
+        var h2Elements = document.getElementsByTagName('h2');
+        
+        // Loop through all h2 elements to find the one with the text "Media Library"
+        for (var i = 0; i < h2Elements.length; i++) {
+            if (h2Elements[i].textContent.trim() === 'Media Library') {
+                deleteElems(); // delete
+                return true; // Element found, exit the function
             }
+        }
+        return false; // Element not found
+    }
 
-            // Check for the "Back" button after a delay to ensure it has loaded
-            setTimeout(checkForBackButton, 1000); // Adjust the delay as needed
+    // Initial check in case the element is already present
+    if (!checkMediaLibrary()) {
+        // If not found, set up a MutationObserver to watch for changes in the DOM
+        var observer = new MutationObserver(function(mutationsList, observer) {
+            if (checkMediaLibrary()) {
+                // Disconnect the observer if the element is found
+                observer.disconnect();
+            }
         });
+
+        // Start observing the document body for changes
+        observer.observe(document.body, { childList: true, subtree: true });
     }
 });
-
 
 function deleteElems(){
 
 // Delete the "media library" title.
-
+document.addEventListener('DOMContentLoaded', function() {
     // Find all h2 elements
     var h2Elements = document.getElementsByTagName('h2');
     
@@ -41,10 +44,10 @@ function deleteElems(){
             break; // Exit the loop once the element is found and removed
         }
     }
-
+});
 
 // Delete the "create image using AI" banner
-
+document.addEventListener('DOMContentLoaded', function() {
     // Find the button with the specified ID
     var button = document.getElementById('imageAI');
     
@@ -59,10 +62,10 @@ function deleteElems(){
             parentDiv.parentNode.removeChild(parentDiv);
         }
     }
-
+});
 
 // Delete the back button
-
+document.addEventListener('DOMContentLoaded', function() {
     // Find all span elements with the specified class
     var spanElements = document.querySelectorAll('.n-button__content');
     
@@ -73,5 +76,5 @@ function deleteElems(){
             span.parentNode.removeChild(span);
         }
     });
-
+});
 }

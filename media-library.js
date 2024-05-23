@@ -1,10 +1,4 @@
-
-if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    
-alert("Start");
-
 setTimeout(deleteElems(), 10000);
-setTimeout(deleteiframeElems(), 15000);
 
 function deleteElems(){
 
@@ -23,6 +17,11 @@ function deleteElems(){
     }
 
 }
+
+
+if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
+
+setTimeout(deleteiframeElems(), 15000);
 
 function deleteiframeElems(){    
     (document.querySelector('.mx-4.mt-5.hl-card')).remove();

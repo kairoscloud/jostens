@@ -1,11 +1,35 @@
-setTimeout(function() {
-    deleteElems();
-    alert("end");
-}, 20000);
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the iframe element
+    var iframe = document.querySelector('iframe[src="https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias"]');
+    
+    // Check if the iframe exists
+    if (iframe) {
+        // Add an event listener to the iframe to detect when it loads
+        iframe.addEventListener('load', function() {
+            // Access the iframe's content
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Function to check for the "Back" button
+            function checkForBackButton() {
+                var spanElements = iframeDoc.querySelectorAll('.n-button__content');
+                spanElements.forEach(function(span) {
+                    if (span.textContent.trim() === 'Back') {
+                        deleteElems(); // delete
+                    }
+                });
+            }
+
+            // Check for the "Back" button after a delay to ensure it has loaded
+            setTimeout(checkForBackButton, 1000); // Adjust the delay as needed
+        });
+    }
+});
+
 
 function deleteElems(){
 
 // Delete the "media library" title.
+
     // Find all h2 elements
     var h2Elements = document.getElementsByTagName('h2');
     
@@ -18,7 +42,9 @@ function deleteElems(){
         }
     }
 
+
 // Delete the "create image using AI" banner
+
     // Find the button with the specified ID
     var button = document.getElementById('imageAI');
     
@@ -33,6 +59,7 @@ function deleteElems(){
             parentDiv.parentNode.removeChild(parentDiv);
         }
     }
+
 
 // Delete the back button
 

@@ -26,7 +26,7 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
 
 function removeElementRepeatedly(interval) {
     var checkInterval = setInterval(function() {
-        if (elementToRemove !== null) {
+        if ((document.querySelector('.mx-4.mt-5.hl-card') !== null) {
             (document.querySelector('.mx-4.mt-5.hl-card')).remove();
             clearInterval(checkInterval); // Stop checking once the element is removed
         }

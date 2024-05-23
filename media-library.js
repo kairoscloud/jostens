@@ -1,10 +1,10 @@
 alert("start");
-setTimeout(deleteElems, 15000);
+setTimeout(deleteElems, 10000);
 
 function deleteElems(){
 
 // Delete the "media library" title.
-document.addEventListener('DOMContentLoaded', function() {
+
     // Find all h2 elements
     var h2Elements = document.getElementsByTagName('h2');
     
@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
             break; // Exit the loop once the element is found and removed
         }
     }
-});
+
 
 // Delete the "create image using AI" banner
-document.addEventListener('DOMContentLoaded', function() {
+
     // Find the button with the specified ID
     var button = document.getElementById('imageAI');
     
@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
             parentDiv.parentNode.removeChild(parentDiv);
         }
     }
-});
+
 
 // Delete the back button
-document.addEventListener('DOMContentLoaded', function() {
+
     // Find all span elements with the specified class
     var spanElements = document.querySelectorAll('.n-button__content');
     
@@ -48,5 +48,5 @@ document.addEventListener('DOMContentLoaded', function() {
             span.parentNode.removeChild(span);
         }
     });
-});
+
 }

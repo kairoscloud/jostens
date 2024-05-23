@@ -23,13 +23,6 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
 
     removeElementRepeatedly('.mx-4.mt-5.hl-card', 1000);
 
-// setTimeout(deleteiframeElems(), 15000);
-
-// function deleteiframeElems(){    
-//    (document.querySelector('.mx-4.mt-5.hl-card')).remove();
-//    alert("removal attempted");
-//}
-
 function removeElementRepeatedly(selector, interval) {
     var checkInterval = setInterval(function() {
         var elementToRemove = document.querySelector(selector);

@@ -6,6 +6,7 @@ var src1 = "https://drewderose.github.io/jostenscustomcode/agency-content.js?" +
 script1.setAttribute("id", "jostens-custom-code_agency-content");
 script1.src= src1;
 // Currently OFF, turn ON by including: head1.appendChild(script1);
+
 // GHL Customizer Code
 var head2 = document.getElementsByTagName('head')[0];
 var script2 = document.createElement('script');
@@ -14,6 +15,7 @@ var src2 = "https://cdn.everypages.com/ghl-customizer/ghl_customizer.php?agency_
 script2.setAttribute("id", "ghl-customizer-script");
 script2.src= src2;
 head2.appendChild(script2);
+
 // ThemeBuilder Code
 var head3 = document.getElementsByTagName('head')[0];
 var script3 = document.createElement('script');
@@ -23,6 +25,7 @@ script3.setAttribute("id", "themebuilder-script");
 script3.setAttribute("data-agency-id", "1x762kiz4");
 script3.src= src3;
 head3.appendChild(script3);
+
 // Fiverr Custom Code
 var head4 = document.getElementsByTagName('head')[0];
 var script4 = document.createElement('script');
@@ -39,7 +42,14 @@ var id5 = Math.random().toString(36).slice(2, 7);
 var src5 = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + id5; 
 script5.setAttribute("id", "jbwx-code");
 script5.src= src5;
-head5.appendChild(script5);
+// Check if the URL matches the required pattern
+if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") { // append only if specific URL
+  setTimeout(function() {
+    head5.appendChild(script5);
+    alert("script appended!");
+  }, 7000); // Append script only after 7 seconds
+}
+
 
 // Drew Testing Code
 var head6 = document.getElementsByTagName('head')[0];

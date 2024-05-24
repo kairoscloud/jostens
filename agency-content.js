@@ -1,5 +1,5 @@
 const JostensTimer = setTimeout(JostensFunc, 2000);
-
+alert("agency-content.js successfully imported");
 function JostensFunc() {
   var planid = document.getElementsByClassName("jostensdem")[0];
   if (planid === undefined || planid === null) {} else {

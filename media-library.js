@@ -24,7 +24,7 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
     alert("Code updated 2");
         setTimeout(() => {
             alert("Selection attempted"),
-            document.querySelector('.mx-4.mt-5.hl-card').remove();
+            window.parent.document.querySelector('.mx-4.mt-5.hl-card').remove();
         }, 20000); 
 
 }

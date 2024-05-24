@@ -24,21 +24,8 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
     alert("Code version 6.0");
         setTimeout(() => {
             alert("Selection attempted"),
-            printDOM(document.documentElement);
+            console.log(document.documentElement.outerHTML);
         }, 10000);
 
-}
-
-// print the entire DOM
-function printDOM(node, prefix = '') {
-    // Print the current node
-    console.log(prefix + node.nodeName);
-
-    // Recursively print each child node
-    let child = node.firstChild;
-    while (child) {
-        printDOM(child, prefix + '  ');
-        child = child.nextSibling;
-    }
 }
 

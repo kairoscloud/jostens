@@ -1,11 +1,16 @@
 // Jostens Custom Code
-var head1 = document.getElementsByTagName('head')[0];
-var script1 = document.createElement('script');
-var id1 = Math.random().toString(36).slice(2, 7);
-var src1 = "https://drewderose.github.io/jostenscustomcode/agency-content.js?" + id1;
-script1.setAttribute("id", "jostens-custom-code_agency-content");
-script1.src= src1;
-// Currently OFF, turn ON by including: head1.appendChild(script1);
+var parts = (window.location.href).split('/');
+var lastPart = parts[parts.length - 1];
+if (lastPart === "contacts/smart_list/All") { // if last part of URL matches "contacts/smart_list/All"
+  alert("URL Match");
+  var head1 = document.getElementsByTagName('head')[0];
+  var script1 = document.createElement('script');
+  var id1 = Math.random().toString(36).slice(2, 7);
+  var src1 = "https://drewderose.github.io/jostenscustomcode/agency-content.js?" + id1;
+  script1.setAttribute("id", "jostens-custom-code_agency-content");
+  script1.src= src1;
+  head1.appendChild(script1);
+}
 
 // GHL Customizer Code
 var head2 = document.getElementsByTagName('head')[0];

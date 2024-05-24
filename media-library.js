@@ -22,13 +22,12 @@ function deleteElems(){
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
     alert("Code updated");
+    let element = "";
     tryDeleteElement();
 }
 
 function tryDeleteElement() {
-    // Select the element
-    const element = document.querySelector('.mx-4.mt-5.hl-card');
-    
+    element = document.querySelector('.mx-4.mt-5.hl-card');
     // Check if the element exists
     if (element) {
         // If it exists, remove it

@@ -1,4 +1,4 @@
-setTimeout(testFunc1(), 5000);
+setTimeout(testFunc1(), 20000);
 function testFunc1(){
-  console.log("Hello Drew!");
+  document.querySelector("#close").style.display = "none";
 }

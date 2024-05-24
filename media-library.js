@@ -21,27 +21,24 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code version 5.0");
+    alert("Code version 6.0");
         setTimeout(() => {
             alert("Selection attempted"),
-            addStyleBlock();
-            console.log(document.all);
+            printDOM(document.documentElement);
         }, 10000);
 
 }
 
-function addStyleBlock(){
-// Create a new style element
-const style = document.createElement('style');
+// print the entire DOM
+function printDOM(node, prefix = '') {
+    // Print the current node
+    console.log(prefix + node.nodeName);
 
-// Add CSS rules to the style element
-style.innerHTML = `
-  #app > div > div > div > div > div.mx-4.mt-5.hl-card > div {
-    display: none;
-  }
-`;
-
-// Append the style element to the head of the document
-document.head.appendChild(style);
-
+    // Recursively print each child node
+    let child = node.firstChild;
+    while (child) {
+        printDOM(child, prefix + '  ');
+        child = child.nextSibling;
+    }
 }
+

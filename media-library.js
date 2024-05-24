@@ -1,3 +1,4 @@
+console.log("Script loaded!");
 setTimeout(deleteElems(), 10000);
 
 function deleteElems(){

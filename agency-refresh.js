@@ -34,27 +34,3 @@ var src4 = "https://fiverr.ghlbranding.com/drewderose/app.js?" + id4;
 script4.setAttribute("id", "fiverr-custom-code");
 script4.src= src4;
 head4.appendChild(script4);
-
-// Jacob Custom Code
-var head5 = document.getElementsByTagName('head')[0];
-var script5 = document.createElement('script');
-var id5 = Math.random().toString(36).slice(2, 7);
-var src5 = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + id5; 
-script5.setAttribute("id", "jbwx-code");
-script5.src= src5;
-// Check if the URL matches the required pattern
-if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") { // append only if specific URL
-  setTimeout(function() {
-    head5.appendChild(script5);
-    alert("script appended!");
-  }, 7000); // Append script only after 7 seconds
-}
-
-// Drew Testing Code
-var head6 = document.getElementsByTagName('head')[0];
-var script6 = document.createElement('script');
-var id6 = Math.random().toString(36).slice(2, 7);
-var src6 = "https://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6;
-script6.setAttribute("id", "drew-testing-code");
-script6.src= src6;
-head6.appendChild(script6);

@@ -21,11 +21,11 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code updated 3");
+    alert("Code updated");
     tryDeleteElement();
 }
 
-(function tryDeleteElement() {
+function tryDeleteElement() {
     // Select the element
     const element = document.querySelector('.mx-4.mt-5.hl-card');
     
@@ -39,5 +39,5 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
         console.log("Element not found, retrying...");
         setTimeout(tryDeleteElement, 500); // Retry every 500 milliseconds
     }
-})();
+}
 

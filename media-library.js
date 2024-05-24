@@ -1,4 +1,4 @@
-console.log("Script loaded!");
+console.log("script loaded!");
 setTimeout(deleteElems(), 10000);
 
 function deleteElems(){
@@ -17,36 +17,30 @@ function deleteElems(){
         }
     }
 
-
-// Delete the "create image using AI" banner
-
-    // Find the button with the specified ID
-    var button = document.getElementById('imageAI');
-    
-    // Check if the button exists
-    if (button) {
-        // Navigate up to the parent div with class 'hl-card-content'
-        var parentDiv = button.closest('.hl-card-content');
-        
-        // Check if the parent div exists
-        if (parentDiv) {
-            // Remove the parent div
-            parentDiv.parentNode.removeChild(parentDiv);
-        }
-    }
+}
 
 
-// Delete the back button
+if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
+    alert("Code version 3.0");
+        setTimeout(() => {
+            alert("Selection attempted"),
+            addStyleBlock
+        }, 10000);
 
-    // Find all span elements with the specified class
-    var spanElements = document.querySelectorAll('.n-button__content');
-    
-    // Loop through all span elements to find the one containing the "Back" text
-    spanElements.forEach(function(span) {
-        if (span.textContent.trim() === 'Back') {
-            // Remove the parent element of the found span
-            span.parentNode.removeChild(span);
-        }
-    });
+}
+
+function addStyleBlock(){
+// Create a new style element
+const style = document.createElement('style');
+
+// Add CSS rules to the style element
+style.innerHTML = `
+  #app > div > div > div > div > div.mx-4.mt-5.hl-card > div {
+    display: none;
+  }
+`;
+
+// Append the style element to the head of the document
+document.head.appendChild(style);
 
 }

@@ -1,4 +1,5 @@
 setTimeout(func1, 5000);
 function func1(){
-  alert("Testing");
+  var x = document.getElementById("close");
+  console.log(x);
 }

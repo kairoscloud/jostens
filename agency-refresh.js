@@ -49,12 +49,3 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
     alert("script appended!");
   }, 7000); // Append script only after 7 seconds
 }
-
-// Drew Testing Code
-var head6 = document.getElementsByTagName('head')[0];
-var script6 = document.createElement('script');
-var id6 = Math.random().toString(36).slice(2, 7);
-var src6 = "https://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6; 
-script6.setAttribute("id", "drew-test-code");
-script6.src= src6;
-head6.appendChild(script6);

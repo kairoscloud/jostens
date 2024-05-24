@@ -23,39 +23,20 @@ function deleteElems(){
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
     alert("Code updated");
     let element = "";
-    tryDeleteElement2();
+    setTimeout(tryDeleteElement(), 7000);
 }
 
-function tryDeleteElement2() {
-    document.addEventListener('DOMContentLoaded', function() {
-        // Create a function to try deleting the element
-        function tryDeleteElement() {
-            const element = document.querySelector('.mx-4.mt-5.hl-card');
-            if (element) {
-                element.remove();
-                console.log("Element deleted");
-                observer.disconnect(); // Stop observing once the element is deleted
-            } else {
-                console.log("Element not found, retrying...");
-            }
-        }
-    
-        // Create a MutationObserver to watch for changes in the DOM
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                tryDeleteElement(); // Try deleting the element on every mutation
-            });
-        });
-    
-        // Start observing the document body for changes
-        observer.observe(document.body, {
-            childList: true,  // Watch for added/removed child nodes
-            subtree: true    // Watch for changes in the entire subtree
-        });
-    
-        // Try deleting the element immediately in case it's already present
-        tryDeleteElement();
-    });
-    
+function tryDeleteElement() {
+    element = document.querySelector('.mx-4.mt-5.hl-card');
+    // Check if the element exists
+    if (element) {
+        // If it exists, remove it
+        element.remove();
+        console.log("Element deleted");
+    } else {
+        // If it doesn't exist, log the attempt and retry after a short delay
+        console.log("Element not found, retrying...");
+        setTimeout(tryDeleteElement, 500); // Retry every 500 milliseconds
+    }
 }
 

@@ -1,4 +1,4 @@
-console.log("script loaded!");
+alert("start");
 setTimeout(deleteElems(), 10000);
 
 function deleteElems(){
@@ -17,29 +17,36 @@ function deleteElems(){
         }
     }
 
-}
+
+// Delete the "create image using AI" banner
+
+    // Find the button with the specified ID
+    var button = document.getElementById('imageAI');
+    
+    // Check if the button exists
+    if (button) {
+        // Navigate up to the parent div with class 'hl-card-content'
+        var parentDiv = button.closest('.hl-card-content');
+        
+        // Check if the parent div exists
+        if (parentDiv) {
+            // Remove the parent div
+            parentDiv.parentNode.removeChild(parentDiv);
+        }
+    }
 
 
-if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code updated 2");
-        setTimeout(() => {
-            alert("Selection attempted"),
-            removeFinal();
-        }, 10000);
+// Delete the back button
 
-}
-
-function removeFinal(){
-// Find the element using its query selector
-var elementToRemove = document.querySelector("#app > div > div > div > div > div.mx-4.mt-5.hl-card");
-
-// Check if the element exists
-if (elementToRemove) {
-    // Remove the element
-    elementToRemove.parentNode.removeChild(elementToRemove);
-} else {
-    console.log("Element not found");
-}
-
+    // Find all span elements with the specified class
+    var spanElements = document.querySelectorAll('.n-button__content');
+    
+    // Loop through all span elements to find the one containing the "Back" text
+    spanElements.forEach(function(span) {
+        if (span.textContent.trim() === 'Back') {
+            // Remove the parent element of the found span
+            span.parentNode.removeChild(span);
+        }
+    });
 
 }

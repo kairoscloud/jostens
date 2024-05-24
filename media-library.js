@@ -21,11 +21,11 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code version 4.0");
+    alert("Code version 5.0");
         setTimeout(() => {
             alert("Selection attempted"),
             addStyleBlock();
-            console.log(document.innerHTML);
+            console.log(document.all);
         }, 10000);
 
 }

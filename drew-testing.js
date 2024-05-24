@@ -4,6 +4,6 @@ function func1(){
   console.log("Eval Loaded!");
 }
 function testFunc1(){
-  var x = document.getElementById("close");
-  console.log(x);
+  document.getElementById("close").style.display = "none";
+  alert("Testing");
 }

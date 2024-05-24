@@ -1,6 +1,9 @@
 // Jostens Custom Code
 var parts = (window.location.href).split('/');
 var lastPart = parts[parts.length - 1];
+console.log("=== PARTS ===");
+console.log(parts);
+console.log(lastPart);
 if (lastPart === "contacts/smart_list/All") { // if last part of URL matches "contacts/smart_list/All"
   alert("URL Match");
   var head1 = document.getElementsByTagName('head')[0];

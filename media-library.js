@@ -24,12 +24,22 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
     alert("Code updated 2");
         setTimeout(() => {
             alert("Selection attempted"),
-            document.querySelector("#app > div > div > div > div > div.mx-4.mt-5.hl-card").remove();
-        }, 20000); 
+            removeFinal();
+        }, 10000);
 
-    window.onload = function() {
-    document.querySelector('.mx-4.mt-5.hl-card').remove();
-};
+}
+
+function removeFinal(){
+// Find the element using its query selector
+var elementToRemove = document.querySelector("#app > div > div > div > div > div.mx-4.mt-5.hl-card");
+
+// Check if the element exists
+if (elementToRemove) {
+    // Remove the element
+    elementToRemove.parentNode.removeChild(elementToRemove);
+} else {
+    console.log("Element not found");
+}
 
 
 }

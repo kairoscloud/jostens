@@ -31,8 +31,8 @@ var src = "https://fiverr.ghlbranding.com/drewderose/app.js?" + id;
 script.setAttribute("id", "fiverr-custom-code");
 script.src= src;
 head.appendChild(script);
-// Jacob Custom Code
 
+// Jacob Custom Code
 var id = Math.random().toString(36).slice(2, 7);
 window.onload = () => document.body.appendChild(Object.assign(document.createElement('script'), {src: 'https://drewderose.github.io/jostenscustomcode/media-library.js?' + id}));
 

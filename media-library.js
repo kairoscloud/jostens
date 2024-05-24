@@ -23,8 +23,8 @@ function deleteElems(){
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
     alert("Code updated 2");
         setTimeout(() => {
-            document.querySelector('.mx-4.mt-5.hl-card').remove(),
-            alert("Selection attempted"); 
+            alert("Selection attempted"),
+            document.querySelector('.mx-4.mt-5.hl-card').remove();
         }, 20000); 
 
 }

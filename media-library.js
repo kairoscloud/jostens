@@ -21,7 +21,7 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code version 6.0");
+    alert("Code version 7.0");
         setTimeout(() => {
             alert("Selection attempted"),
             document.querySelector("#app > div > div > div > div > div.mx-4.mt-5.hl-card").remove();

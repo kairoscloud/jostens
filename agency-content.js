@@ -1,5 +1,5 @@
 const JostensTimer = setTimeout(JostensFunc, 2000);
-alert("agency-content.js successfully imported");
+
 function JostensFunc() {
   var planid = document.getElementsByClassName("jostensdem")[0];
   if (planid === undefined || planid === null) {} else {
@@ -269,20 +269,22 @@ function clearclickFunc() {
 function CopyBtnFunc() {
   var x = document.getElementById("copyspan1");
   if (x === undefined || x === null) {
-    var span = document.createElement('span');
-    span.setAttribute("id", "copyspan1");
-    span.setAttribute("data-v-07dca9cc", "");
-    span.setAttribute("data-tooltip", "tooltip");
-    span.setAttribute("data-placement", "top");
-    span.setAttribute("data-original-title", "Copy School Settings");
-    var list = document.getElementsByClassName("bulk-actions-list")[0];
-    list.insertBefore(span, list.children[2]);
-    var btn = document.createElement('button');
-    btn.setAttribute("id", "copybtn1");
-    btn.setAttribute("data-v-07dca9cc", "");
-    btn.setAttribute("type", "button");
-    btn.setAttribute("data-original-title", "Copy School Settings");
-    btn.setAttribute("class", "btn btn-light btn-sm");
+    // var span = document.createElement('span');
+    // span.setAttribute("id", "copyspan1");
+    // span.setAttribute("data-v-07dca9cc", "");
+    // span.setAttribute("data-tooltip", "tooltip");
+    // span.setAttribute("data-placement", "top");
+    // span.setAttribute("data-original-title", "Copy School Settings");
+
+    // var list = document.getElementsByClassName("bulk-actions-list")[0];
+    // list.insertBefore(span, list.children[2]);
+    // var btn = document.createElement('button');
+    // btn.setAttribute("id", "copybtn1");
+    // btn.setAttribute("data-v-07dca9cc", "");
+    // btn.setAttribute("type", "button");
+    // btn.setAttribute("data-original-title", "Copy School Settings");
+    // btn.setAttribute("class", "btn btn-light btn-sm");
+
     document.getElementById("copyspan1").appendChild(btn);
     var icon = document.createElement('i');
     icon.setAttribute("id", "copyicon1");

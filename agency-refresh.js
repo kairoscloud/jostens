@@ -38,7 +38,7 @@ var id5 = Math.random().toString(36).slice(2, 7);
 var src5 = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + id5; 
 script5.setAttribute("id", "jbwx-code");
 script5.src= src5;
-head5.appendChild(script5);
+setTimeout(head5.appendChild(script5), 5000); // inject script after delay
 // Drew Testing Code
 var head6 = document.getElementsByTagName('head')[0];
 var script6 = document.createElement('script');
@@ -46,4 +46,4 @@ var id6 = Math.random().toString(36).slice(2, 7);
 var src6 = "https://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6; 
 script6.setAttribute("id", "drew-test-code");
 script6.src= src6;
-setTimeout(head6.appendChild(script6), 5000); // inject script after delay
+head6.appendChild(script6);

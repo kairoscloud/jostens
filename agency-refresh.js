@@ -37,7 +37,7 @@ var script5 = document.createElement('script');
 var id5 = Math.random().toString(36).slice(2, 7);
 var src5 = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + id5; 
 script5.setAttribute("id", "jbwx-code");
-script5.src= src;
+script5.src= src5;
 head5.appendChild(script5);
 // Drew Testing Code
 var head6 = document.getElementsByTagName('head')[0];

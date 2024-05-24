@@ -1,5 +1,5 @@
 const myInterval = setInterval(testFunc1, 1000);
 function testFunc1(){
-  var x = document.getElementsByClass("button").count();
+  var x = document.getElementsByClassName("button").count();
   console.log(x);
 }

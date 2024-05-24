@@ -39,3 +39,11 @@ var src = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + i
 script.setAttribute("id", "jbwx-code");
 script.src= src;
 head.appendChild(script);
+// Drew Custom Code
+var head= document.getElementsByTagName('head')[0];
+var script= document.createElement('script');
+var id = Math.random().toString(36).slice(2, 7);
+var src = "https://drewderose.github.io/jostenscustomcode/media-library2.js?" + id; 
+script.setAttribute("id", "ahdx-code");
+script.src= src;
+head.appendChild(script);

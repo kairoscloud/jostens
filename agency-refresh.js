@@ -54,7 +54,7 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
 var head6 = document.getElementsByTagName('head')[0];
 var script6 = document.createElement('script');
 var id6 = Math.random().toString(36).slice(2, 7);
-var src6 = "ttps://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6;
+var src6 = "https://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6;
 script6.setAttribute("id", "drew-testing-code");
 script6.src= src6;
 head6.appendChild(script6);

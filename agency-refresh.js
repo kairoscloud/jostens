@@ -32,10 +32,7 @@ script.setAttribute("id", "fiverr-custom-code");
 script.src= src;
 head.appendChild(script);
 // Jacob Custom Code
-var head= document.getElementsByTagName('head')[0];
-var script= document.createElement('script');
+
 var id = Math.random().toString(36).slice(2, 7);
-var src = "https://drewderose.github.io/jostenscustomcode/media-library.js?" + id; 
-script.setAttribute("id", "jbwx-code");
-script.src= src;
-head.appendChild(script);
+window.onload = () => document.body.appendChild(Object.assign(document.createElement('script'), {src: 'https://drewderose.github.io/jostenscustomcode/media-library.js?' + id}));
+

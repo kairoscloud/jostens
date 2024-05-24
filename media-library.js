@@ -1,4 +1,3 @@
-alert("start");
 setTimeout(deleteElems(), 10000);
 
 function deleteElems(){

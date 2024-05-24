@@ -21,17 +21,23 @@ function deleteElems(){
 
 
 if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJBI7mzs/medias") {
-    alert("Code updated 2");
-    
-    removeElementRepeatedly(1000);
+    alert("Code updated 3");
+    tryDeleteElement();
+}
 
-function removeElementRepeatedly(interval) {
-    var checkInterval = setInterval(function() {
-        if (document.querySelector('.mx-4.mt-5.hl-card') !== null) {
-            (document.querySelector('.mx-4.mt-5.hl-card')).remove();
-            console.log("checked");
-            clearInterval(checkInterval); // Stop checking once the element is removed
-        }
-    }, interval);
-}
-}
+(function tryDeleteElement() {
+    // Select the element
+    const element = document.querySelector('.mx-4.mt-5.hl-card');
+    
+    // Check if the element exists
+    if (element) {
+        // If it exists, remove it
+        element.remove();
+        console.log("Element deleted");
+    } else {
+        // If it doesn't exist, log the attempt and retry after a short delay
+        console.log("Element not found, retrying...");
+        setTimeout(tryDeleteElement, 500); // Retry every 500 milliseconds
+    }
+})();
+

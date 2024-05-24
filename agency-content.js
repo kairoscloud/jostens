@@ -165,42 +165,42 @@ function myHover() {
 }
 
 function PasteBtnFunc() {
-  var x = document.getElementById("pastespan1");
-  if (x === undefined || x === null) {
-    var span = document.createElement('span');
-    span.setAttribute("id", "pastespan1");
-    span.setAttribute("data-v-07dca9cc", "");
-    span.setAttribute("data-tooltip", "tooltip");
-    span.setAttribute("data-placement", "top");
-    span.setAttribute("data-original-title", "Paste School Settings");
-    var list = document.getElementsByClassName("bulk-actions-list")[0];
-    list.insertBefore(span, list.children[1]);
-    var btn = document.createElement('button');
-    btn.setAttribute("id", "pastebtn1");
-    btn.setAttribute("data-v-07dca9cc", "");
-    btn.setAttribute("type", "button");
-    btn.setAttribute("data-original-title", "Paste School Settings");
-    btn.setAttribute("class", "btn btn-light btn-sm");
-    document.getElementById("pastespan1").appendChild(btn);
-    var icon = document.createElement('i');
-    icon.setAttribute("id", "pasteicon1");
-    icon.setAttribute("data-v-07dca9cc", "");
-    icon.setAttribute("class", "fas fa-paste");
-    document.getElementById("pastebtn1").appendChild(icon);
-    var span2 = document.createElement('span');
-    span2.setAttribute("id", "pastespan2");
-    span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:5%");
-    span.insertBefore(span2, span.children[0]);
-    var span3 = document.createElement('span');
-    span3.setAttribute("id", "pastespan3");
-    span3.setAttribute("class", "tooltip-inner");
-    span3.innerText = "Paste School Settings";
-    document.getElementById("pastespan2").appendChild(span3);
-    document.getElementById("pastebtn1").addEventListener('click', myClick2);
-    document.getElementById("pastespan1").addEventListener('mouseover', myHover2);
-    document.getElementById("pastespan1").addEventListener('mouseout', myHover2);
-  }
+//   var x = document.getElementById("pastespan1");
+//   if (x === undefined || x === null) {
+//     var span = document.createElement('span');
+//     span.setAttribute("id", "pastespan1");
+//     span.setAttribute("data-v-07dca9cc", "");
+//     span.setAttribute("data-tooltip", "tooltip");
+//     span.setAttribute("data-placement", "top");
+//     span.setAttribute("data-original-title", "Paste School Settings");
+//     var list = document.getElementsByClassName("bulk-actions-list")[0];
+//     list.insertBefore(span, list.children[1]);
+//     var btn = document.createElement('button');
+//     btn.setAttribute("id", "pastebtn1");
+//     btn.setAttribute("data-v-07dca9cc", "");
+//     btn.setAttribute("type", "button");
+//     btn.setAttribute("data-original-title", "Paste School Settings");
+//     btn.setAttribute("class", "btn btn-light btn-sm");
+//     document.getElementById("pastespan1").appendChild(btn);
+//     var icon = document.createElement('i');
+//     icon.setAttribute("id", "pasteicon1");
+//     icon.setAttribute("data-v-07dca9cc", "");
+//     icon.setAttribute("class", "fas fa-paste");
+//     document.getElementById("pastebtn1").appendChild(icon);
+//     var span2 = document.createElement('span');
+//     span2.setAttribute("id", "pastespan2");
+//     span2.setAttribute("class", "tooltip");
+//     span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:5%");
+//     span.insertBefore(span2, span.children[0]);
+//     var span3 = document.createElement('span');
+//     span3.setAttribute("id", "pastespan3");
+//     span3.setAttribute("class", "tooltip-inner");
+//     span3.innerText = "Paste School Settings";
+//     document.getElementById("pastespan2").appendChild(span3);
+//     document.getElementById("pastebtn1").addEventListener('click', myClick2);
+//     document.getElementById("pastespan1").addEventListener('mouseover', myHover2);
+//     document.getElementById("pastespan1").addEventListener('mouseout', myHover2);
+//   }
 }
 
 function myClick2() {
@@ -235,7 +235,7 @@ function pasteFunc() {
         var z = document.getElementsByClassName("group cursor-pointer text-gray-900 hover:text-white hover:bg-blue-600 select-none relative py-2 pl-3 pr-9")[0];
         if (z === undefined || z === null) {} else {
           document.getElementsByClassName("group cursor-pointer text-gray-900 hover:text-white hover:bg-blue-600 select-none relative py-2 pl-3 pr-9")[0].click();
-          document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].value = "paste school settings";
+          //document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].value = "paste school settings";
           document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].dispatchEvent(new Event("input", {
             bubbles: true
           }));
@@ -339,7 +339,7 @@ function copyFunc() {
         var z = document.getElementsByClassName("group cursor-pointer text-gray-900 hover:text-white hover:bg-blue-600 select-none relative py-2 pl-3 pr-9")[0];
         if (z === undefined || z === null) {} else {
           document.getElementsByClassName("group cursor-pointer text-gray-900 hover:text-white hover:bg-blue-600 select-none relative py-2 pl-3 pr-9")[0].click();
-          document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].value = "copy school settings";
+        //   document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].value = "copy school settings";
           document.getElementsByClassName("appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")[0].dispatchEvent(new Event("input", {
             bubbles: true
           }));

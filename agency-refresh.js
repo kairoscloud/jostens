@@ -50,7 +50,6 @@ if (window.location.href === "https://app.kairoscloud.io/location/PqeI2v9lcicAtJ
   }, 7000); // Append script only after 7 seconds
 }
 
-
 // Drew Testing Code
 var head6 = document.getElementsByTagName('head')[0];
 var script6 = document.createElement('script');

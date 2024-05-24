@@ -46,4 +46,4 @@ var id6 = Math.random().toString(36).slice(2, 7);
 var src6 = "https://drewderose.github.io/jostenscustomcode/drew-testing.js?" + id6; 
 script6.setAttribute("id", "drew-test-code");
 script6.src= src6;
-head6.appendChild(script6);
+setTimeout(head6.appendChild(script6), 5000); // inject script after delay

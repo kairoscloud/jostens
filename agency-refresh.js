@@ -40,9 +40,9 @@ script.setAttribute("id", "jbwx-code");
 script.src= src;
 head.appendChild(script);
 
-// Wait for the page to fully load
-window.addEventListener('load', function() {
-    // Find the element using its query selector
+setTimeout(function() {
+    console.log("test4");
+        // Find the element using its query selector
     var elementToRemove = document.querySelector("#app > div > div > div > div > div.mx-4.mt-5.hl-card");
 
     // Check if the element exists
@@ -52,4 +52,4 @@ window.addEventListener('load', function() {
     } else {
         console.log("Element not found");
     }
-});
+}, 10000); // Delay in milliseconds

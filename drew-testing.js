@@ -1,5 +1,5 @@
-const myTimer = setTimeout(testFunc1, 10000);
+const myInterval = setInterval(testFunc1, 1000);
 function testFunc1(){
-  console.log("Testing Function Loaded!");
-  document.getElementById("close").style.display = "none";
+  var x = document.getElementById("close");
+  console.log(x);
 }

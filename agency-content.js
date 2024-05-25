@@ -3,7 +3,7 @@ const JostensTimer = setTimeout(JostensFunc, 2000);
 function JostensFunc() {
   var planid = document.getElementsByClassName("jostensdem")[0];
   if (planid === undefined || planid === null) {} else {
-    const URLinterval = setInterval(checkPage, 100);
+    checkPage();
     var x = document.querySelector('[title="Add School Contact"]');
     if (x === undefined || x === null) {} else {
       x.style.display = "none";

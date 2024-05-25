@@ -24,7 +24,7 @@ function checkPage() {
     `;
   }
   if (detail === "detail") {
-    DetailFunc();
+    //DetailFunc();
   }
   if (page === "settings") {
     SettingsFunc();

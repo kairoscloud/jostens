@@ -74,14 +74,15 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc2);
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
     AddSchoolFunc();
-    PasteBtnFunc();
-    CopyBtnFunc();
+    //PasteBtnFunc();
+    //CopyBtnFunc();
 
     // Added by Jacob
-    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12) > button").remove();
-    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(13) > button").remove();
-    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(15) > button").remove();
-  }
+    // these depend on whether the others are deleted as well
+    //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12) > button").remove();
+    //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(13) > button").remove();
+    //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(15) > button").remove();
+}
 }
 
 function myIntFunc1() {

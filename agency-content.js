@@ -76,6 +76,11 @@ function ContactsFunc() {
     AddSchoolFunc();
     PasteBtnFunc();
     CopyBtnFunc();
+
+    // Added by Jacob
+    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12) > button").remove();
+    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(13) > button").remove();
+    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(15) > button").remove();
   }
 }
 
@@ -285,25 +290,25 @@ function CopyBtnFunc() {
     // btn.setAttribute("data-original-title", "Copy School Settings");
     // btn.setAttribute("class", "btn btn-light btn-sm");
 
-    document.getElementById("copyspan1").appendChild(btn);
-    var icon = document.createElement('i');
-    icon.setAttribute("id", "copyicon1");
-    icon.setAttribute("data-v-07dca9cc", "");
-    icon.setAttribute("class", "fas fa-copy");
-    document.getElementById("copybtn1").appendChild(icon);
-    var span2 = document.createElement('span');
-    span2.setAttribute("id", "copyspan2");
-    span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:8%");
-    span.insertBefore(span2, span.children[0]);
-    var span3 = document.createElement('span');
-    span3.setAttribute("id", "copyspan3");
-    span3.setAttribute("class", "tooltip-inner");
-    span3.innerText = "Copy School Settings";
-    document.getElementById("copyspan2").appendChild(span3);
-    document.getElementById("copybtn1").addEventListener('click', myClick3);
-    document.getElementById("copyspan1").addEventListener('mouseover', myHover3);
-    document.getElementById("copyspan1").addEventListener('mouseout', myHover3);
+    // document.getElementById("copyspan1").appendChild(btn);
+    // var icon = document.createElement('i');
+    // icon.setAttribute("id", "copyicon1");
+    // icon.setAttribute("data-v-07dca9cc", "");
+    // icon.setAttribute("class", "fas fa-copy");
+    // document.getElementById("copybtn1").appendChild(icon);
+    // var span2 = document.createElement('span');
+    // span2.setAttribute("id", "copyspan2");
+    // span2.setAttribute("class", "tooltip");
+    // span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:8%");
+    // span.insertBefore(span2, span.children[0]);
+    // var span3 = document.createElement('span');
+    // span3.setAttribute("id", "copyspan3");
+    // span3.setAttribute("class", "tooltip-inner");
+    // span3.innerText = "Copy School Settings";
+    // document.getElementById("copyspan2").appendChild(span3);
+    // document.getElementById("copybtn1").addEventListener('click', myClick3);
+    // document.getElementById("copyspan1").addEventListener('mouseover', myHover3);
+    // document.getElementById("copyspan1").addEventListener('mouseout', myHover3);
   }
 }
 

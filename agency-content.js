@@ -27,7 +27,7 @@ function checkPage() {
     //DetailFunc();
   }
   if (page === "settings") {
-    SettingsFunc();
+    //SettingsFunc();
   }
 }
 

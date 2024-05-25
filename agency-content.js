@@ -1,6 +1,6 @@
-const JostensTimer = setTimeout(JostensFunc, 2000);
 let replaced = false;
 let toolbarElement = "";
+const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
 

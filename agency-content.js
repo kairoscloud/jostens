@@ -116,44 +116,44 @@ function myIntFunc2() {
 }
 
 function AddSchoolFunc() {
-  var x = document.getElementById("newspan1");
-  if (x === undefined || x === null) {
-    document.querySelector('[title="Pipeline Change"]').style.display = "none";
-    document.querySelector('[title="Send Review Requests"]').style.display = "none";
-    var span = document.createElement('span');
-    span.setAttribute("id", "newspan1");
-    span.setAttribute("data-v-07dca9cc", "");
-    span.setAttribute("data-tooltip", "tooltip");
-    span.setAttribute("data-placement", "top");
-    span.setAttribute("data-original-title", "Add School Contact");
-    var list = document.getElementsByClassName("bulk-actions-list")[0];
-    list.insertBefore(span, list.children[0]);
-    var btn = document.createElement('button');
-    btn.setAttribute("id", "newbtn1");
-    btn.setAttribute("data-v-07dca9cc", "");
-    btn.setAttribute("type", "button");
-    btn.setAttribute("data-original-title", "Add School Contact");
-    btn.setAttribute("class", "btn btn-light btn-sm");
-    document.getElementById("newspan1").appendChild(btn);
-    var icon = document.createElement('i');
-    icon.setAttribute("id", "newicon1");
-    icon.setAttribute("data-v-07dca9cc", "");
-    icon.setAttribute("class", "fas fa-school");
-    document.getElementById("newbtn1").appendChild(icon);
-    var span2 = document.createElement('span');
-    span2.setAttribute("id", "newspan2");
-    span2.setAttribute("class", "tooltip");
-    span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:2%");
-    span.insertBefore(span2, span.children[0]);
-    var span3 = document.createElement('span');
-    span3.setAttribute("id", "newspan3");
-    span3.setAttribute("class", "tooltip-inner");
-    span3.innerText = "Add School Contact";
-    document.getElementById("newspan2").appendChild(span3);
-    document.getElementById("newbtn1").addEventListener('click', myClick);
-    document.getElementById("newspan1").addEventListener('mouseover', myHover);
-    document.getElementById("newspan1").addEventListener('mouseout', myHover);
-  }
+//   var x = document.getElementById("newspan1");
+//   if (x === undefined || x === null) {
+//     document.querySelector('[title="Pipeline Change"]').style.display = "none";
+//     document.querySelector('[title="Send Review Requests"]').style.display = "none";
+//     var span = document.createElement('span');
+//     span.setAttribute("id", "newspan1");
+//     span.setAttribute("data-v-07dca9cc", "");
+//     span.setAttribute("data-tooltip", "tooltip");
+//     span.setAttribute("data-placement", "top");
+//     span.setAttribute("data-original-title", "Add School Contact");
+//     var list = document.getElementsByClassName("bulk-actions-list")[0];
+//     list.insertBefore(span, list.children[0]);
+//     var btn = document.createElement('button');
+//     btn.setAttribute("id", "newbtn1");
+//     btn.setAttribute("data-v-07dca9cc", "");
+//     btn.setAttribute("type", "button");
+//     btn.setAttribute("data-original-title", "Add School Contact");
+//     btn.setAttribute("class", "btn btn-light btn-sm");
+//     document.getElementById("newspan1").appendChild(btn);
+//     var icon = document.createElement('i');
+//     icon.setAttribute("id", "newicon1");
+//     icon.setAttribute("data-v-07dca9cc", "");
+//     icon.setAttribute("class", "fas fa-school");
+//     document.getElementById("newbtn1").appendChild(icon);
+//     var span2 = document.createElement('span');
+//     span2.setAttribute("id", "newspan2");
+//     span2.setAttribute("class", "tooltip");
+//     span2.setAttribute("style", "display:none; position:absolute; top:18.5%; left:2%");
+//     span.insertBefore(span2, span.children[0]);
+//     var span3 = document.createElement('span');
+//     span3.setAttribute("id", "newspan3");
+//     span3.setAttribute("class", "tooltip-inner");
+//     span3.innerText = "Add School Contact";
+//     document.getElementById("newspan2").appendChild(span3);
+//     document.getElementById("newbtn1").addEventListener('click', myClick);
+//     document.getElementById("newspan1").addEventListener('mouseover', myHover);
+//     document.getElementById("newspan1").addEventListener('mouseout', myHover);
+//   }
 }
 
 function myClick() {

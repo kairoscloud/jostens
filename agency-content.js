@@ -15,7 +15,6 @@ function checkPage() {
     let toolbarElement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
     toolbarElement.style.display = 'none';
 
-    element.style.display = 'none';
   var url = window.location.href;
   var page = url.split("/")[6];
   var detail = url.split("/")[7];

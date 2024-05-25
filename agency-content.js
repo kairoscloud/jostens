@@ -12,6 +12,7 @@ function JostensFunc() {
 }
 
 function checkPage() {
+  console.log("Checkpage called");
     let toolbarElement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
     toolbarElement.style.display = 'none';
 

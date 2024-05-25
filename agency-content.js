@@ -1,4 +1,4 @@
-const JostensTimer = setTimeout(JostensFunc, 2000);
+const JostensTimer = setTimeout(JostensFunc, 5000);
 
 function JostensFunc() {
   document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left").innerHTML = `

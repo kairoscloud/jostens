@@ -5,7 +5,7 @@ if (lastParts === "contacts/smart_list/All") { // if last part of URL matches "c
   var head1 = document.getElementsByTagName('head')[0];
   var script1 = document.createElement('script');
   var id1 = Math.random().toString(36).slice(2, 7);
-  var src1 = "https://drewderose.github.io/jostenscustomcode/agency-content.js?" + id1;
+  var src1 = "https://drewderose.github.io/KairosMedia/Jostens/agency-content.js?" + id1;
   script1.setAttribute("id", "jostens-custom-code_agency-content");
   script1.src= src1;
   head1.appendChild(script1);

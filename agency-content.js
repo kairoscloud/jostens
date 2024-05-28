@@ -1,4 +1,4 @@
-alert("Code version 1.1");
+alert("Code version 1.4");
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
@@ -74,6 +74,7 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc1);
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc2);
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
+    AddSchoolFunc();
 
     // remove everything
     document.querySelector("#newbtn1").remove(); // remove the buttons added by Drew
@@ -82,9 +83,7 @@ function ContactsFunc() {
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-  }, 10);
-
-  AddSchoolFunc();
+  }, 2000);
 
    }
 }
@@ -134,7 +133,7 @@ function AddSchoolFunc() {
     var list = document.getElementsByClassName("bulk-actions-list")[0];
     list.insertBefore(span, list.children[0]);
     var btn = document.createElement('button');
-    btn.setAttribute("id", "newbtn1");
+    btn.setAttribute("id", "newbtn2");
     btn.setAttribute("data-v-07dca9cc", "");
     btn.setAttribute("type", "button");
     btn.setAttribute("data-original-title", "Add School Contact");
@@ -144,7 +143,7 @@ function AddSchoolFunc() {
     icon.setAttribute("id", "newicon1");
     icon.setAttribute("data-v-07dca9cc", "");
     icon.setAttribute("class", "fas fa-school");
-    document.getElementById("newbtn1").appendChild(icon);
+    document.getElementById("newbtn2").appendChild(icon);
     var span2 = document.createElement('span');
     span2.setAttribute("id", "newspan2");
     span2.setAttribute("class", "tooltip");
@@ -155,7 +154,7 @@ function AddSchoolFunc() {
     span3.setAttribute("class", "tooltip-inner");
     span3.innerText = "Add School Contact";
     document.getElementById("newspan2").appendChild(span3);
-    document.getElementById("newbtn1").addEventListener('click', myClick);
+    document.getElementById("newbtn2").addEventListener('click', myClick);
     document.getElementById("newspan1").addEventListener('mouseover', myHover);
     document.getElementById("newspan1").addEventListener('mouseout', myHover);
   }

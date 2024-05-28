@@ -1,5 +1,5 @@
 import "./style.css";
-
+alert("Script loaded!");
 const watcher = (selector, wait = 5, time = 300) =>
   new Promise((resolve) => {
     let count = 0;

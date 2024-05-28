@@ -74,8 +74,8 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc2);
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
     AddSchoolFunc();
-    PasteBtnFunc();
-    CopyBtnFunc();
+    //PasteBtnFunc();
+    //CopyBtnFunc();
   }
 }
 

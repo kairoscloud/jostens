@@ -1,4 +1,4 @@
-alert("Script version 0.3");
+alert("Script version 0.4");
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
@@ -76,8 +76,8 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
     AddSchoolFunc();
 
-    document.querySelector("#Copy\\ School\\ Settings > button").remove();
-    document.querySelector("#Paste\\ School\\ Settings > button").remove();
+    document.querySelector("#newbtn1").remove();
+    document.querySelector("#newbtn1").remove();
 
   }
 }

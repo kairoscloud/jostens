@@ -74,16 +74,17 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc1);
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc2);
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
-    AddSchoolFunc();
 
     // remove everything
-    document.querySelector("#newbtn1").remove(); // copy button
+    document.querySelector("#newbtn1").remove(); // remove the buttons added by Drew
 
     setTimeout(() => {
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
       document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-  }, 2000);
+  }, 10);
+
+  AddSchoolFunc();
 
    }
 }

@@ -1,12 +1,18 @@
-alert("Code version 4.1"); // uncomment this when testing
+alert("Code version 4.2"); // uncomment this when testing
 let element = "";
-var checkInterval = setInterval(checkAndHideElement, 70);
+
+(document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForForm());
+(document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForForm());
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
+function checkForForm() {
+    var checkInterval = setInterval(checkAndHideElement, 50);
+}
 function checkAndHideElement() { // listen for input field and immediately hide it
     element = document.getElementById('action');
     if (element != "" && element != null && element != undefined) {
         element.style.display = 'none';
+        clearInterval(checkInterval);
     }
 }
 

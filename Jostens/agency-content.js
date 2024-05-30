@@ -1,4 +1,4 @@
-alert("Code version 2.6");
+alert("Code version 2.7");
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
@@ -80,13 +80,23 @@ function ContactsFunc() {
     setTimeout(() => {
         try {
             document.querySelector("#Copy\\ School\\ Settings").remove();
-        } catch (error) {} // do nothing, lol
+        } catch (error) {}
+        try {
         document.querySelector("#Paste\\ School\\ Settings").remove();
+        } catch (error) {}
+        try {
         document.querySelector("#Add\\ school\\ Contact").remove(); 
+        } catch (error) {}
+        try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        } catch (error) {}
+        try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        } catch (error) {}
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        } catch (error) {}
     }, 5000);
 
    }

@@ -1,4 +1,4 @@
-alert("Code version 4.5"); // uncomment this when testing
+alert("Code version 4.6"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 
@@ -11,6 +11,7 @@ function checkAndHideElement() { // listen for input field and immediately hide 
     element = document.getElementById('action');
     if (element != "" && element != null && element != undefined) {
         element.style.display = 'none';
+        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
         clearInterval(checkInterval);
     }
 }

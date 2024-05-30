@@ -1,4 +1,4 @@
-alert("Code version 1.9");
+alert("Code version 2.1");
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
@@ -81,11 +81,14 @@ function ContactsFunc() {
     //document.querySelector("#newbtn1").remove(); // remove the buttons added by Drew
 
     setTimeout(() => {
-      //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-      //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-      //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-      //document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-  }, 2000);
+        document.querySelector("#Copy\\ School\\ Settings").remove();
+        document.querySelector("#Paste\\ School\\ Settings").remove();
+        document.querySelector("#Add\\ school\\ Contact").remove(); 
+        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+    }, 2000);
 
    }
 }

@@ -1,10 +1,13 @@
-alert("Code version 4.3"); // uncomment this when testing
+alert("Code version 4.4"); // uncomment this when testing
 let element = "";
+let checkInterval = "";
 
+(document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForForm());
+(document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForForm());
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function checkForForm() {
-    var checkInterval = setInterval(checkAndHideElement, 50);
+    checkInterval = setInterval(checkAndHideElement, 50);
 }
 function checkAndHideElement() { // listen for input field and immediately hide it
     element = document.getElementById('action');
@@ -90,10 +93,6 @@ function ContactsFunc() {
     document.getElementsByClassName("btn btn-light btn-sm")[0].className += " contactsloaded";
 
     AddSchoolFunc();
-
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForForm());
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForForm());
-
 
     setTimeout(() => { // there's a fair chance any of these elements will fail to be selected, so we try/catch for each
         try {

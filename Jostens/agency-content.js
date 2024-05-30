@@ -1,8 +1,10 @@
 let toolbarelement = "";
-alert("Code version 3.4");
+alert("Code version 3.5");
 const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
+toolbarelement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
+toolbarelement.style.display = "none";
   var planid = document.getElementsByClassName("jostensdem")[0];
   if (planid === undefined || planid === null) {} else {
     const URLinterval = setInterval(checkPage, 100);
@@ -19,8 +21,6 @@ function checkPage() {
   var detail = url.split("/")[7];
   if (detail === "smart_list") {
     // Select the element
-toolbarelement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
-toolbarelement.style.display = "none";
     ContactsFunc();
   }
   if (detail === "detail") {

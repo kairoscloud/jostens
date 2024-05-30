@@ -1,4 +1,4 @@
-alert("Code version 2.7");
+alert("Code version 2.8");
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
@@ -93,7 +93,9 @@ function ContactsFunc() {
         try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
         } catch (error) {}
+        try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
+        } catch (error) {}
         try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
         } catch (error) {}

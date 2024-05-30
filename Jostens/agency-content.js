@@ -1,12 +1,12 @@
 let toolbarelement = "";
-alert("Code version 3.5");
+alert("Code version 3.6");
 const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
-toolbarelement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
-toolbarelement.style.display = "none";
   var planid = document.getElementsByClassName("jostensdem")[0];
   if (planid === undefined || planid === null) {} else {
+    toolbarelement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
+    toolbarelement.style.display = "none";
     const URLinterval = setInterval(checkPage, 100);
     var x = document.querySelector('[title="Add School Contact"]');
     if (x === undefined || x === null) {} else {

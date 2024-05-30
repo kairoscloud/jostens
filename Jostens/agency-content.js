@@ -1,10 +1,11 @@
-alert("Code version 3.9"); // uncomment this when testing
-var checkInterval = setInterval(checkAndHideElement, 100);
+alert("Code version 4.1"); // uncomment this when testing
+let element = "";
+var checkInterval = setInterval(checkAndHideElement, 70);
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function checkAndHideElement() { // listen for input field and immediately hide it
-    var element = document.getElementById('action');
-    if (element) {
+    element = document.getElementById('action');
+    if (element != "" && element != null && element != undefined) {
         element.style.display = 'none';
     }
 }

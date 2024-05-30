@@ -1,5 +1,5 @@
-alert("Code version 2.8");
-const JostensTimer = setTimeout(JostensFunc, 3500);
+alert("Code version 2.9");
+const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
   var planid = document.getElementsByClassName("jostensdem")[0];
@@ -77,7 +77,7 @@ function ContactsFunc() {
 
     AddSchoolFunc();
 
-    setTimeout(() => {
+    setTimeout(() => { // there's a fair chance any of these elements will fail to be selected, so we try/catch for each
         try {
             document.querySelector("#Copy\\ School\\ Settings").remove();
         } catch (error) {}
@@ -99,7 +99,7 @@ function ContactsFunc() {
         try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
         } catch (error) {}
-    }, 5000);
+    }, 3000);
 
    }
 }

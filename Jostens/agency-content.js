@@ -1,4 +1,4 @@
-alert("Code version 3.8");
+// alert("Code version 3.8"); // uncomment this when testing
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {

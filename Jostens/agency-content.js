@@ -1,4 +1,5 @@
-alert("Code version 3.3");
+let toolbarelement = "";
+alert("Code version 3.4");
 const JostensTimer = setTimeout(JostensFunc, 2000);
 
 function JostensFunc() {
@@ -17,6 +18,9 @@ function checkPage() {
   var page = url.split("/")[6];
   var detail = url.split("/")[7];
   if (detail === "smart_list") {
+    // Select the element
+toolbarelement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left");
+toolbarelement.style.display = "none";
     ContactsFunc();
   }
   if (detail === "detail") {
@@ -99,7 +103,8 @@ function ContactsFunc() {
         try {
         document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
         } catch (error) {}
-    }, 3500);
+        element.style.display = "block";
+    }, 2000);
 
    }
 }

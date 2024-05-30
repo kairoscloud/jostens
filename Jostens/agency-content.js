@@ -1,5 +1,5 @@
-alert("Code version 2.9");
-const JostensTimer = setTimeout(JostensFunc, 2000);
+alert("Code version 3.1");
+const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function JostensFunc() {
   var planid = document.getElementsByClassName("jostensdem")[0];

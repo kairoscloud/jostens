@@ -1,4 +1,4 @@
-alert("Code version 5.2"); // uncomment this when testing
+alert("Code version 5.3"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
@@ -16,6 +16,7 @@ function checkForSMSWarning() {
 
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
     try {
+        console.log("trying..");
         document.querySelector("#__BVID__378 > div").style.display = 'none';
         setTimeout(document.querySelector("#__BVID__378 > div").style.display = 'block', 2000);
         clearInterval(smsCheckInterval);

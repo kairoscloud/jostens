@@ -1,4 +1,4 @@
-alert("Code version 5.3"); // uncomment this when testing
+alert("Code version 5.4"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
@@ -17,8 +17,8 @@ function checkForSMSWarning() {
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
     try {
         console.log("trying..");
-        document.querySelector("#__BVID__378 > div").style.display = 'none';
-        setTimeout(document.querySelector("#__BVID__378 > div").style.display = 'block', 2000);
+        document.querySelector("#__BVID__308").style.display = 'none';
+        setTimeout(document.querySelector(document.querySelector("#__BVID__308").style.display = 'block', 2000));
         clearInterval(smsCheckInterval);
     } catch (error) {
 }

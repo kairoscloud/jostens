@@ -15,10 +15,11 @@ function checkForSMSWarning() {
 }
 
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately delete it
-    try { 
-        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Please note The actions will be performed over a period of time. You can track the progress on the bulk actions page.')).remove();
-        clearInterval(smsCheckInterval);
-    } catch (error) {}
+    console.log("test!");
+    // try { 
+    //     (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Please note The actions will be performed over a period of time. You can track the progress on the bulk actions page.')).remove();
+    //     clearInterval(smsCheckInterval);
+    // } catch (error) {}
 }
 
 function checkAndHideElement() { // listen for input field and immediately hide it

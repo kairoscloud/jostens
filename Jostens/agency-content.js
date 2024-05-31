@@ -85,6 +85,7 @@ function viewFunc() {
 }
 
 function ContactsFunc() {
+    console.log("test!");
   var x = document.getElementsByClassName("contactsloaded")[0];
   if (x === undefined || x === null) {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc1);

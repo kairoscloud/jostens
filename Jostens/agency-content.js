@@ -1,4 +1,4 @@
-// alert("Code version 4.6"); // uncomment this when testing
+alert("Code version 4.7"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 

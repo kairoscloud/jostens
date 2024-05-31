@@ -1,4 +1,4 @@
-alert("Code version 4.9"); // uncomment this when testing
+alert("Code version 5.1"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
@@ -16,8 +16,9 @@ function checkForSMSWarning() {
 
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
     smsWarning = document.querySelectorAll('element');
+    console.log("listening");
     smsWarning.forEach(function(el) {
-        if (el.textContent.trim().startsWith("Please note The")) {
+        if (window.getComputedStyle(el).backgroundColor === 'rgb(237, 245, 254)') {
             el.style.display = 'none';
             clearInterval(smsCheckInterval);
         }

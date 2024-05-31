@@ -1,8 +1,9 @@
-alert("Code version 5.6"); // uncomment this when testing
+alert("Code version 5.7"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
 let smsCheckInterval = "";
+let found = false;
 
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
@@ -17,10 +18,13 @@ function checkForSMSWarning() {
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
     try {
         console.log("trying..");
-        let tempElem = document.querySelector('div[role="dialog"][aria-modal="true"].modal.show[style="display: block;"]');
-        tempElem.style.display = 'none';
-        setTimeout(document.querySelector(tempElem.style.display = 'block', 2000));
-        clearInterval(smsCheckInterval);
+        if (found == false){
+            let tempElem = document.querySelector('div[role="dialog"][aria-modal="true"].modal.show[style="display: block;"]');
+            tempElem.style.display = 'none';
+            setTimeout(document.querySelector(tempElem.style.display = 'block', 2000));
+            found = true;
+            clearInterval(smsCheckInterval);
+        }
     } catch (error) {
 }
 }

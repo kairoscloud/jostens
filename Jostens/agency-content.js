@@ -1,34 +1,12 @@
-alert("Code version 5.7"); // uncomment this when testing
+// alert("Code version 5.7"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
-let smsWarning = "";
-let smsCheckInterval = "";
-let found = false;
 
 const JostensTimer = setTimeout(JostensFunc, 3500);
 
 function checkForForm() {
     checkInterval = setInterval(checkAndHideElement, 50);
 }
-
-function checkForSMSWarning() {
-    smsCheckInterval = setInterval(checkAndHideSMSWarning, 50);
-}
-
-function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
-    try {
-        console.log("trying..");
-        if (found == false){
-            let tempElem = document.querySelector('div[role="dialog"][aria-modal="true"].modal.show[style="display: block;"]');
-            tempElem.style.display = 'none';
-            setTimeout(document.querySelector(tempElem.style.display = 'block', 2000));
-            found = true;
-            clearInterval(smsCheckInterval);
-        }
-    } catch (error) {
-}
-}
-
 function checkAndHideElement() { // listen for input field and immediately hide it
     element = document.getElementById('action');
     if (element != "" && element != null && element != undefined) {
@@ -107,6 +85,7 @@ function viewFunc() {
 }
 
 function ContactsFunc() {
+    console.log("test!");
   var x = document.getElementsByClassName("contactsloaded")[0];
   if (x === undefined || x === null) {
     document.getElementsByClassName("btn btn-light btn-sm")[2].addEventListener("click", myIntFunc1);
@@ -117,7 +96,6 @@ function ContactsFunc() {
 
     (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForForm());
     (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForForm());
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(4)")).addEventListener('click', checkForSMSWarning());
 
 
     setTimeout(() => { // there's a fair chance any of these elements will fail to be selected, so we try/catch for each

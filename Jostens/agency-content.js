@@ -1,4 +1,4 @@
-alert("Code version 4.8"); // uncomment this when testing
+alert("Code version 4.9"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
@@ -14,12 +14,14 @@ function checkForSMSWarning() {
     smsCheckInterval = setInterval(checkAndHideSMSWarning, 50);
 }
 
-function checkAndHideSMSWarning() { // listen for SMS warning and immediately delete it
-    console.log("test!");
-    // try { 
-    //     (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Please note The actions will be performed over a period of time. You can track the progress on the bulk actions page.')).remove();
-    //     clearInterval(smsCheckInterval);
-    // } catch (error) {}
+function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
+    smsWarning = document.querySelectorAll('element');
+    smsWarning.forEach(function(el) {
+        if (el.textContent.trim().startsWith("Please note The")) {
+            el.style.display = 'none';
+            clearInterval(smsCheckInterval);
+        }
+    });
 }
 
 function checkAndHideElement() { // listen for input field and immediately hide it

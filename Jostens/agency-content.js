@@ -1,4 +1,4 @@
-alert("Code version 5.1"); // uncomment this when testing
+alert("Code version 5.2"); // uncomment this when testing
 let element = "";
 let checkInterval = "";
 let smsWarning = "";
@@ -15,14 +15,12 @@ function checkForSMSWarning() {
 }
 
 function checkAndHideSMSWarning() { // listen for SMS warning and immediately hide it
-    smsWarning = document.querySelectorAll('element');
-    console.log("listening");
-    smsWarning.forEach(function(el) {
-        if (window.getComputedStyle(el).backgroundColor === 'rgb(237, 245, 254)') {
-            el.style.display = 'none';
-            clearInterval(smsCheckInterval);
-        }
-    });
+    try {
+        document.querySelector("#__BVID__378 > div").style.display = 'none';
+        setTimeout(document.querySelector("#__BVID__378 > div").style.display = 'block', 2000);
+        clearInterval(smsCheckInterval);
+    } catch (error) {
+}
 }
 
 function checkAndHideElement() { // listen for input field and immediately hide it

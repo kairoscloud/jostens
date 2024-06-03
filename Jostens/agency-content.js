@@ -1,4 +1,4 @@
-alert("Code version 2.31"); // uncomment when testing
+alert("Code version 2.32"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -23,39 +23,33 @@ function deleteElems() { // you can probably guess what this does
 }
 
 function checkAndHideElement() {
-    // console.log("Checking and hiding element");
-    // let element = document.getElementById('action');
-    // if (element) {
-    //     element.style.display = 'none'; // hide the input field
-    //     (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
-    // }
-
-    // let element2 = document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4[data-v-4a572634]'); // find the blue info box
-    // if(element2){
-    //     console.log("Found element2");
-    //     let element3 = document.querySelector('div.d-inline-flex[data-v-4a572634] button.hl-btn[data-v-4397f5e0]:not([hidden]):not([aria-hidden])'); // find the "ok, proceed" button
-    //     element2.style.display = 'none'; // hide the blue info box
-    //     element3.style.display = 'none'; // hide the "ok, proceed" button
-    //     setTimeout(() => {
-    //         element2.style.display = 'block'; // 1.5 seconds later, show them again
-    //         element3.style.display = 'block';
-    //     }, 1500);   
-    //     clearInterval(tagCheckInterval);
-    //     setTimeout(() => {
-    //         tagCheckInterval = setInterval(checkAndHideElement, 50); // 10 seconds later, start checking again
-    //     }, 10000);
-    // }
-
-    try {
-        document.getElementById('action').style.display = 'none'; // hide the input field
-    } catch {}
-    try {
+    console.log("Checking and hiding element");
+    let element = document.getElementById('action');
+    if (element) {
+        element.style.display = 'none'; // hide the input field
         (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
-    } catch {}
-    try {
-        document.querySelector('div.d-inline-flex[data-v-4a572634] button.hl-btn[data-v-4397f5e0]:not([hidden]):not([aria-hidden])').style.display = 'none'; // find the "ok, proceed" button
-    } catch {}
-    try {
-        document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4[data-v-4a572634]').style.display = 'none'; // find the blue info box
-    } catch {}
+    }
+
+    let element2 = document.querySelector('div.modal-body[data-v-4a572634]');
+    if(element2){
+        console.log("Found element2");
+        element2.style.display = 'none';
+        // after 2 seconds, make it visible again
+        setTimeout(() => {
+            element2.style.display = 'block';
+        }, 2000);
+    }
+
+    // try {
+    //     document.getElementById('action').style.display = 'none'; // hide the input field
+    // } catch {}
+    // try {
+    //     (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
+    // } catch {}
+    // try {
+    //     document.querySelector('div.d-inline-flex[data-v-4a572634] button.hl-btn[data-v-4397f5e0]:not([hidden]):not([aria-hidden])').style.display = 'none'; // find the "ok, proceed" button
+    // } catch {}
+    // try {
+    //     document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4[data-v-4a572634]').style.display = 'none'; // find the blue info box
+    // } catch {}
 }

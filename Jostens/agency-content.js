@@ -1,5 +1,5 @@
 alert("Code version 2.35"); // uncomment when testing
-checkInterval = setInterval(testIfLoaded, 100);
+checkInterval = setInterval(testIfLoaded, 100); 
 
 
 function testIfLoaded() {

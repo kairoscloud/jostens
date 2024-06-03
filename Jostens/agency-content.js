@@ -1,4 +1,4 @@
-alert("Code version 2.40"); // uncomment when testing
+alert("Code version 2.41"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -34,13 +34,8 @@ function checkAndHideElement() {
     if(element2){
         element2.style.display = 'none';
         let buttonElement = document.querySelector('button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500');
-
+        buttonElement.innerHTML = document.querySelector('header.modal-header > h5.modal-title > h5.modal-title[data-v-4a572634]').innerHTML;
         // this is a little trickish, but it looks fine
-        if(document.querySelector('h5.modal-title:contains("Send SMS")')){
-            buttonElement.innerHTML = "Send SMS";
-        } else if (document.querySelector('h5.modal-title:contains("Send Email")')){
-            buttonElement.innerHTML = "Send Email";
-        }
 
         // after 2 seconds, make it visible again
         setTimeout(() => {

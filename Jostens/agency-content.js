@@ -1,4 +1,4 @@
-alert("Code version 2.29"); // uncomment when testing
+alert("Code version 2.30"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -23,6 +23,7 @@ function deleteElems() { // you can probably guess what this does
 }
 
 function checkAndHideElement() {
+    console.log("Checking and hiding element");
     let element = document.getElementById('action');
     if (element) {
         element.style.display = 'none'; // hide the input field

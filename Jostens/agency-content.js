@@ -1,5 +1,5 @@
-alert("Code version 2.3");
-setInterval(testIfLoaded(), 100);
+alert("Code version 2.4");
+checkInterval = setInterval(testIfLoaded(), 100);
 
 
 function testIfLoaded() {

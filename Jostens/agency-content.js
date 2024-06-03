@@ -1,4 +1,4 @@
-alert("Code version 2.37"); // uncomment when testing
+alert("Code version 2.38"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -30,16 +30,16 @@ function checkAndHideElement() {
         (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
     }
 
-    // let element2 = document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4');
-    // if(element2){
-    //     if(!element2.innerHTML.includes("<!-- FOUND -->")){ // if element not already found
-    //         console.log("Found element2");
-    //         element2.innerHTML += "<!-- FOUND -->";
-    //         element2.style.display = 'none';
-    //         // after 2 seconds, make it visible again
-    //         setTimeout(() => {
-    //             element2.style.display = 'block';
-    //         }, 2000);
-    //     }
-    // }
+    let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30');
+    if(element2){
+        // if(!element2.innerHTML.includes("<!-- FOUND -->")){ // if element not already found
+        //     console.log("Found element2");
+        //     element2.innerHTML += "<!-- FOUND -->";
+            element2.style.display = 'none';
+            // after 2 seconds, make it visible again
+            // setTimeout(() => {
+            //     element2.style.display = 'block';
+            // }, 2000);
+        //}
+    }
 }

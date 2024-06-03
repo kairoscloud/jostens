@@ -1,4 +1,4 @@
-alert("Code version 2.16");
+alert("Code version 2.13");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -9,7 +9,8 @@ function testIfLoaded() {
         console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
-        setInterval(lookForElems(), 100);
+        listenForTagClick();
+        listenforEmailSMSClick();
     }
 }
 
@@ -22,19 +23,41 @@ function deleteElems() {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
 }
 
-function lookForElems(){ // this repeats every 100ms
-    let element = document.querySelector("#__BVID__330___BV_modal_content_"); // this is for the SMS/email dialogue box
+function listenForTagClick() {
+    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForAction());
+    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForAction());
+}
+
+function checkForAction() {
+    tagCheckInterval = setInterval(checkAndHideElement, 500);
+}
+
+function checkAndHideElement() {
+    //console.log("listening for action!");
+    let element = document.getElementById('action');
+    if (element != "" && element != null && element != undefined) {
+        element.style.display = 'none';
+        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
+        clearInterval(tagCheckInterval);
+    }
+}
+
+function listenforEmailSMSClick(){
+    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(4)").addEventListener('click', checkforEmailSMSElement());
+    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(5)").addEventListener('click', checkforEmailSMSElement());
+}
+
+function checkforEmailSMSElement(){
+    console.log("clicked!");
+    checkEmailSMSInterval = setInterval(checkAndHideEmailSMS, 500);
+}
+
+function checkAndHideEmailSMS() {
+    let element = document.querySelector("#__BVID__330___BV_modal_content_");
     if (element){
         element.style.display = 'none';
-        setTimeout(function(){ // hide it, but unhide it after 2 seconds
+        setTimeout(function(){
             element.style.display = 'block';
         }, 2000);
     }
-
-    let element2 = document.getElementById('action'); // this is for the "action" form
-    if (element2) {
-        element2.style.display = 'none'; // make it invisible
-        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove(); // hide the label element above
-    }
-
 }

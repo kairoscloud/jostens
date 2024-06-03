@@ -1,4 +1,4 @@
-alert("Code version 2.27"); // uncomment when testing
+alert("Code version 2.28"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -32,13 +32,17 @@ function checkAndHideElement() {
     let element2 = document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4[data-v-4a572634]'); // find the blue info box
     if(element2){
         let element3 = document.querySelector('div.d-inline-flex[data-v-4a572634] button.hl-btn[data-v-4397f5e0]:not([hidden]):not([aria-hidden])'); // find the "ok, proceed" button
-        console.log(element2.innerHTML);
-        console.log(element3.innerHTML);
-        element2.remove().style.display = 'none'; // hide the blue info box
-        element3.remove().style.display = 'none'; // hide the "ok, proceed" button
-        setTimeout(() => {
-            element2.style.display = 'block'; // 1.5 seconds later, show them again
-            element3.style.display = 'block';
-        }, 1500);
+        let innerHTML2 = `<span data-v-4a572634=""><i data-v-4a572634="" class="fa fa-exclamation-triangle mr-4"></i></span><span data-v-4a572634=""> Please note The actions will be performed over a period of time. You can track the progress on the bulk actions page. </span>`;
+        let innerHTML3 = `<!----> Ok, proceed`;
+        if(element2.innerHTML === innerHTML2 && element3.innerHTML === innerHTML3){
+            //console.log(element2.innerHTML);
+            //console.log(element3.innerHTML);
+            element2.style.display = 'none'; // hide the blue info box
+            element3.style.display = 'none'; // hide the "ok, proceed" button
+            setTimeout(() => {
+                element2.style.display = 'block'; // 1.5 seconds later, show them again
+                element3.style.display = 'block';
+            }, 1500);   
+        }
     }
 }

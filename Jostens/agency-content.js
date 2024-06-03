@@ -1,4 +1,4 @@
-alert("Code version 2.18");
+alert("Code version 2.19");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -9,7 +9,7 @@ function testIfLoaded() {
         console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
-        listenForTagClick();
+        tagCheckInterval = setInterval(checkAndHideElement, 50);
     }
 }
 
@@ -20,18 +20,6 @@ function deleteElems() {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-}
-
-function listenForTagClick() {
-    setTimeout(() => {
-        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6)").addEventListener('click', checkForAction()); // add tag
-        document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7)").addEventListener('click', checkForAction()); // remove tag
-    }, 5000); // for some odd reason, the two get auto-clicked when the page loads, so we need to wait a bit before adding the event listeners
-    }
-
-function checkForAction() {
-    console.log("clicked!");
-    tagCheckInterval = setInterval(checkAndHideElement, 50);
 }
 
 function checkAndHideElement() {

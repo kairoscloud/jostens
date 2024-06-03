@@ -1,4 +1,4 @@
-alert("Code version 2.32"); // uncomment when testing
+alert("Code version 2.33"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -32,12 +32,15 @@ function checkAndHideElement() {
 
     let element2 = document.querySelector('div.modal-body[data-v-4a572634]');
     if(element2){
-        console.log("Found element2");
-        element2.style.display = 'none';
-        // after 2 seconds, make it visible again
-        setTimeout(() => {
-            element2.style.display = 'block';
-        }, 2000);
+        if(!element2.innerHTML.includes("<!-- FOUND -->")){ // if element not already found
+            console.log("Found element2");
+            element2.innerHTML += "<!-- FOUND -->";
+            element2.style.display = 'none';
+            // after 2 seconds, make it visible again
+            setTimeout(() => {
+                element2.style.display = 'block';
+            }, 2000);
+        }
     }
 
     // try {

@@ -1,4 +1,4 @@
-alert("Code version 2.8");
+alert("Code version 2.9");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -8,27 +8,30 @@ function testIfLoaded() {
     if (lastElement) {
         console.log("Loaded");
         deleteElems();
+        listenForTagClick();
         clearInterval(checkInterval);
     }
 }
 
 function deleteElems() {
-    try {
-        document.querySelector("#Copy\\ School\\ Settings").remove();
-    } catch (error) {}
-    try {
+    document.querySelector("#Copy\\ School\\ Settings").remove();
     document.querySelector("#Paste\\ School\\ Settings").remove();
-    } catch (error) {}
-    try {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-    } catch (error) {}
-    try {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-    } catch (error) {}
-    try {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-    } catch (error) {}
-    try {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
-    } catch (error) {}
+}
+
+function listenForTagClick() {
+    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkInterval = setInterval(checkAndHideElement, 50));
+    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkInterval = setInterval(checkAndHideElement, 50));
+}
+
+function checkAndHideElement() {
+    let element = document.getElementById('action');
+    if (element != "" && element != null && element != undefined) {
+        element.style.display = 'none';
+        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
+        clearInterval(checkInterval);
+    }
 }

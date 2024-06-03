@@ -1,4 +1,4 @@
-alert("Code version 2.38"); // uncomment when testing
+alert("Code version 2.39"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -37,9 +37,9 @@ function checkAndHideElement() {
         //     element2.innerHTML += "<!-- FOUND -->";
             element2.style.display = 'none';
             // after 2 seconds, make it visible again
-            // setTimeout(() => {
-            //     element2.style.display = 'block';
-            // }, 2000);
+            setTimeout(() => {
+                element2.style.display = 'block';
+            }, 2000);
         //}
     }
 }

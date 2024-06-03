@@ -1,4 +1,4 @@
-alert("Code version 2.21"); // uncomment when testing
+alert("Code version 2.22"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -31,11 +31,8 @@ function checkAndHideElement() {
         (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
     }
 
-    let element2 = document.querySelector('div.modal-body[data-v-4a572634]');
+    let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30[data-v-4a572634]');
     if(element2){
-        element2.style.display = 'none'; // hide the element
-        setTimeout(() => { // after 2 seconds, make it visible again
-            element2.style.display = 'block';
-        }, 2000);
+        element2.remove();
     }
 }

@@ -1,4 +1,4 @@
-alert("Code version 2.22"); // uncomment when testing
+alert("Code version 2.23"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -33,6 +33,9 @@ function checkAndHideElement() {
 
     let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30[data-v-4a572634]');
     if(element2){
-        element2.remove();
+        element2.style.display = 'none';
+        setTimeout(() => {
+            element2.style.display = 'block';
+        }, 2000);
     }
 }

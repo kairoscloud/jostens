@@ -1,8 +1,9 @@
-alert("Code version 2.13");
+alert("Code version 2.14");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
 function testIfLoaded() {
+    console.log("Checking if loaded");
     var lastElement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(17)");
     if (lastElement) {
         console.log("Loaded");
@@ -28,7 +29,7 @@ function listenForTagClick() {
 }
 
 function checkForAction() {
-    tagCheckInterval = setInterval(checkAndHideElement, 50);
+    tagCheckInterval = setInterval(checkAndHideElement, 500);
 }
 
 function checkAndHideElement() {
@@ -47,11 +48,10 @@ function listenforEmailSMSClick(){
 }
 
 function checkforEmailSMSElement(){
-    checkEmailSMSInterval = setInterval(checkAndHideEmailSMS, 50);
+    checkEmailSMSInterval = setInterval(checkAndHideEmailSMS, 500);
 }
 
 function checkAndHideEmailSMS() {
-    console.log("listening for SMS/Email action!");
     let element = document.querySelector("#__BVID__330___BV_modal_content_");
     if (element){
         element.style.display = 'none';

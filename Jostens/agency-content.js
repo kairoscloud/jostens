@@ -1,4 +1,4 @@
-alert("Code version 2.23"); // uncomment when testing
+alert("Code version 2.24"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -9,7 +9,7 @@ function testIfLoaded() {
         console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
-        tagCheckInterval = setInterval(checkAndHideElement, 50);
+        tagCheckInterval = setInterval(checkAndHideElement, 50); // this will repeat indefinitely every 50ms
     }
 }
 
@@ -23,19 +23,17 @@ function deleteElems() { // you can probably guess what this does
 }
 
 function checkAndHideElement() {
-    console.log("listening for action!");
     let element = document.getElementById('action');
     if (element) {
-        console.log("Found!");
-        element.style.display = 'none';
-        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
+        element.style.display = 'none'; // hide the input field
+        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
     }
 
-    let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30[data-v-4a572634]');
+    let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30[data-v-4a572634]'); // find the blue info box
     if(element2){
-        element2.style.display = 'none';
+        element2.style.display = 'none'; // hide it
         setTimeout(() => {
-            element2.style.display = 'block';
-        }, 2000);
+            element2.style.display = 'block'; // 1.5 seconds later, show it again
+        }, 1500);
     }
 }

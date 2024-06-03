@@ -1,4 +1,4 @@
-alert("Code version 2.16");
+alert("Code version 2.17");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -23,9 +23,11 @@ function deleteElems() {
 }
 
 function listenForTagClick() {
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForAction());
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForAction());
-}
+    setTimeout(() => {
+        (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForAction());
+        (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForAction());
+    }, 5000); // for some odd reason, the two get auto-clicked when the page loads, so we need to wait a bit before adding the event listeners
+    }
 
 function checkForAction() {
     console.log("clicked!");
@@ -35,7 +37,8 @@ function checkForAction() {
 function checkAndHideElement() {
     console.log("listening for action!");
     let element = document.getElementById('action');
-    if (element != "" && element != null && element != undefined) {
+    if (element) {
+        console.log("Found!");
         element.style.display = 'none';
         (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
         clearInterval(tagCheckInterval);

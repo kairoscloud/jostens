@@ -1,11 +1,11 @@
-alert("Code version 2.20");
+alert("Code version 2.21"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
 function testIfLoaded() {
     console.log("Checking if loaded");
     var lastElement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(17)");
-    if (lastElement) {
+    if (lastElement) { // if the last element in the toolbar is loaded
         console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
@@ -33,6 +33,9 @@ function checkAndHideElement() {
 
     let element2 = document.querySelector('div.modal-body[data-v-4a572634]');
     if(element2){
-        element2.remove();
+        element2.style.display = 'none'; // hide the element
+        setTimeout(() => { // after 2 seconds, make it visible again
+            element2.style.display = 'block';
+        }, 2000);
     }
 }

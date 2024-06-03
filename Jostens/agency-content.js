@@ -1,4 +1,4 @@
-alert("Code version 2.12");
+alert("Code version 2.13");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -52,7 +52,7 @@ function checkforEmailSMSElement(){
 
 function checkAndHideEmailSMS() {
     console.log("listening for SMS/Email action!");
-    let element = document.querySelector("#__BVID__330___BV_modal_content_").style.display;
+    let element = document.querySelector("#__BVID__330___BV_modal_content_");
     if (element){
         element.style.display = 'none';
         setTimeout(function(){

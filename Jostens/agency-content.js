@@ -1,4 +1,4 @@
-alert("Code version 2.25"); // uncomment when testing
+alert("Code version 2.26"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -29,10 +29,10 @@ function checkAndHideElement() {
         (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).style.display = 'none'; // hide the "action*" text above
     }
 
-    let element2 = document.querySelector('div.px-2.--blue.info-blue.margin-30[data-v-4a572634]'); // find the blue info box
+    let element2 = document.querySelector('div.d-flex.align-items-top.justify-content-start.mx-1.my-4[data-v-4a572634]'); // find the blue info box
     if(element2){
-        element2.style.display = 'none'; // hide it
-        document.querySelector('div.modal-buttons.d-flex.align-items-center.justify-content-between.px-2[data-v-4a572634]').style.display = 'none'; // hide the "cancel" & "Ok, proceed" buttons as well
+        element2.remove(); // hide it
+        document.querySelector('div.d-inline-flex[data-v-4a572634] button.hl-btn[data-v-4397f5e0]:not([hidden]):not([aria-hidden])').remove() // hide the "cancel" & "Ok, proceed" buttons as well
         // setTimeout(() => {
         //     element2.style.display = 'block'; // 1.5 seconds later, show it again
         // }, 1500);

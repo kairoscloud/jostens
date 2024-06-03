@@ -1,4 +1,4 @@
-alert("Code version 2.14");
+alert("Code version 2.15");
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -9,8 +9,7 @@ function testIfLoaded() {
         console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
-        listenForTagClick();
-        listenforEmailSMSClick();
+        setInterval(lookForElems(), 100);
     }
 }
 
@@ -23,40 +22,19 @@ function deleteElems() {
     document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)").remove();
 }
 
-function listenForTagClick() {
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(6) > button")).addEventListener('click', checkForAction());
-    (document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(7) > button")).addEventListener('click', checkForAction());
-}
-
-function checkForAction() {
-    tagCheckInterval = setInterval(checkAndHideElement, 500);
-}
-
-function checkAndHideElement() {
-    console.log("listening for action!");
-    let element = document.getElementById('action');
-    if (element != "" && element != null && element != undefined) {
-        element.style.display = 'none';
-        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
-        clearInterval(tagCheckInterval);
-    }
-}
-
-function listenforEmailSMSClick(){
-    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(4)").addEventListener('click', checkforEmailSMSElement());
-    document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(5)").addEventListener('click', checkforEmailSMSElement());
-}
-
-function checkforEmailSMSElement(){
-    checkEmailSMSInterval = setInterval(checkAndHideEmailSMS, 500);
-}
-
-function checkAndHideEmailSMS() {
+function lookForElems(){ // this repeats every 100ms
     let element = document.querySelector("#__BVID__330___BV_modal_content_");
-    if (element){
+    if (element2){
         element.style.display = 'none';
-        setTimeout(function(){
+        setTimeout(function(){ // hide it, but unhide it after 2 seconds
             element.style.display = 'block';
         }, 2000);
     }
+
+    let element2 = document.getElementById('action');
+    if (element2) {
+        element2.style.display = 'none';
+        (Array.from(document.querySelectorAll('*')).find(el => el.textContent.trim() === 'Action*')).remove();
+    }
+
 }

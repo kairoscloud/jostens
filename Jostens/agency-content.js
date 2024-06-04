@@ -1,4 +1,6 @@
-//alert("Code version 2.46"); // uncomment when testing
+restartScript();
+function restartScript(){
+alert("Code version 2.47X"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -23,7 +25,7 @@ function deleteElems() { // remove each of the following
 }
 
 function checkAndHideElement() {
-    console.log("Checking and hiding element");
+    console.log("Checking and hiding element :) :F:F:GGH 1234");
     let element = document.getElementById('action');
     if (element) { // as soon as the "action" field is found...
         element.style.display = 'none'; // hide it
@@ -47,4 +49,5 @@ function checkAndHideElement() {
         }, 1200);
 
     }
+}
 }

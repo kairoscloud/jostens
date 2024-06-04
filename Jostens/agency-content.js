@@ -1,4 +1,4 @@
-alert("Code version 2.44"); // uncomment when testing
+alert("Code version 2.45"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -38,7 +38,7 @@ function checkAndHideElement() {
         infoBoxTitle = document.querySelector('header.modal-header > h5.modal-title > h5.modal-title[data-v-4a572634]').innerHTML;
         buttonElement.innerHTML = infoBoxTitle;
         console.log(infoBoxTitle);
-        if(infoBoxTitle == "Add to Automation"){
+        if(infoBoxTitle == " Add to Automation "){
             buttonElement.click(); // click the button, this is to fix what happens in "automation".
         }
         // after 1.2 seconds, make it visible again.

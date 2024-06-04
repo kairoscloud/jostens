@@ -1,4 +1,4 @@
-alert("Code version 2.43"); // uncomment when testing
+alert("Code version 2.44"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 
@@ -35,8 +35,12 @@ function checkAndHideElement() {
         element2.style.display = 'none';
         let buttonElement = document.querySelector('button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500');
         // this is a little trickish, but it looks fine. It replaces the "Ok, proceed" text with either "send SMS" or "send email". You can't remove the button, because that would break the script that auto-clicks it.
-        buttonElement.innerHTML = document.querySelector('header.modal-header > h5.modal-title > h5.modal-title[data-v-4a572634]').innerHTML;
-        buttonElement.click(); // click the button, this is to fix what happens in "automation".
+        infoBoxTitle = document.querySelector('header.modal-header > h5.modal-title > h5.modal-title[data-v-4a572634]').innerHTML;
+        buttonElement.innerHTML = infoBoxTitle;
+        console.log(infoBoxTitle);
+        if(infoBoxTitle == "Add to Automation"){
+            buttonElement.click(); // click the button, this is to fix what happens in "automation".
+        }
         // after 1.2 seconds, make it visible again.
         setTimeout(() => {
             element2.style.display = 'block';

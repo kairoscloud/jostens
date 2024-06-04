@@ -25,7 +25,7 @@ function deleteElems() { // remove each of the following
 }
 
 function checkAndHideElement() {
-    console.log("Checking and hiding element :) :F:F:GGH 1234");
+    console.log("Checking and hiding element");
     let element = document.getElementById('action');
     if (element) { // as soon as the "action" field is found...
         element.style.display = 'none'; // hide it

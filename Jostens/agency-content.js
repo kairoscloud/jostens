@@ -1,6 +1,6 @@
 restartScript();
 function restartScript(){
-alert("Code version 2.47X"); // uncomment when testing
+//alert("Code version 2.48"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);
 
 

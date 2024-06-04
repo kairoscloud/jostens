@@ -3,10 +3,10 @@ checkInterval = setInterval(testIfLoaded, 100);
 
 
 function testIfLoaded() {
-    //console.log("Checking if loaded");
+    console.log("Checking if loaded");
     var lastElement = document.querySelector("#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(17)");
     if (lastElement) { // if the last element in the toolbar is loaded
-        //console.log("Loaded");
+        console.log("Loaded");
         clearInterval(checkInterval);
         deleteElems();
         tagCheckInterval = setInterval(checkAndHideElement, 50); // this will repeat indefinitely every 50ms
@@ -23,7 +23,7 @@ function deleteElems() { // remove each of the following
 }
 
 function checkAndHideElement() {
-    //console.log("Checking and hiding element");
+    console.log("Checking and hiding element");
     let element = document.getElementById('action');
     if (element) { // as soon as the "action" field is found...
         element.style.display = 'none'; // hide it

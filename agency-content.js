@@ -47,7 +47,10 @@ function checkAndHideElement() {
         setTimeout(() => {
             element2.style.display = 'block';
         }, 1200);
-
     }
 }
 }
+
+// var parts = (window.location.href).split('/');
+// var lastParts = parts[parts.length - 3] + "/" + parts[parts.length - 2] + "/" + parts[parts.length - 1];
+// if (lastParts === "contacts/smart_list/All") { // if last part of URL matches "contacts/smart_list/All"

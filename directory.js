@@ -3,8 +3,12 @@ console.log("Jostens Directory Loaded!");
 // Random Refresh ID
 window.id = Math.random().toString(36).slice(2, 7);
 
+// Listen for Page Change
+window.addEventListener('routeChangeEvent', pageFunc);
+pageFunc();
+
 // Contacts Page
-window.addEventListener('routeChangeEvent', function(e) {
+function pageFunc() {
   console.log("Route Change Detected!");
   var url = window.location.href.split("/");
   if (url.includes("contacts") === true) {
@@ -14,4 +18,4 @@ window.addEventListener('routeChangeEvent', function(e) {
     contacts.src= src1;
     document.getElementsByTagName('head')[0].appendChild(contacts);
   }
-})
+}

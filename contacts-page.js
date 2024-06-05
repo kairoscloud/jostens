@@ -1,3 +1,5 @@
+console.log("Contacts Page Loaded!");
+
 restartScript();
 function restartScript(){
 //alert("Code version 2.48"); // uncomment when testing

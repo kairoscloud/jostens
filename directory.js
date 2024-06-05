@@ -10,6 +10,8 @@ pageFunc();
 // Contacts Page
 function pageFunc() {
   console.log("Route Change Detected!");
+  var x = document.getElementById("contacts-page-js");
+  alert(x);
   var url = window.location.href.split("/");
   if (url.includes("contacts") === true) {
     var contacts = document.createElement('script');

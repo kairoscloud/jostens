@@ -1,6 +1,18 @@
-console.log("Contacts Page Loaded!");
+console.log("Jostens Directory Loaded!");
 
-restartScript();
+// Listen for Page Change
+window.addEventListener('routeChangeEvent', pageFunc);
+pageFunc();
+
+function pageFunc() {
+  console.log("Route Change Detected!");
+  var url = window.location.href.split("/");
+  if (url.includes("contacts") === true) {
+      restartScript();
+  }
+}
+
+// Contacts Page Script
 function restartScript(){
 //alert("Code version 2.48"); // uncomment when testing
 checkInterval = setInterval(testIfLoaded, 100);

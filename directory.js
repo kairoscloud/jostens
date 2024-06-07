@@ -45,7 +45,8 @@ function restartScript() {
             data-original-title="Add School Contact"
             class="btn btn-light btn-sm"
         >
-            <i data-v-0c055ff2="" class="icon icon-plus"></i></button
+            <i class="fas fa-school" style="position: relative;top: -3px;left: -1px;"></i>
+            </button
     ></span>
 `;
 
@@ -53,6 +54,6 @@ function restartScript() {
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
     );
 
-    listElement.innerHTML += buttonHTML;
+    listElement.innerHTML = buttonHTML + listElement.innerHTML;
   }
 }

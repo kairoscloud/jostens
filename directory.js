@@ -29,6 +29,7 @@ function restartScript() {
   }
 
   function addSchoolContactButton() {
+    console.log("Adding School Contact Button");
     let buttonHTML = `<span
         data-v-0c055ff2=""
         data-tooltip="tooltip"

@@ -38,16 +38,16 @@ function restartScript() {
         data-tooltip="tooltip"
         data-placement="top"
         title="Add School Contact"
-        onclick="alert('Test!');"
-        ><button
+        onclick="alert('Test!');" >
+            <button
             data-v-0c055ff2=""
             type="button"
             data-original-title="Add School Contact"
-            class="btn btn-light btn-sm"
-        >
-            <i class="fas fa-school" style="position: relative;top: -3px;left: -1px;"></i>
-            </button
-    ></span>
+            class="btn btn-light btn-sm">
+
+            <i class="fas fa-school" style="position: relative;left: -1px;"></i>
+            </button>
+        </span>
 `;
 
     let listElement = document.querySelector(

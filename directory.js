@@ -24,11 +24,14 @@ function restartScript() {
       // if the last element in the toolbar is loaded
       console.log("Loaded");
       clearInterval(checkInterval);
-      addSchoolContactButton();
+      // add school contact button after 2s delay
+      setTimeout(addSchoolContactButton, 2000);
     }
   }
 
   function addSchoolContactButton() {
+    // set a 2-second delay, then execute the following code
+
     console.log("Adding School Contact Button");
     let buttonHTML = `<span
         data-v-0c055ff2=""

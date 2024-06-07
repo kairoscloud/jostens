@@ -26,6 +26,7 @@ function restartScript() {
       clearInterval(checkInterval);
       // add school contact button after 2s delay
       setTimeout(addSchoolContactButton, 2000);
+      return; // exit the function
     }
   }
 
@@ -57,5 +58,18 @@ function restartScript() {
     );
 
     listElement.append(schoolContactButton);
+    DeleteElems();
+  }
+
+  function DeleteElems() {
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
+    ).style.display = "none";
   }
 }

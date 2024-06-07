@@ -1,13 +1,15 @@
 console.log("Jostens Directory Loaded!");
+let timesLoaded = 0;
 
 // Listen for Page Change
 window.addEventListener("routeChangeEvent", pageFunc);
 pageFunc();
 
 function pageFunc() {
+  timesLoaded++;
   console.log("Route Change Detected!");
   var url = window.location.href.split("/");
-  if (url.includes("contacts") === true) {
+  if (url.includes("contacts") === true && timesLoaded == 1) {
     restartScript();
   }
 }
@@ -26,13 +28,10 @@ function restartScript() {
       clearInterval(checkInterval);
       // add school contact button after 2s delay
       setTimeout(addSchoolContactButton, 2000);
-      return; // exit the function
     }
   }
 
   function addSchoolContactButton() {
-    // set a 2-second delay, then execute the following code
-
     console.log("Adding School Contact Button");
 
     let schoolContactButton = document.createElement("schoolContactButton");
@@ -57,7 +56,7 @@ function restartScript() {
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
     );
 
-    listElement.append(schoolContactButton);
+    parentElement.insertBefore(schoolContactButton, parentElement.firstChild); // append it, but make it first.
     DeleteElems();
   }
 

@@ -33,7 +33,9 @@ function restartScript() {
     // set a 2-second delay, then execute the following code
 
     console.log("Adding School Contact Button");
-    let buttonHTML = `<span
+
+    let schoolContactButton = document.createElement("schoolContactButton");
+    schoolContactButton.innerHTML = `<span
         data-v-0c055ff2=""
         data-tooltip="tooltip"
         data-placement="top"
@@ -54,6 +56,6 @@ function restartScript() {
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
     );
 
-    listElement.innerHTML = buttonHTML + listElement.innerHTML;
+    listElement.append(schoolContactButton);
   }
 }

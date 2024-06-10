@@ -120,5 +120,8 @@ function activeListen() {
 
   if (actionOther) {
     actionOther.style.display = "none";
+    Array.from(document.querySelectorAll("*")).find(
+      (el) => el.textContent.trim() === "Action*",
+    ).style.display = "none"; // hide the "action*" text above as well
   }
 }

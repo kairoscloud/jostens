@@ -30,7 +30,7 @@ function restartScript() {
         // after 2 seconds,
         addSchoolContactButton();
         DeleteElems();
-        setInterval(activeListen(), 50); // repeat every 50ms, indefinitely
+        setInterval(activeListen, 50); // repeat every 50ms, indefinitely
       }, 2000);
     }
   }

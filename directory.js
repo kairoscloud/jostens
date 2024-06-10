@@ -40,7 +40,7 @@ function restartScript() {
         data-tooltip="tooltip"
         data-placement="top"
         title="Add School Contact"
-        onclick="alert('Test!');" >
+        onclick="addForm()" >
             <button
             data-v-0c055ff2=""
             type="button"
@@ -71,4 +71,8 @@ function restartScript() {
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
     ).style.display = "none";
   }
+}
+
+function addForm() {
+  alert("It worked!");
 }

@@ -115,4 +115,10 @@ function activeListen() {
       '.form-row .form-group input[name="description"]',
     ).style.display = "none";
   }
+
+  let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
+
+  if (actionOther) {
+    actionOther.style.display = "none";
+  }
 }

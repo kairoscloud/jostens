@@ -106,13 +106,13 @@ function activeListen() {
   }
 
   let action = document.querySelector(
-    "#__BVID__337___BV_modal_body_ > div > div > div.hl_rules--wrap > div.card > div > div.py-1.text-nowrap",
+    "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
   );
 
   if (action) {
     action.style.display = "none";
     document.querySelector(
-      "#__BVID__337___BV_modal_body_ > div > div > div.hl_rules--wrap > div.card > div > div:nth-child(5)",
+      '.form-row .form-group input[name="description"]',
     ).style.display = "none";
   }
 }

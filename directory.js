@@ -30,6 +30,7 @@ function restartScript() {
         // after 2 seconds,
         addSchoolContactButton();
         DeleteElems();
+        setInterval(activeListen(), 50); // repeat every 50ms, indefinitely
       }, 2000);
     }
   }
@@ -91,4 +92,13 @@ function closeForm() {
   let body = document.querySelector("body");
   let formElement = document.querySelector("customForm");
   body.removeChild(formElement);
+}
+
+function activeListen() {
+  let buttonElement = document.querySelector(
+    "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
+  );
+  if (buttonElement && buttonElement.innerHTML == "\x3C!----> Ok, proceed ") {
+    buttonElement.click();
+  }
 }

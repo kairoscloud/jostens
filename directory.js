@@ -25,9 +25,12 @@ function restartScript() {
     if (lastElement) {
       // if the last element in the toolbar is loaded
       console.log("Loaded");
-      clearInterval(checkInterval);
-      // add school contact button after 2s delay
-      setTimeout(addSchoolContactButton, 2000);
+      clearInterval(checkInterval); // stop checking
+      setTimeout(() => {
+        // after 2 seconds,
+        addSchoolContactButton();
+        DeleteElems();
+      }, 2000);
     }
   }
 
@@ -57,7 +60,6 @@ function restartScript() {
     );
 
     listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
-    DeleteElems();
   }
 
   function DeleteElems() {

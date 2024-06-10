@@ -100,7 +100,7 @@ function activeListen() {
     "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
   );
   if (buttonElement) {
-    if (buttonElement.innerHTML.contains("proceed")) {
+    if (buttonElement.innerHTML.includes("proceed")) {
       buttonElement.click();
     }
   }

@@ -104,4 +104,15 @@ function activeListen() {
       buttonElement.click();
     }
   }
+
+  let action = document.querySelector(
+    "#__BVID__337___BV_modal_body_ > div > div > div.hl_rules--wrap > div.card > div > div.py-1.text-nowrap",
+  );
+
+  if (action) {
+    action.style.display = "none";
+    document.querySelector(
+      "#__BVID__337___BV_modal_body_ > div > div > div.hl_rules--wrap > div.card > div > div:nth-child(5)",
+    ).style.display = "none";
+  }
 }

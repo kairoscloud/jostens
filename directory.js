@@ -56,7 +56,7 @@ function restartScript() {
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
     );
 
-    listElement.insertBefore(schoolContactButton, parentElement.firstChild); // append it, but make it first.
+    listElement.insertBefore(schoolContactButton, listElement.firstChild); // append it, but make it first.
     DeleteElems();
   }
 

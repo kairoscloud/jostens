@@ -1,4 +1,4 @@
-// this anonymizes the script. Makes it so that, if ran twice, it won't conflict with itself.
+// the (() => {} anonymizes the script. Makes it so that, if ran twice, it won't conflict with itself.
 (() => {
   console.log("Jostens Directory Loaded!");
   let timesLoaded = 0;
@@ -43,6 +43,7 @@
 
     function checkIfPageChange() {
       if (!window.location.href.includes("contacts")) {
+        // if not in "contacts" anymore
         clearInterval(listenInterval);
         clearInterval(URLInterval);
         throw new Error("Page change detected. Stopping script. Ignore me!"); // this stops all execution of directory.js once the user is no longer on contacts page
@@ -109,7 +110,7 @@
   }
 
   function activeListen() {
-    console.log("Listening");
+    //console.log("Listening"); // uncomment when testing
 
     let buttonElement = document.querySelector(
       "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",

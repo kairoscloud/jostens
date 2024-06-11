@@ -43,7 +43,7 @@ function restartScript() {
     if (!window.location.href.includes("contacts")) {
       clearInterval(listenInterval);
       clearInterval(URLInterval);
-      return;
+      throw new Error("Page change detected. Stopping script. Ignore me!"); // this stops all execution of directory.js once the user is no longer on contacts page
     }
   }
 

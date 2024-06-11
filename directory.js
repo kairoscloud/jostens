@@ -10,6 +10,7 @@ function pageFunc() {
   console.log("Route Change Detected!");
   var url = window.location.href.split("/");
   if (url.includes("contacts") === true && timesLoaded == 1) {
+    console.log("restarting script");
     restartScript();
   }
 }

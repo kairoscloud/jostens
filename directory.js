@@ -31,8 +31,17 @@ function restartScript() {
         // after 2 seconds,
         addSchoolContactButton();
         DeleteElems();
-        setInterval(activeListen, 50); // repeat every 50ms, indefinitely
+        let listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
+        let URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
       }, 2000);
+    }
+  }
+
+  function checkIfPageChange() {
+    if (!window.location.href.includes("contacts")) {
+      clearInterval(listenInterval);
+      clearInterval(URLInterval);
+      return;
     }
   }
 

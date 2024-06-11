@@ -1,5 +1,7 @@
 console.log("Jostens Directory Loaded!");
 let timesLoaded = 0;
+listenInterval = "";
+URLInterval = "";
 
 // Listen for Page Change
 window.addEventListener("routeChangeEvent", pageFunc);
@@ -31,8 +33,8 @@ function restartScript() {
         // after 2 seconds,
         addSchoolContactButton();
         DeleteElems();
-        let listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
-        //let URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
+        listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
+        URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
       }, 2000);
     }
   }
@@ -106,12 +108,6 @@ function closeForm() {
 
 function activeListen() {
   console.log("Listening");
-
-  if (!window.location.href.includes("contacts")) {
-    clearInterval(listenInterval);
-    clearInterval(URLInterval);
-    return;
-  }
 
   let buttonElement = document.querySelector(
     "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",

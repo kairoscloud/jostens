@@ -27,8 +27,21 @@
       var lastElement = document.querySelector(
         "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
       );
+      // if the last element in the toolbar is loaded
       if (lastElement) {
-        // if the last element in the toolbar is loaded
+        // if not Jostens subaccount...
+        if (
+          !document
+            .querySelector(
+              "#app > div:nth-child(2) > div.flex.v2-collapse.sidebar-v2-location.pmd-app.owNEzpbrfBjp4weSARXD.flex.v2-collapse.sidebar-v2-location > div:nth-child(2) > header > div.container-fluid > div.dropdown.bootstrap-select.hl_header--picker.fit-width.show > button > div > div",
+            )
+            .innerHTML.includes("Jostens")
+        ) {
+          throw new Error(
+            "Not a Jostens subaccount. Stopping script. Ignore me!",
+          );
+          clearInterval(checkInterval);
+        }
         console.log("Loaded");
         clearInterval(checkInterval); // stop checking
         listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely

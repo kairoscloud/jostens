@@ -31,10 +31,8 @@
       if (lastElement) {
         // if not Jostens subaccount...
         if (
-          !document
-            .querySelector(
-              "#app > div:nth-child(2) > div.flex.v2-collapse.sidebar-v2-location.pmd-app.owNEzpbrfBjp4weSARXD.flex.v2-collapse.sidebar-v2-location > div:nth-child(2) > header > div.container-fluid > div.dropdown.bootstrap-select.hl_header--picker.fit-width.show > button > div > div",
-            )
+          !documentdocument
+            .querySelector(".filter-option .filter-option-inner")
             .innerHTML.includes("Jostens")
         ) {
           throw new Error(

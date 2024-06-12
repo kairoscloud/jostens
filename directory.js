@@ -163,19 +163,15 @@
 
     // add eventListeners to display tooltip when hovering over
     schoolContactButton.addEventListener("mouseover", () => {
-      setTimeout(() => {
-        let body = document.querySelector("body");
-        let tooltipElem = document.createElement("addSchoolTooltip");
-        tooltipElem.id = "addSchoolTooltip";
-        tooltipElem.innerHTML = `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(83px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
-        body.append(tooltipElem);
-      }, 200);
+      let body = document.querySelector("body");
+      let tooltipElem = document.createElement("addSchoolTooltip");
+      tooltipElem.id = "addSchoolTooltip";
+      tooltipElem.innerHTML = `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(83px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
+      body.append(tooltipElem);
     });
 
     schoolContactButton.addEventListener("mouseout", () => {
-      setTimeout(() => {
-        document.getElementById("addSchoolTooltip").remove();
-      }, 200);
+      document.getElementById("addSchoolTooltip").remove();
     });
   }
 })(); // end anonymous function

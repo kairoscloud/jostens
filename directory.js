@@ -101,6 +101,7 @@
   function activeListen() {
     //console.log("Listening"); // uncomment when testing
 
+    // listen for and click the "ok, proceed" button
     let buttonElement = document.querySelector(
       "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
     );
@@ -110,6 +111,7 @@
       }
     }
 
+    // listen for and hide the "action" label and field
     let action = document.querySelector(
       "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
     );
@@ -129,10 +131,20 @@
         (el) => el.textContent.trim() === "Action*",
       ).style.display = "none"; // hide the "action*" text above as well
     }
+
+    // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)
+    let lastElement = document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
+    );
+    if (lastElement) {
+      addSchoolContactButton();
+      DeleteElems();
+    }
   }
-})();
+})(); // end anonymous function
 
 try {
+  // if this script is loaded twice, these functions will already exist. This prevents an "already declared" error.
   function addForm() {
     let body = document.querySelector("body");
 

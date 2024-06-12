@@ -91,7 +91,9 @@
     );
     if (lastElement) {
       DeleteElems();
-      addSchoolContactButton();
+      if (!document.getElementById("schoolContactButton")) {
+        addSchoolContactButton();
+      }
     }
   }
 
@@ -123,6 +125,7 @@
         data-tooltip="tooltip"
         data-placement="top"
         title="Add School Contact"
+        id="schoolContactButton"
         onclick="addForm()" >
             <button
             data-v-0c055ff2=""

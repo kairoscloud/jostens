@@ -63,6 +63,10 @@
   function activeListen() {
     //console.log("Listening"); // uncomment when testing
 
+    if (!allowedLocation(window.location.href)) {
+      throw new Error("Not allowed location. Stopping script. Ignore me!");
+    }
+
     // listen for and click the "ok, proceed" button
     let buttonElement = document.querySelector(
       "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",

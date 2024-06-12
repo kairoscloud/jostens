@@ -31,13 +31,8 @@
         // if the last element in the toolbar is loaded
         console.log("Loaded");
         clearInterval(checkInterval); // stop checking
-        setTimeout(() => {
-          // after 2 seconds,
-          addSchoolContactButton();
-          DeleteElems();
-          listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
-          URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
-        }, 2000);
+        listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
+        URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
       }
     }
 

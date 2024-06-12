@@ -88,6 +88,12 @@
       document.querySelector(
         "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
       ).style.display = "none";
+      document.querySelector(
+        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(1)",
+      ).style.display = "none";
+      document.querySelector(
+        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(8)",
+      ).style.display = "none";
     }
   }
 

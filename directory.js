@@ -160,6 +160,17 @@
     );
 
     listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
+
+    // add eventListeners to display tooltip when hovering over
+    schoolContactButton.addEventListener("mouseover", () => {
+      // Code to execute on hover
+      alert("success!");
+    });
+
+    schoolContactButton.addEventListener("mouseout", () => {
+      // Code to execute when hover ends
+      alert("success2!");
+    });
   }
 })(); // end anonymous function
 

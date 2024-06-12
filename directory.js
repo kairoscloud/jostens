@@ -163,13 +163,16 @@
 
     // add eventListeners to display tooltip when hovering over
     schoolContactButton.addEventListener("mouseover", () => {
-      // Code to execute on hover
+      let body = document.querySelector("body");
+      let tooltipElem = document.createElement("addSchoolTooltip");
+      tooltipElem.innerHTML = `<div id="__bv_tooltip_167__" role="tooltip" tabindex="-1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(139px, 156px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
+      body.append(tooltipElem);
       alert("success!");
     });
 
     schoolContactButton.addEventListener("mouseout", () => {
-      // Code to execute when hover ends
-      alert("success2!");
+      let body = document.querySelector("body");
+      body.removeChild(document.getElementById("addSchoolTooltip"));
     });
   }
 })(); // end anonymous function

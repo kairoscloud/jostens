@@ -49,24 +49,6 @@
         throw new Error("Page change detected. Stopping script. Ignore me!"); // this stops all execution of directory.js once the user is no longer on contacts page
       }
     }
-
-    function DeleteElems() {
-      document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
-      ).style.display = "none";
-      document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)",
-      ).style.display = "none";
-      document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
-      ).style.display = "none";
-      document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(1)",
-      ).style.display = "none";
-      document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(8)",
-      ).style.display = "none";
-    }
   }
 
   function activeListen() {
@@ -111,6 +93,24 @@
       DeleteElems();
       addSchoolContactButton();
     }
+  }
+
+  function DeleteElems() {
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(1)",
+    ).style.display = "none";
+    document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(8)",
+    ).style.display = "none";
   }
 
   function addSchoolContactButton() {

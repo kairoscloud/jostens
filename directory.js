@@ -172,7 +172,7 @@
           )
           .innerHTML.includes("fa-chevron-circle-left")
       ) {
-        offsetX = 200;
+        offsetX = 250;
       } else {
         offsetX = 83;
       }

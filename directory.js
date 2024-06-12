@@ -50,35 +50,6 @@
       }
     }
 
-    function addSchoolContactButton() {
-      console.log("Adding School Contact Button");
-
-      let schoolContactButton = document.createElement("schoolContactButton");
-      schoolContactButton.innerHTML = `
-        <span
-          data-v-0c055ff2=""
-          data-tooltip="tooltip"
-          data-placement="top"
-          title="Add School Contact"
-          onclick="addForm()" >
-              <button
-              data-v-0c055ff2=""
-              type="button"
-              data-original-title="Add School Contact"
-              class="btn btn-light btn-sm">
-
-              <i class="fas fa-school" style="position: relative;left: -1px;"></i>
-              </button>
-          </span>
-`;
-
-      let listElement = document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
-      );
-
-      listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
-    }
-
     function DeleteElems() {
       document.querySelector(
         "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
@@ -140,6 +111,35 @@
       addSchoolContactButton();
       DeleteElems();
     }
+  }
+
+  function addSchoolContactButton() {
+    console.log("Adding School Contact Button");
+
+    let schoolContactButton = document.createElement("schoolContactButton");
+    schoolContactButton.innerHTML = `
+      <span
+        data-v-0c055ff2=""
+        data-tooltip="tooltip"
+        data-placement="top"
+        title="Add School Contact"
+        onclick="addForm()" >
+            <button
+            data-v-0c055ff2=""
+            type="button"
+            data-original-title="Add School Contact"
+            class="btn btn-light btn-sm">
+
+            <i class="fas fa-school" style="position: relative;left: -1px;"></i>
+            </button>
+        </span>
+`;
+
+    let listElement = document.querySelector(
+      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
+    );
+
+    listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
   }
 })(); // end anonymous function
 

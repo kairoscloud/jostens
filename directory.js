@@ -5,10 +5,6 @@
   listenInterval = "";
   URLInterval = "";
 
-  if (!allowedLocation(window.location.href)) {
-    return;
-  }
-
   // Listen for Page Change
   window.addEventListener("routeChangeEvent", pageFunc);
   pageFunc();

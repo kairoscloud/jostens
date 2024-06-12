@@ -13,7 +13,7 @@
     timesLoaded++;
     console.log("Route Change Detected!");
     var url = window.location.href.split("/");
-    if (url.includes("contacts") === true && timesLoaded == 1) {
+    if (url.includes("contacts") === true) {
       console.log("restarting script");
       restartScript();
     }

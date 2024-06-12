@@ -83,15 +83,18 @@
     );
 
     if (action) {
+      let actionForm = document.querySelector(
+        '.form-row .form-group input[name="description"]',
+      );
+      actionForm.value = "dummyValue";
       // action.style.display = "none";
-      // document.querySelector(
-      //   '.form-row .form-group input[name="description"]',
-      // ).style.display = "none";
+      // actionForm.style.display = "none";
     }
 
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
     if (actionOther) {
+      actionOther.value = "dummyValue";
       // actionOther.style.display = "none";
       // Array.from(document.querySelectorAll("*")).find(
       //   (el) => el.textContent.trim() === "Action*",

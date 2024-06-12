@@ -83,19 +83,19 @@
     );
 
     if (action) {
-      action.style.display = "none";
-      document.querySelector(
-        '.form-row .form-group input[name="description"]',
-      ).style.display = "none";
+      // action.style.display = "none";
+      // document.querySelector(
+      //   '.form-row .form-group input[name="description"]',
+      // ).style.display = "none";
     }
 
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
     if (actionOther) {
-      actionOther.style.display = "none";
-      Array.from(document.querySelectorAll("*")).find(
-        (el) => el.textContent.trim() === "Action*",
-      ).style.display = "none"; // hide the "action*" text above as well
+      // actionOther.style.display = "none";
+      // Array.from(document.querySelectorAll("*")).find(
+      //   (el) => el.textContent.trim() === "Action*",
+      // ).style.display = "none"; // hide the "action*" text above as well
     }
 
     // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)
@@ -111,6 +111,7 @@
   }
 
   function DeleteElems() {
+    // JACOB TODO: name each element being deleted in comments
     document.querySelector(
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
     ).style.display = "none";

@@ -163,15 +163,19 @@
 
     // add eventListeners to display tooltip when hovering over
     schoolContactButton.addEventListener("mouseover", () => {
-      let body = document.querySelector("body");
-      let tooltipElem = document.createElement("addSchoolTooltip");
-      tooltipElem.id = "addSchoolTooltip";
-      tooltipElem.innerHTML = `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(83px, 156px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
-      body.append(tooltipElem);
+      setTimeout(() => {
+        let body = document.querySelector("body");
+        let tooltipElem = document.createElement("addSchoolTooltip");
+        tooltipElem.id = "addSchoolTooltip";
+        tooltipElem.innerHTML = `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(83px, 156px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
+        body.append(tooltipElem);
+      }, 500);
     });
 
     schoolContactButton.addEventListener("mouseout", () => {
-      document.getElementById("addSchoolTooltip").remove();
+      setTimeout(() => {
+        document.getElementById("addSchoolTooltip").remove();
+      }, 500);
     });
   }
 })(); // end anonymous function
@@ -199,7 +203,6 @@ try {
 
 function allowedLocation(pageURL) {
   let pagelocation = pageURL.split("/")[5];
-  console.log(pagelocation); // removing this line will make the code stop functioning properly. Why? definitely a javascript moment
   return (
     pagelocation == "owNEzpbrfBjp4weSARXD" || // jostens demo
     pagelocation == "Psie74UmJnCQR7xxTRXa" || // jostens of Newhall, CA

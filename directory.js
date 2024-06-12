@@ -31,7 +31,7 @@
       if (lastElement) {
         // if not Jostens subaccount...
         if (
-          !documentdocument
+          !document
             .querySelector(".filter-option .filter-option-inner")
             .innerHTML.includes("Jostens")
         ) {

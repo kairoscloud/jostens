@@ -39,7 +39,6 @@
             .querySelector(".filter-option .filter-option-inner")
             .innerHTML.includes("Jostens")
         ) {
-          return;
           throw new Error(
             "Not a Jostens subaccount. Stopping script. Ignore me!",
           );

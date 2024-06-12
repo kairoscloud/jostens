@@ -54,22 +54,7 @@
       console.log("Adding School Contact Button");
 
       let schoolContactButton = document.createElement("schoolContactButton");
-      schoolContactButton.innerHTML = `<span
-        data-v-0c055ff2=""
-        data-tooltip="tooltip"
-        data-placement="top"
-        title="Add School Contact"
-        onclick="addForm()" >
-            <button
-            data-v-0c055ff2=""
-            type="button"
-            data-original-title="Add School Contact"
-            class="btn btn-light btn-sm">
-
-            <i class="fas fa-school" style="position: relative;left: -1px;"></i>
-            </button>
-        </span>
-
+      schoolContactButton.innerHTML = `
         <script>
 
         function addForm() {
@@ -90,6 +75,22 @@
           body.removeChild(formElement);
         }
         </script>
+
+        <span
+          data-v-0c055ff2=""
+          data-tooltip="tooltip"
+          data-placement="top"
+          title="Add School Contact"
+          onclick="addForm()" >
+              <button
+              data-v-0c055ff2=""
+              type="button"
+              data-original-title="Add School Contact"
+              class="btn btn-light btn-sm">
+
+              <i class="fas fa-school" style="position: relative;left: -1px;"></i>
+              </button>
+          </span>
 `;
 
       let listElement = document.querySelector(

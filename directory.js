@@ -221,110 +221,113 @@ try {
     let accessTokenP =
       "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NWQ5MDdiMmNjYTdjZTdkNmNiZDhkYWUtbHN6NXlybG4iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiYnVzaW5lc3Nlcy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJjb21wYW5pZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FsZW5kYXJzL3Jlc291cmNlcy5yZWFkb25seSIsImNhbGVuZGFycy9yZXNvdXJjZXMud3JpdGUiLCJjYW1wYWlnbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy53cml0ZSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS53cml0ZSIsImNvbnZlcnNhdGlvbnMvcmVwb3J0cy5yZWFkb25seSIsImNvbnRhY3RzLnJlYWRvbmx5IiwiY29udGFjdHMud3JpdGUiLCJjb3Vyc2VzLndyaXRlIiwiY291cnNlcy5yZWFkb25seSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJpbnZvaWNlcy5yZWFkb25seSIsImludm9pY2VzLndyaXRlIiwiaW52b2ljZXMvc2NoZWR1bGUucmVhZG9ubHkiLCJpbnZvaWNlcy9zY2hlZHVsZS53cml0ZSIsImludm9pY2VzL3RlbXBsYXRlLnJlYWRvbmx5IiwiaW52b2ljZXMvdGVtcGxhdGUud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxjLWVtYWlsLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy53cml0ZSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJmdW5uZWxzL3JlZGlyZWN0LnJlYWRvbmx5IiwiZnVubmVscy9wYWdlLnJlYWRvbmx5IiwiZnVubmVscy9mdW5uZWwucmVhZG9ubHkiLCJmdW5uZWxzL3JlZGlyZWN0LndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsIm9wcG9ydHVuaXRpZXMucmVhZG9ubHkiLCJvcHBvcnR1bml0aWVzLndyaXRlIiwicGF5bWVudHMvb3JkZXJzLnJlYWRvbmx5IiwicGF5bWVudHMvb3JkZXJzLndyaXRlIiwicGF5bWVudHMvaW50ZWdyYXRpb24ucmVhZG9ubHkiLCJwYXltZW50cy9pbnRlZ3JhdGlvbi53cml0ZSIsInBheW1lbnRzL3RyYW5zYWN0aW9ucy5yZWFkb25seSIsInBheW1lbnRzL3N1YnNjcmlwdGlvbnMucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIud3JpdGUiLCJwcm9kdWN0cy5yZWFkb25seSIsInByb2R1Y3RzLndyaXRlIiwicHJvZHVjdHMvcHJpY2VzLnJlYWRvbmx5IiwicHJvZHVjdHMvcHJpY2VzLndyaXRlIiwic2Fhcy9jb21wYW55LnJlYWQiLCJzYWFzL2NvbXBhbnkud3JpdGUiLCJzYWFzL2xvY2F0aW9uLnJlYWQiLCJzYWFzL2xvY2F0aW9uLndyaXRlIiwic25hcHNob3RzLnJlYWRvbmx5Iiwic25hcHNob3RzLndyaXRlIiwic29jaWFscGxhbm5lci9vYXV0aC5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvb2F1dGgud3JpdGUiLCJzb2NpYWxwbGFubmVyL3Bvc3QucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL3Bvc3Qud3JpdGUiLCJzb2NpYWxwbGFubmVyL2FjY291bnQucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL2FjY291bnQud3JpdGUiLCJzb2NpYWxwbGFubmVyL2Nzdi5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvY3N2LndyaXRlIiwic29jaWFscGxhbm5lci9jYXRlZ29yeS5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvdGFnLnJlYWRvbmx5Iiwic3VydmV5cy5yZWFkb25seSIsInVzZXJzLnJlYWRvbmx5IiwidXNlcnMud3JpdGUiLCJ3b3JrZmxvd3MucmVhZG9ubHkiXSwiY2xpZW50IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlIiwiY2xpZW50S2V5IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlLWxzejV5cmxuIiwiYWdlbmN5UGxhbiI6ImFnZW5jeV9tb250aGx5XzQ5NyJ9LCJpYXQiOjE3MTgzMDM5NzIuOTI4LCJleHAiOjE3MTgzOTAzNzIuOTI4fQ.ZQd_6HhdsLFocfW2Et5ArS8BCvG_JKShCQ9mHb_--RA9imlB29kkTv81Bdb7G8wJcP38paiqvtUppanmukIrrdTSHoScvYd9og9prRfNfhmPOMTiixDtVHFxc_7CuRQUxFYkwNiw8SYeucSEbAX7qvp3Obs3vezyi5RR1tsIHZ_vjF5sVSpFwrx9ZXCXMFzhUCAYvCC85OzC_Rf0OB_Nl8dnpYa4LpNB7pZY2HxeiL-digoyBQAS1mwIKiteXPNXhEme4sWocEtpBj6uQcFnnQJ5nbFInUvJuuKoGngNa6UpOhxtDxfkjL0Dh2udWbglk960f0JfKvJf89f69EKdmGMTACdPVgL7L6UzV84o8hqdnjFYPrBEBgLPvrn6NWkCSWDuNPLA_arim8pEO6pd9-9HRMtNPv_seh0tTqhQGIRo849AIZueFkLkNV1vjx-37UAe4wm-mZboMVcxiGbIb950e8lVm9NErhcYh1W5EfyXlmEaI9KanMpZs_cHybX25y25MlMZb17iiiZQU4lzNZfr7nwTRNCdPqjhO_O3ZmzMqa3pAxPnJcPj4AdvcE-3LIQUPmHf3YUCDdcQJ2WMApyFvkIHu6oMCDFmCt1YtmHztfArUg6Lk5CeXoI2XHZnOz1BGwPXQ6tgU2k5xKWOC48vww-guReOuDwBmjq4Mac";
 
-    let locationP = window.location.href.split("/")[5];
+    let locationP = "owNEzpbrfBjp4weSARXD";
 
     let contactP =
       `{
       "firstName": "School",
       "lastName": "Contact",
-      "compantName": "` +
+      "companyName": "` +
       document.getElementById("ASCname").value +
       `",
-      "locationID": "owNEzpbrfBjp4weSARXD",
+      "locationId": "` +
+      locationP +
+      `",
+      "dnd": true,
       "tags": [
         "school"
       ],
       "customFields": [
-        {
-          "key": "school_name",
-          "field_value": "` +
+              {
+                "key": "school_name",
+                "field_value": "` +
       document.getElementById("ASCname").value +
       `"
-        },
-        {
-          "key": "mascot",
-          "field_value": "` +
+              },
+              {
+                "key": "mascot",
+                "field_value": "` +
       document.getElementById("ASCmascot").value +
       `"
-        },
-        {
-          "key": "school_location",
-          "field_value": "` +
+              },
+              {
+                "key": "school_location",
+                "field_value": "` +
       document.getElementById("ASClocation").value +
       `"
-        },
-        {
-          "key": "school_logo_link",
-          "field_value": "` +
+              },
+              {
+                "key": "school_logo_link",
+                "field_value": "` +
       document.getElementById("ASClogo").value +
       `"
-        },
-        {
-          "key": "last_updated",
-          "field_value": "` +
+              },
+              {
+                "key": "last_updated",
+                "field_value": "` +
       new Date().toISOString() +
       `"
-        }
-      ]
-    }`;
+              }
+            ]
+          }`;
 
     createNewContact(accessTokenP, locationP, contactP);
   }
+
+  function createNewContact(accessToken, location, contact) {
+    getAccessToken(accessToken, location).then((result) => {
+      createContact(result, contact);
+    });
+
+    async function getAccessToken(accessTokenX, locationX) {
+      const url = "https://services.leadconnectorhq.com/oauth/locationToken";
+      const options = {
+        method: "POST",
+        headers: {
+          Version: "2021-07-28",
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+          Authorization: "Bearer " + accessTokenX,
+        },
+        body: new URLSearchParams({
+          companyId: "eRzyNWgO7fUGsvSQv7eR", // Kairos Cloud agency
+          locationId: locationX,
+        }),
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        //console.log(data);
+        return data.access_token;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function createContact(tokenX, contactX) {
+      const url = "https://services.leadconnectorhq.com/contacts/";
+      const options = {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + tokenX,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: contactX,
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 } catch (error) {}
-
-function createNewContact(accessToken, locationB, contact) {
-  getAccessToken(accessToken, locationB).then((result) => {
-    createContact(result, contact);
-  });
-
-  async function getAccessToken(accessTokenX, locationX) {
-    const url = "https://services.leadconnectorhq.com/oauth/locationToken";
-    const options = {
-      method: "POST",
-      headers: {
-        Version: "2021-07-28",
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessTokenX,
-      },
-      body: new URLSearchParams({
-        companyId: "eRzyNWgO7fUGsvSQv7eR", // Kairos Cloud agency
-        locationId: "owNEzpbrfBjp4weSARXD",
-      }),
-    };
-
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      //console.log(data);
-      return data.access_token;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function createContact(tokenX, contactX) {
-    const url = "https://services.leadconnectorhq.com/contacts/";
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + tokenX,
-        Version: "2021-07-28",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: contactX,
-    };
-
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-}
 
 function allowedLocation(pageURL) {
   let pagelocation = pageURL.split("/")[5];

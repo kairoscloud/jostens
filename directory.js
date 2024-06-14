@@ -234,7 +234,7 @@ try {
       locationP +
       `",
       "tags": [
-        "school",
+        "school"
       ],
       "customFields": [
         {
@@ -266,7 +266,7 @@ try {
           "field_value": "` +
       new Date().toISOString() +
       `"
-        },
+        }
       ]
     }`;
 

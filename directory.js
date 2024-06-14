@@ -230,9 +230,7 @@ try {
       "compantName": "` +
       document.getElementById("ASCname").value +
       `",
-      "locationID": "` +
-      locationP +
-      `",
+      "locationID": "owNEzpbrfBjp4weSARXD",
       "tags": [
         "school"
       ],
@@ -274,9 +272,8 @@ try {
   }
 } catch (error) {}
 
-function createNewContact(accessToken, location, contact) {
-  console.log("LOCATION: " + location);
-  getAccessToken(accessToken, location).then((result) => {
+function createNewContact(accessToken, locationB, contact) {
+  getAccessToken(accessToken, locationB).then((result) => {
     createContact(result, contact);
   });
 
@@ -292,7 +289,7 @@ function createNewContact(accessToken, location, contact) {
       },
       body: new URLSearchParams({
         companyId: "eRzyNWgO7fUGsvSQv7eR", // Kairos Cloud agency
-        locationId: locationX,
+        locationId: "owNEzpbrfBjp4weSARXD",
       }),
     };
 

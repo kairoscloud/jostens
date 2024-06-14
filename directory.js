@@ -223,43 +223,51 @@ try {
 
     let locationP = window.location.href.split("/")[5];
 
-    let contactP = `{
+    let contactP =
+      `{
       "firstName": "School",
       "lastName": "Contact",
-      "compantName": "TODO",
-      "locationID": "TODO",
+      "compantName": "` +
+      document.getElementById("ASCname").value +
+      `",
+      "locationID": "` +
+      locationP +
+      `",
       "tags": [
         "school",
       ],
       "customFields": [
         {
           "key": "school_name",
-          "field_value": "TODO"
+          "field_value": "` +
+      document.getElementById("ASCname").value +
+      `"
         },
         {
           "key": "mascot",
-          "field_value": "TODO"
+          "field_value": "` +
+      document.getElementById("ASCmascot").value +
+      `"
         },
         {
           "key": "school_location",
-          "field_value": "TODO"
+          "field_value": "` +
+      document.getElementById("ASClocation").value +
+      `"
         },
         {
           "key": "school_logo_link",
-          "field_value": "TODO"
-        },
-        {
-          "key": "kairos_cloud_id",
-          "field_value": "TODO"
+          "field_value": "` +
+      document.getElementById("ASClogo").value +
+      `"
         },
         {
           "key": "last_updated",
-          "field_value": "TODO"
+          "field_value": "` +
+      new Date().toISOString() +
+      `"
         }
-      ],
-      "source": "public api",
-      "country": "US",
-      "companyName": "DGS VolMAX"
+      ]
     }`;
 
     createNewContact(accessTokenP, locationP, contactP);

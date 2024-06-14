@@ -197,7 +197,7 @@ try {
   function addForm() {
     let body = document.querySelector("body");
 
-    let formHTML = `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Add School Contact</h5><button type="button" aria-label="Close" onclick="closeForm()" class="close">×</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body"><div data-v-4a7d910a="" class="modal-body"><div data-v-4a7d910a="" class="modal-body--inner"><form data-v-4a7d910a=""><div data-v-4a7d910a="" class="row"><div data-v-4a7d910a="" class="col-sm-6"><div data-v-4a7d910a="" class="form-group"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr5" data-lpignore="true" data-vv-as="First name"><div data-v-7d86ee8a="" class="flex space-x-3"><span data-v-7d86ee8a="" for="msgsndr5" class="hl-text-input-label block text-sm font-medium text-gray-700 mb-1">School Name</span><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr5" placeholder="e.g. Central High School" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr5" maxlength=""><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div></div></div><div data-v-4a7d910a="" class="col-sm-6"><div data-v-4a7d910a="" class="form-group"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr6" data-lpignore="true" data-vv-as="Last name"><div data-v-7d86ee8a="" class="flex space-x-3"><span data-v-7d86ee8a="" for="msgsndr6" class="hl-text-input-label block text-sm font-medium text-gray-700 mb-1">Mascot</span><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr5" placeholder="e.g. Lions, Tigers, Bears" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr6" maxlength=""><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div></div></div></div><div data-v-4a7d910a="" class="form-group"><span data-v-56639245="" data-v-4a7d910a="" class="text-sm font-medium text-gray-700">School Location</span><div data-v-4a7d910a=""><div data-v-4a7d910a="" class="primary-phone mb-3"><div data-v-4a7d910a="" class="flex mt-2"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr1 disabled:opacity-50 w-2/3" data-lpignore="true" autocomplete="msgsndr1"><div data-v-7d86ee8a="" class="flex space-x-3"><!----><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr1" placeholder="City, State Abbreviation" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr1" maxlength=""><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div><!----></div><div data-v-4a7d910a="" class="mt-3"><span data-v-4a7d910a="" class="error phone-error-message" style="display: none;"></span></div><div data-v-4a7d910a="" class="mt-3"><span data-v-4a7d910a="" class="error phone-error-message" style="display: none;"> Duplicate Phone Number. You can't enter the Phone Number twice </span></div></div><div data-v-4a7d910a="" class="additional-phone"></div><div data-v-4a7d910a="" class="text-curious-blue-700 mt-4 ml-1 add-email-font cursor-pointer whitespace-nowrap"><div data-v-4a7d910a="" class="personal-logo"><div data-v-4a7d910a="" id="customer_photo_dropzone" class="picture drag_drop"><!----></div><div data-v-4a7d910a="" class="picture-text"><h4 data-v-4a7d910a="">Upload School Logo</h4><p data-v-4a7d910a="">We recommend using transparent logo files.</p><div data-v-4a7d910a="" class="btns"><button data-v-4397f5e0="" data-v-4a7d910a="" type="button" class="hl-btn mr-2 inline-flex items-center px-4 py-2 border-2 border-curious-blue-400 text-sm font-medium rounded text-curious-blue-500 hover:bg-curious-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-curious-blue-500 dz-clickable" id="profileChangePhoto"><!----> Change </button><button data-v-4a7d910a="" type="button" class="btn btn-light2"> Remove </button></div></div></div></div></div></div><div data-v-4a7d910a="" class="modal-buttons d-flex align-items-center justify-content-between"><button data-v-4397f5e0="" data-v-4a7d910a="" type="button" class="hl-btn inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-curious-blue-500" data-dismiss="modal"><!----> Close </button><div data-v-4a7d910a=""><button data-v-4397f5e0="" data-v-4a7d910a="" type="submit" class="hl-btn  inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm text-white bg-apple-500 hover:bg-apple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apple-500 " onclick="alert("test")"><!---->Submit</button></div></div></form></div></div></div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
+    let formHTML = `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Add School Contact</h5><button type="button" aria-label="Close" onclick="closeForm()" class="close">×</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body"><div data-v-4a7d910a="" class="modal-body"><div data-v-4a7d910a="" class="modal-body--inner"><form data-v-4a7d910a=""><div data-v-4a7d910a="" class="row"><div data-v-4a7d910a="" class="col-sm-6"><div data-v-4a7d910a="" class="form-group"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr5" data-lpignore="true" data-vv-as="First name"><div data-v-7d86ee8a="" class="flex space-x-3"><span data-v-7d86ee8a="" for="msgsndr5" class="hl-text-input-label block text-sm font-medium text-gray-700 mb-1">School Name</span><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr5" placeholder="e.g. Central High School" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr5" maxlength="" id="ASCname"><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div></div></div><div data-v-4a7d910a="" class="col-sm-6"><div data-v-4a7d910a="" class="form-group"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr6" data-lpignore="true" data-vv-as="Last name"><div data-v-7d86ee8a="" class="flex space-x-3"><span data-v-7d86ee8a="" for="msgsndr6" class="hl-text-input-label block text-sm font-medium text-gray-700 mb-1">Mascot</span><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr5" placeholder="e.g. Lions, Tigers, Bears" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr6" maxlength="" id="ASCmascot"><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div></div></div></div><div data-v-4a7d910a="" class="form-group"><span data-v-56639245="" data-v-4a7d910a="" class="text-sm font-medium text-gray-700">School Location</span><div data-v-4a7d910a=""><div data-v-4a7d910a="" class="primary-phone mb-3"><div data-v-4a7d910a="" class="flex mt-2"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr1 disabled:opacity-50 w-2/3" data-lpignore="true" autocomplete="msgsndr1"><div data-v-7d86ee8a="" class="flex space-x-3"><!----><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr1" placeholder="City, State Abbreviation" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr1" maxlength="" id="ASClocation"><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div><!----></div><div data-v-4a7d910a="" class="mt-3"><span data-v-4a7d910a="" class="error phone-error-message" style="display: none;"></span></div><div data-v-4a7d910a="" class="mt-3"><span data-v-4a7d910a="" class="error phone-error-message" style="display: none;"> Duplicate Phone Number. You can't enter the Phone Number twice </span></div></div></div><div data-v-4a7d910a="" class="form-group"><span data-v-56639245="" data-v-4a7d910a="" class="text-sm font-medium text-gray-700">School Logo Link</span><div data-v-4a7d910a=""><div data-v-4a7d910a="" class="primary-phone mb-3"><div data-v-4a7d910a="" class="flex mt-2"><div data-v-7d86ee8a="" data-v-4a7d910a="" class="hl-text-input-container msgsndr1 disabled:opacity-50 w-2/3" data-lpignore="true" autocomplete="msgsndr1"><div data-v-7d86ee8a="" class="flex space-x-3"><!----><!----></div><div data-v-7d86ee8a="" class="relative rounded-md shadow-sm"><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><!----></div><div data-v-7d86ee8a="" class="absolute inset-y-0 left-0 mx-2 flex items-center pointer-events-none hl-text-input-addon"><!----></div><input data-v-7d86ee8a="" type="text" data-lpignore="true" autocomplete="msgsndr1" placeholder="e.g. https://example.com/logo.png" class="hl-text-input shadow-sm focus:ring-curious-blue-500 focus:border-curious-blue-500 block w-full sm:text-sm border-gray-300 rounded disabled:opacity-50 text-gray-800" name="msgsndr1" maxlength="" id="ASClogo"><!----><div data-v-7d86ee8a="" class="absolute inset-y-0 right-0 flex items-center pointer-events-none hl-text-input-addon pr-3"><!----></div></div><!----><!----></div><!----></div></div></div></div></div><div data-v-4a7d910a="" class="modal-buttons d-flex align-items-center justify-content-between"><button data-v-4397f5e0="" data-v-4a7d910a="" type="button" class="hl-btn inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-curious-blue-500" data-dismiss="modal"><!----> Close </button><div data-v-4a7d910a=""><button data-v-4397f5e0="" data-v-4a7d910a="" type="submit" class="hl-btn  inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm text-white bg-apple-500 hover:bg-apple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apple-500 " onclick="alert(" test")"=""><!---->Submit</button></div></div></form></div></div></div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
 
     // create a new HTML element with the innerHTMl above:
     var formElement = document.createElement("customForm");
@@ -211,58 +211,60 @@ try {
     let formElement = document.querySelector("customForm");
     body.removeChild(formElement);
   }
+
+  function submitForm() {
+    // NOTE TO JACOB: this code came from https://highlevel.stoplight.io/docs/integrations/1a30b217da571-get-location-access-token-from-agency-token
+    // CompanyID: eRzyNWgO7fUGsvSQv7eR // (Kairos Cloud agency), what you're accessing from
+    // locationId: owNEzpbrfBjp4weSARXD // (jostens demo), what you're accessing. You will create a contact in this subaccount
+
+    // taken from I9 on the sheet
+    let accessTokenP =
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NWQ5MDdiMmNjYTdjZTdkNmNiZDhkYWUtbHN6NXlybG4iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiYnVzaW5lc3Nlcy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJjb21wYW5pZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FsZW5kYXJzL3Jlc291cmNlcy5yZWFkb25seSIsImNhbGVuZGFycy9yZXNvdXJjZXMud3JpdGUiLCJjYW1wYWlnbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy53cml0ZSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS53cml0ZSIsImNvbnZlcnNhdGlvbnMvcmVwb3J0cy5yZWFkb25seSIsImNvbnRhY3RzLnJlYWRvbmx5IiwiY29udGFjdHMud3JpdGUiLCJjb3Vyc2VzLndyaXRlIiwiY291cnNlcy5yZWFkb25seSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJpbnZvaWNlcy5yZWFkb25seSIsImludm9pY2VzLndyaXRlIiwiaW52b2ljZXMvc2NoZWR1bGUucmVhZG9ubHkiLCJpbnZvaWNlcy9zY2hlZHVsZS53cml0ZSIsImludm9pY2VzL3RlbXBsYXRlLnJlYWRvbmx5IiwiaW52b2ljZXMvdGVtcGxhdGUud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxjLWVtYWlsLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy53cml0ZSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJmdW5uZWxzL3JlZGlyZWN0LnJlYWRvbmx5IiwiZnVubmVscy9wYWdlLnJlYWRvbmx5IiwiZnVubmVscy9mdW5uZWwucmVhZG9ubHkiLCJmdW5uZWxzL3JlZGlyZWN0LndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsIm9wcG9ydHVuaXRpZXMucmVhZG9ubHkiLCJvcHBvcnR1bml0aWVzLndyaXRlIiwicGF5bWVudHMvb3JkZXJzLnJlYWRvbmx5IiwicGF5bWVudHMvb3JkZXJzLndyaXRlIiwicGF5bWVudHMvaW50ZWdyYXRpb24ucmVhZG9ubHkiLCJwYXltZW50cy9pbnRlZ3JhdGlvbi53cml0ZSIsInBheW1lbnRzL3RyYW5zYWN0aW9ucy5yZWFkb25seSIsInBheW1lbnRzL3N1YnNjcmlwdGlvbnMucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIud3JpdGUiLCJwcm9kdWN0cy5yZWFkb25seSIsInByb2R1Y3RzLndyaXRlIiwicHJvZHVjdHMvcHJpY2VzLnJlYWRvbmx5IiwicHJvZHVjdHMvcHJpY2VzLndyaXRlIiwic2Fhcy9jb21wYW55LnJlYWQiLCJzYWFzL2NvbXBhbnkud3JpdGUiLCJzYWFzL2xvY2F0aW9uLnJlYWQiLCJzYWFzL2xvY2F0aW9uLndyaXRlIiwic25hcHNob3RzLnJlYWRvbmx5Iiwic25hcHNob3RzLndyaXRlIiwic29jaWFscGxhbm5lci9vYXV0aC5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvb2F1dGgud3JpdGUiLCJzb2NpYWxwbGFubmVyL3Bvc3QucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL3Bvc3Qud3JpdGUiLCJzb2NpYWxwbGFubmVyL2FjY291bnQucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL2FjY291bnQud3JpdGUiLCJzb2NpYWxwbGFubmVyL2Nzdi5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvY3N2LndyaXRlIiwic29jaWFscGxhbm5lci9jYXRlZ29yeS5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvdGFnLnJlYWRvbmx5Iiwic3VydmV5cy5yZWFkb25seSIsInVzZXJzLnJlYWRvbmx5IiwidXNlcnMud3JpdGUiLCJ3b3JrZmxvd3MucmVhZG9ubHkiXSwiY2xpZW50IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlIiwiY2xpZW50S2V5IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlLWxzejV5cmxuIiwiYWdlbmN5UGxhbiI6ImFnZW5jeV9tb250aGx5XzQ5NyJ9LCJpYXQiOjE3MTgzMDM5NzIuOTI4LCJleHAiOjE3MTgzOTAzNzIuOTI4fQ.ZQd_6HhdsLFocfW2Et5ArS8BCvG_JKShCQ9mHb_--RA9imlB29kkTv81Bdb7G8wJcP38paiqvtUppanmukIrrdTSHoScvYd9og9prRfNfhmPOMTiixDtVHFxc_7CuRQUxFYkwNiw8SYeucSEbAX7qvp3Obs3vezyi5RR1tsIHZ_vjF5sVSpFwrx9ZXCXMFzhUCAYvCC85OzC_Rf0OB_Nl8dnpYa4LpNB7pZY2HxeiL-digoyBQAS1mwIKiteXPNXhEme4sWocEtpBj6uQcFnnQJ5nbFInUvJuuKoGngNa6UpOhxtDxfkjL0Dh2udWbglk960f0JfKvJf89f69EKdmGMTACdPVgL7L6UzV84o8hqdnjFYPrBEBgLPvrn6NWkCSWDuNPLA_arim8pEO6pd9-9HRMtNPv_seh0tTqhQGIRo849AIZueFkLkNV1vjx-37UAe4wm-mZboMVcxiGbIb950e8lVm9NErhcYh1W5EfyXlmEaI9KanMpZs_cHybX25y25MlMZb17iiiZQU4lzNZfr7nwTRNCdPqjhO_O3ZmzMqa3pAxPnJcPj4AdvcE-3LIQUPmHf3YUCDdcQJ2WMApyFvkIHu6oMCDFmCt1YtmHztfArUg6Lk5CeXoI2XHZnOz1BGwPXQ6tgU2k5xKWOC48vww-guReOuDwBmjq4Mac";
+
+    let locationP = window.location.href.split("/")[5];
+
+    let contactP = `{
+      "firstName": "School",
+      "lastName": "Contact",
+      "compantName": "TODO",
+      "locationID": "TODO",
+      "tags": [
+        "school",
+      ],
+      "customFields": [
+        {
+          "key": "school_name",
+          "field_value": "TODO"
+        },
+        {
+          "key": "mascot",
+          "field_value": "TODO"
+        },
+        {
+          "key": "school_location",
+          "field_value": "TODO"
+        },
+        {
+          "key": "school_logo_link",
+          "field_value": "TODO"
+        },
+        {
+          "key": "kairos_cloud_id",
+          "field_value": "TODO"
+        },
+        {
+          "key": "last_updated",
+          "field_value": "TODO"
+        }
+      ],
+      "source": "public api",
+      "country": "US",
+      "companyName": "DGS VolMAX"
+    }`;
+
+    createNewContact(accessTokenP, locationP, contactP);
+  }
 } catch (error) {}
-
-//////////////////////// START ADD CONTACT ////////////////////////
-
-// NOTE TO JACOB: this code came from https://highlevel.stoplight.io/docs/integrations/1a30b217da571-get-location-access-token-from-agency-token
-// CompanyID: eRzyNWgO7fUGsvSQv7eR // (Kairos Cloud agency), what you're accessing from
-// locationId: owNEzpbrfBjp4weSARXD // (jostens demo), what you're accessing. You will create a contact in this subaccount
-
-// taken from I9 on the sheet
-let accessTokenP =
-  "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NWQ5MDdiMmNjYTdjZTdkNmNiZDhkYWUtbHN6NXlybG4iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiYnVzaW5lc3Nlcy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJjb21wYW5pZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FsZW5kYXJzL3Jlc291cmNlcy5yZWFkb25seSIsImNhbGVuZGFycy9yZXNvdXJjZXMud3JpdGUiLCJjYW1wYWlnbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy53cml0ZSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS53cml0ZSIsImNvbnZlcnNhdGlvbnMvcmVwb3J0cy5yZWFkb25seSIsImNvbnRhY3RzLnJlYWRvbmx5IiwiY29udGFjdHMud3JpdGUiLCJjb3Vyc2VzLndyaXRlIiwiY291cnNlcy5yZWFkb25seSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJpbnZvaWNlcy5yZWFkb25seSIsImludm9pY2VzLndyaXRlIiwiaW52b2ljZXMvc2NoZWR1bGUucmVhZG9ubHkiLCJpbnZvaWNlcy9zY2hlZHVsZS53cml0ZSIsImludm9pY2VzL3RlbXBsYXRlLnJlYWRvbmx5IiwiaW52b2ljZXMvdGVtcGxhdGUud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxjLWVtYWlsLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy53cml0ZSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJmdW5uZWxzL3JlZGlyZWN0LnJlYWRvbmx5IiwiZnVubmVscy9wYWdlLnJlYWRvbmx5IiwiZnVubmVscy9mdW5uZWwucmVhZG9ubHkiLCJmdW5uZWxzL3JlZGlyZWN0LndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsIm9wcG9ydHVuaXRpZXMucmVhZG9ubHkiLCJvcHBvcnR1bml0aWVzLndyaXRlIiwicGF5bWVudHMvb3JkZXJzLnJlYWRvbmx5IiwicGF5bWVudHMvb3JkZXJzLndyaXRlIiwicGF5bWVudHMvaW50ZWdyYXRpb24ucmVhZG9ubHkiLCJwYXltZW50cy9pbnRlZ3JhdGlvbi53cml0ZSIsInBheW1lbnRzL3RyYW5zYWN0aW9ucy5yZWFkb25seSIsInBheW1lbnRzL3N1YnNjcmlwdGlvbnMucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIud3JpdGUiLCJwcm9kdWN0cy5yZWFkb25seSIsInByb2R1Y3RzLndyaXRlIiwicHJvZHVjdHMvcHJpY2VzLnJlYWRvbmx5IiwicHJvZHVjdHMvcHJpY2VzLndyaXRlIiwic2Fhcy9jb21wYW55LnJlYWQiLCJzYWFzL2NvbXBhbnkud3JpdGUiLCJzYWFzL2xvY2F0aW9uLnJlYWQiLCJzYWFzL2xvY2F0aW9uLndyaXRlIiwic25hcHNob3RzLnJlYWRvbmx5Iiwic25hcHNob3RzLndyaXRlIiwic29jaWFscGxhbm5lci9vYXV0aC5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvb2F1dGgud3JpdGUiLCJzb2NpYWxwbGFubmVyL3Bvc3QucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL3Bvc3Qud3JpdGUiLCJzb2NpYWxwbGFubmVyL2FjY291bnQucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL2FjY291bnQud3JpdGUiLCJzb2NpYWxwbGFubmVyL2Nzdi5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvY3N2LndyaXRlIiwic29jaWFscGxhbm5lci9jYXRlZ29yeS5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvdGFnLnJlYWRvbmx5Iiwic3VydmV5cy5yZWFkb25seSIsInVzZXJzLnJlYWRvbmx5IiwidXNlcnMud3JpdGUiLCJ3b3JrZmxvd3MucmVhZG9ubHkiXSwiY2xpZW50IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlIiwiY2xpZW50S2V5IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlLWxzejV5cmxuIiwiYWdlbmN5UGxhbiI6ImFnZW5jeV9tb250aGx5XzQ5NyJ9LCJpYXQiOjE3MTgzMDM5NzIuOTI4LCJleHAiOjE3MTgzOTAzNzIuOTI4fQ.ZQd_6HhdsLFocfW2Et5ArS8BCvG_JKShCQ9mHb_--RA9imlB29kkTv81Bdb7G8wJcP38paiqvtUppanmukIrrdTSHoScvYd9og9prRfNfhmPOMTiixDtVHFxc_7CuRQUxFYkwNiw8SYeucSEbAX7qvp3Obs3vezyi5RR1tsIHZ_vjF5sVSpFwrx9ZXCXMFzhUCAYvCC85OzC_Rf0OB_Nl8dnpYa4LpNB7pZY2HxeiL-digoyBQAS1mwIKiteXPNXhEme4sWocEtpBj6uQcFnnQJ5nbFInUvJuuKoGngNa6UpOhxtDxfkjL0Dh2udWbglk960f0JfKvJf89f69EKdmGMTACdPVgL7L6UzV84o8hqdnjFYPrBEBgLPvrn6NWkCSWDuNPLA_arim8pEO6pd9-9HRMtNPv_seh0tTqhQGIRo849AIZueFkLkNV1vjx-37UAe4wm-mZboMVcxiGbIb950e8lVm9NErhcYh1W5EfyXlmEaI9KanMpZs_cHybX25y25MlMZb17iiiZQU4lzNZfr7nwTRNCdPqjhO_O3ZmzMqa3pAxPnJcPj4AdvcE-3LIQUPmHf3YUCDdcQJ2WMApyFvkIHu6oMCDFmCt1YtmHztfArUg6Lk5CeXoI2XHZnOz1BGwPXQ6tgU2k5xKWOC48vww-guReOuDwBmjq4Mac";
-
-let locationP = "owNEzpbrfBjp4weSARXD";
-
-let contactP = `{
-  firstName: "Rosan",
-  lastName: "Deo",
-  name: "Rosan Deo",
-  email: "rosan@deos.com",
-  locationId: "owNEzpbrfBjp4weSARXD",
-  gender: "male",
-  phone: "+1 888-888-8888",
-  address1: "3535 1st St N",
-  city: "Dolomite",
-  state: "AL",
-  postalCode: "35061",
-  website: "https://www.tesla.com",
-  timezone: "America/Chihuahua",
-  dnd: true,
-  dndSettings: {
-    Call: { status: "active", message: "string", code: "string" },
-    Email: { status: "active", message: "string", code: "string" },
-    SMS: { status: "active", message: "string", code: "string" },
-    WhatsApp: { status: "active", message: "string", code: "string" },
-    GMB: { status: "active", message: "string", code: "string" },
-    FB: { status: "active", message: "string", code: "string" },
-  },
-  inboundDndSettings: { all: { status: "active", message: "string" } },
-  tags: ["nisi sint commodo amet", "consequat"],
-  customFields: [
-    {
-      id: "owNEzpbrfBjp4weSARXD",
-      key: "my_custom_field",
-      field_value: "9039160788",
-    },
-  ],
-  source: "public api",
-  country: "US",
-  companyName: "Jostens Demo",
-}`;
-
-createNewContact(accessTokenP, locationP, contactP);
 
 function createNewContact(accessToken, location, contact) {
   getAccessToken(accessToken, location).then((result) => {
@@ -311,14 +313,13 @@ function createNewContact(accessToken, location, contact) {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
+      console.log(data);
       console.log("Contact successfully created!");
     } catch (error) {
       console.error(error);
     }
   }
 }
-
-/////// END ADD CONTACT
 
 function allowedLocation(pageURL) {
   let pagelocation = pageURL.split("/")[5];

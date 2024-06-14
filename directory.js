@@ -266,7 +266,7 @@ try {
           "field_value": "` +
       new Date().toISOString() +
       `"
-        }
+        },
       ]
     }`;
 

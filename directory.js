@@ -275,6 +275,7 @@ try {
 } catch (error) {}
 
 function createNewContact(accessToken, location, contact) {
+  console.log("LOCATION: " + location);
   getAccessToken(accessToken, location).then((result) => {
     createContact(result, contact);
   });
@@ -322,7 +323,6 @@ function createNewContact(accessToken, location, contact) {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log(data);
-      console.log("Contact successfully created!");
     } catch (error) {
       console.error(error);
     }

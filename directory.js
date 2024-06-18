@@ -215,16 +215,21 @@ try {
   function submitForm(event) {
     event.preventDefault(); // prevent it from going to another page. Not sure why it does this
 
-    // NOTE TO JACOB: this code came from https://highlevel.stoplight.io/docs/integrations/1a30b217da571-get-location-access-token-from-agency-token
-    // CompanyID: eRzyNWgO7fUGsvSQv7eR // (Kairos Cloud agency), what you're accessing from
-    // locationId: owNEzpbrfBjp4weSARXD // (jostens demo), what you're accessing. You will create a contact in this subaccount
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkvl6HKgup1AofIrUU_Q7b4RlvhI2QTpc",
+      authDomain: "kairos-test-eedd6.firebaseapp.com",
+      projectId: "kairos-test-eedd6",
+      storageBucket: "kairos-test-eedd6.appspot.com",
+      messagingSenderId: "34445244935",
+      appId: "1:34445244935:web:b4ed7e9be70c16251d88a2",
+      measurementId: "G-M1BXTKSG3B",
+    };
 
-    // taken from I9 on the sheet
-    let accessTokenP =
-      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NWQ5MDdiMmNjYTdjZTdkNmNiZDhkYWUtbHN6NXlybG4iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJlUnp5TldnTzdmVUdzdlNRdjdlUiIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiYnVzaW5lc3Nlcy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJjb21wYW5pZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FsZW5kYXJzL3Jlc291cmNlcy5yZWFkb25seSIsImNhbGVuZGFycy9yZXNvdXJjZXMud3JpdGUiLCJjYW1wYWlnbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy53cml0ZSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMvbWVzc2FnZS53cml0ZSIsImNvbnZlcnNhdGlvbnMvcmVwb3J0cy5yZWFkb25seSIsImNvbnRhY3RzLnJlYWRvbmx5IiwiY29udGFjdHMud3JpdGUiLCJjb3Vyc2VzLndyaXRlIiwiY291cnNlcy5yZWFkb25seSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJpbnZvaWNlcy5yZWFkb25seSIsImludm9pY2VzLndyaXRlIiwiaW52b2ljZXMvc2NoZWR1bGUucmVhZG9ubHkiLCJpbnZvaWNlcy9zY2hlZHVsZS53cml0ZSIsImludm9pY2VzL3RlbXBsYXRlLnJlYWRvbmx5IiwiaW52b2ljZXMvdGVtcGxhdGUud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxjLWVtYWlsLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy53cml0ZSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJmdW5uZWxzL3JlZGlyZWN0LnJlYWRvbmx5IiwiZnVubmVscy9wYWdlLnJlYWRvbmx5IiwiZnVubmVscy9mdW5uZWwucmVhZG9ubHkiLCJmdW5uZWxzL3JlZGlyZWN0LndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsIm9wcG9ydHVuaXRpZXMucmVhZG9ubHkiLCJvcHBvcnR1bml0aWVzLndyaXRlIiwicGF5bWVudHMvb3JkZXJzLnJlYWRvbmx5IiwicGF5bWVudHMvb3JkZXJzLndyaXRlIiwicGF5bWVudHMvaW50ZWdyYXRpb24ucmVhZG9ubHkiLCJwYXltZW50cy9pbnRlZ3JhdGlvbi53cml0ZSIsInBheW1lbnRzL3RyYW5zYWN0aW9ucy5yZWFkb25seSIsInBheW1lbnRzL3N1YnNjcmlwdGlvbnMucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIucmVhZG9ubHkiLCJwYXltZW50cy9jdXN0b20tcHJvdmlkZXIud3JpdGUiLCJwcm9kdWN0cy5yZWFkb25seSIsInByb2R1Y3RzLndyaXRlIiwicHJvZHVjdHMvcHJpY2VzLnJlYWRvbmx5IiwicHJvZHVjdHMvcHJpY2VzLndyaXRlIiwic2Fhcy9jb21wYW55LnJlYWQiLCJzYWFzL2NvbXBhbnkud3JpdGUiLCJzYWFzL2xvY2F0aW9uLnJlYWQiLCJzYWFzL2xvY2F0aW9uLndyaXRlIiwic25hcHNob3RzLnJlYWRvbmx5Iiwic25hcHNob3RzLndyaXRlIiwic29jaWFscGxhbm5lci9vYXV0aC5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvb2F1dGgud3JpdGUiLCJzb2NpYWxwbGFubmVyL3Bvc3QucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL3Bvc3Qud3JpdGUiLCJzb2NpYWxwbGFubmVyL2FjY291bnQucmVhZG9ubHkiLCJzb2NpYWxwbGFubmVyL2FjY291bnQud3JpdGUiLCJzb2NpYWxwbGFubmVyL2Nzdi5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvY3N2LndyaXRlIiwic29jaWFscGxhbm5lci9jYXRlZ29yeS5yZWFkb25seSIsInNvY2lhbHBsYW5uZXIvdGFnLnJlYWRvbmx5Iiwic3VydmV5cy5yZWFkb25seSIsInVzZXJzLnJlYWRvbmx5IiwidXNlcnMud3JpdGUiLCJ3b3JrZmxvd3MucmVhZG9ubHkiXSwiY2xpZW50IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlIiwiY2xpZW50S2V5IjoiNjVkOTA3YjJjY2E3Y2U3ZDZjYmQ4ZGFlLWxzejV5cmxuIiwiYWdlbmN5UGxhbiI6ImFnZW5jeV9tb250aGx5XzQ5NyJ9LCJpYXQiOjE3MTgzOTE1MzYuMzA3LCJleHAiOjE3MTg0Nzc5MzYuMzA3fQ.E_P0tIg2DzbtbxLplfqduy59iZ0Vvad2AAEaWL-fQpNnaYjX2nw56Dd3rMU9vtPpNz_458KKZDpDrTmQE8myzc1vez7iIzbknjCwqZZ4Uq4oBgQ0RsA1WbtaY4kE_LYSvN4ND0MZAsb-a5A9bBW20mxUWdMZqX2uENJos55EF9TTjGF-X-InCmd1b5neUVFm1weGQUgVRQ3dCvc2A1DtE4J1Nc-UFmN4_S2Q-tmSkbdB5O9E5ZP9P0f2czhjPqW16C4dpgdS5rCDIhfUHW7dqBqOoH8dfJAi8sQ-8FqIIf6YHFDrewI0Sey1NSaCK2ky2jSYwmShlANfMOGzvYBnwv9R_sz0R1PgWmc_PxxJfkxzCGsaSv7Bk8x_JbXGSv7Ed1JJ5Kvd_lNm0g3-Y7y_A5cb0ZCsPBwdlSCV5nEdmH9nuaA1qImBQfVY3zOoM8k4MpPYR9uFBLqlCq7vPPnuJm626cCh2TS6YHn9d-1EDlSDUvHW3sYdqKvouk4TFKTBqwd0eiHWReHx8x9DQSAcYeh98TCTLLI_ZuAYnMX-OxldFCXzPXG0l0p_uLw01iEqbogM6e4aWePHChruOBZUmAmskOtL_KN95L9xdpQztBi2dOn6_cTHK7xHMkLovrAw-kCgKF_Z_YcFyYxM1RYUd4aNkI_HaSthZacS0GflMiI";
+    firebase.initializeApp(firebaseConfig);
 
-    let locationP = window.location.href.split("/")[5];
-
+    const firestore = firebase.firestore();
+    let locationSA = window.location.href.split("/")[5];
+    let accessTokenP = "";
     let contactP =
       `{
       "firstName": "School",
@@ -233,7 +238,7 @@ try {
       document.getElementById("ASCname").value +
       `",
       "locationId": "` +
-      locationP +
+      locationSA +
       `",
       "dnd": true,
       "tags": [
@@ -273,61 +278,52 @@ try {
             ]
           }`;
 
-    createNewContact(accessTokenP, locationP, contactP);
+    firestore // grab the location access key from Firebase
+      .collection("tokens")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const entry = doc.data();
+          //console.log("Entry: ", entry);
+          if (doc.id == locationSA) {
+            //console.log(doc.data().locationAccessToken);
+            accessTokenP = doc.data().locationAccessToken;
+          }
+        });
+      })
+      .then(() => {
+        // after location token acquired, create the contact
+        if (accessTokenP == "") {
+          // if still blank
+          // TODO: create new FB entry
+          console.log("Location not found in FB!");
+        } else {
+          createContact(accessTokenP, contactP);
+        }
+      });
+
     closeForm();
   }
 
-  function createNewContact(accessToken, location, contact) {
-    getAccessToken(accessToken, location).then((result) => {
-      createContact(result, contact);
-    });
+  async function createContact(tokenX, contactX) {
+    const url = "https://services.leadconnectorhq.com/contacts/";
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + tokenX,
+        Version: "2021-07-28",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: contactX,
+    };
 
-    async function getAccessToken(accessTokenX, locationX) {
-      const url = "https://services.leadconnectorhq.com/oauth/locationToken";
-      const options = {
-        method: "POST",
-        headers: {
-          Version: "2021-07-28",
-          "Content-Type": "application/x-www-form-urlencoded",
-          Accept: "application/json",
-          Authorization: "Bearer " + accessTokenX,
-        },
-        body: new URLSearchParams({
-          companyId: "eRzyNWgO7fUGsvSQv7eR", // Kairos Cloud agency
-          locationId: locationX,
-        }),
-      };
-
-      try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        //console.log(data);
-        return data.access_token;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    async function createContact(tokenX, contactX) {
-      const url = "https://services.leadconnectorhq.com/contacts/";
-      const options = {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + tokenX,
-          Version: "2021-07-28",
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: contactX,
-      };
-
-      try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
   }
 } catch (error) {}

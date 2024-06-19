@@ -330,7 +330,8 @@ function allowedLocation() {
   if (globalLocationList != []) {
     let pagelocation = pageURL.split("/")[5];
     console.log(globalLocationList);
-    return array.find((obj) => obj.id === pagelocation)?.isJostens === "true"
+    return globalLocationList.find((obj) => obj.id === pagelocation)
+      ?.isJostens === "true"
       ? true
       : false;
   }

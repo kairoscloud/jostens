@@ -13,10 +13,7 @@
     timesLoaded++;
     console.log("Route Change Detected!");
     var url = window.location.href.split("/");
-    if (
-      url.includes("contacts") === true &&
-      allowedLocation(window.location.href)
-    ) {
+    if (url.includes("contacts") === true && allowedLocation()) {
       console.log("restarting script");
       restartScript();
     }
@@ -63,7 +60,7 @@
   function activeListen() {
     //console.log("Listening"); // uncomment when testing
 
-    if (!allowedLocation(window.location.href)) {
+    if (!allowedLocation()) {
       throw new Error("Not allowed location. Stopping script. Ignore me!");
     }
 
@@ -328,16 +325,13 @@ try {
   }
 } catch (error) {}
 
-function allowedLocation(pageURL) {
-  let pagelocation = pageURL.split("/")[5];
-  console.log(globalLocationList);
-  return (
-    pagelocation == "owNEzpbrfBjp4weSARXD" || // jostens demo
-    pagelocation == "Psie74UmJnCQR7xxTRXa" || // jostens of Newhall, CA
-    pagelocation == "jvJWOe4Ds0CGBV6p2cl9" || // jostens of Pittsburg, KS
-    pagelocation == "SUIEeAqgsArrIiPCkEna" || // jostens of Kalamazoo, MI
-    pagelocation == "piRoFhArDXY4EYyWbmex" || // jostens of Lisle, IL
-    pagelocation == "PqeI2v9lcicAtJBI7mzs" || // jostens of NE Kansas
-    pagelocation == "20wqXn14oRdWJ2IN02G3" // your local jostens (Clackmas, OR)
-  );
+// checks if the current location is jostens or not
+function allowedLocation() {
+  if (globalLocationList != []) {
+    let pagelocation = pageURL.split("/")[5];
+    console.log(globalLocationList);
+    return array.find((obj) => obj.id === pagelocation)?.isJostens === "true"
+      ? true
+      : false;
+  }
 }

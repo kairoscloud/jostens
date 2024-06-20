@@ -328,7 +328,7 @@ try {
 // checks if the current location is jostens or not
 function allowedLocation() {
   if (globalLocationList != []) {
-    let pagelocation = pageURL.split("/")[5];
+    let pagelocation = window.location.href.split("/")[5];
     console.log(globalLocationList);
     return globalLocationList.find((obj) => obj.id === pagelocation)
       ?.isJostens === "true"

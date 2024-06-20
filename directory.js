@@ -327,14 +327,18 @@ try {
 
 // checks if the current location is jostens or not
 function allowedLocation() {
-  if (globalLocationList != []) {
-    // newLocation.js doesn't instantly fill the list, so we wait until it has contents
-    let pagelocation = window.location.href.split("/")[5];
-    // console.log(globalLocationList);
-    return (
-      globalLocationList.find((obj) => obj.id === pagelocation)?.isJostens ==
-      "true"
-    );
+  // if (globalLocationList != []) {
+  //   // newLocation.js doesn't instantly fill the list, so we wait until it has contents
+  //   let pagelocation = window.location.href.split("/")[5];
+  //   // console.log(globalLocationList);
+  //   return (
+  //     globalLocationList.find((obj) => obj.id === pagelocation)?.isJostens ==
+  //     "true"
+  //   );
+  // }
+  // return true; // default option
+
+  if (document.querySelector("body")) {
+    return document.querySelector(".jostens");
   }
-  return true; // default option
 }

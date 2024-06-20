@@ -329,10 +329,10 @@ try {
 function allowedLocation() {
   if (globalLocationList != []) {
     let pagelocation = window.location.href.split("/")[5];
-    console.log(globalLocationList);
-    return globalLocationList.find((obj) => obj.id === pagelocation)
-      ?.isJostens === "true"
-      ? true
-      : false;
+    //console.log(globalLocationList);
+    return (
+      globalLocationList.find((obj) => obj.id === pagelocation)?.isJostens ==
+      "true"
+    );
   }
 }

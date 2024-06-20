@@ -70,7 +70,7 @@
     );
     if (buttonElement) {
       if (buttonElement.innerHTML.includes("proceed")) {
-        //buttonElement.click();
+        buttonElement.click();
       }
     }
 

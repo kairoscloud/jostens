@@ -83,9 +83,7 @@
       let actionForm = document.querySelector(
         '.form-row .form-group input[name="description"]',
       );
-      document.getElementsByName("5urH45uOzZQ5sZfaRC08")[0].dispatchEvent(new Event("input", {
-          bubbles: true
-        }));
+      actionForm.focus();
       actionForm.value = "dummyValue";
       action.style.display = "none";
       actionForm.style.display = "none";
@@ -94,9 +92,7 @@
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
     if (actionOther) {
-      document.getElementsByName("5urH45uOzZQ5sZfaRC08")[0].dispatchEvent(new Event("input", {
-          bubbles: true
-        }));
+      actionOther.focus();
       actionOther.value = "dummyValue";
       actionOther.style.display = "none";
       Array.from(document.querySelectorAll("*")).find(

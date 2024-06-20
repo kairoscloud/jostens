@@ -75,24 +75,23 @@
     }
 
     // listen for and hide the "action" label and field
-    // let action = document.querySelector(
-    //   "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
-    // );
+    let action = document.querySelector(
+      "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
+    );
 
-    // if (action) {
-    //   let actionForm = document.querySelector(
-    //     '.form-row .form-group input[name="description"]',
-    //   );
-    //   actionForm.dispatchEvent(
-    //     new Event("input", {
-    //       bubbles: true,
-    //     }),
-    //   );
-    //   // actionForm.focus();
-    //   //actionForm.value = "dummyValue";
-    //   // action.style.display = "none";
-    //   // actionForm.style.display = "none";
-    // }
+    if (action) {
+      let actionForm = document.querySelector(
+        '.form-row .form-group input[name="description"]',
+      );
+      actionForm.dispatchEvent(
+        new Event("input", {
+          bubbles: true,
+        }),
+      );
+      actionForm.value = "dummyValue";
+      action.style.display = "none";
+      actionForm.style.display = "none";
+    }
 
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 

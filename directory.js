@@ -94,21 +94,33 @@
     //   // actionForm.style.display = "none";
     // }
 
-    //let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
+    let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
-    //if (actionOther) {
-    // actionOther.dispatchEvent(
-    //   new Event("input", {
-    //     bubbles: true,
-    //   }),
-    // );
-    // actionOther.focus();
-    // actionOther.value = "dummy_value";
-    // // actionOther.style.display = "none";
-    // Array.from(document.querySelectorAll("*")).find(
-    //   (el) => el.textContent.trim() === "Action*",
-    // ).style.display = "none"; // hide the "action*" text above as well
-    //}
+    if (actionOther) {
+      let tagField = document.querySelector(
+        "input.py-1.outline-none.border-0.focus\\:border-0.focus\\:ring-0.focus\\:outline-none.sm\\:text-sm",
+      );
+
+      tagField.dispatchEvent(
+        new Event("input", {
+          bubbles: true,
+        }),
+      );
+
+      actionOther.value = "dummy_value";
+
+      actionOther.dispatchEvent(
+        new Event("input", {
+          bubbles: true,
+        }),
+      );
+
+      //actionOther.focus();
+      // actionOther.style.display = "none";
+      Array.from(document.querySelectorAll("*")).find(
+        (el) => el.textContent.trim() === "Action*",
+      ).style.display = "none"; // hide the "action*" text above as well
+    }
 
     // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)
     let lastElement = document.querySelector(

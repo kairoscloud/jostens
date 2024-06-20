@@ -75,39 +75,39 @@
     }
 
     // listen for and hide the "action" label and field
-    let action = document.querySelector(
-      "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
-    );
+    // let action = document.querySelector(
+    //   "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
+    // );
 
-    if (action) {
-      let actionForm = document.querySelector(
-        '.form-row .form-group input[name="description"]',
-      );
-      actionForm.dispatchEvent(
-        new Event("input", {
-          bubbles: true,
-        }),
-      );
-      // actionForm.focus();
-      //actionForm.value = "dummyValue";
-      // action.style.display = "none";
-      // actionForm.style.display = "none";
-    }
+    // if (action) {
+    //   let actionForm = document.querySelector(
+    //     '.form-row .form-group input[name="description"]',
+    //   );
+    //   actionForm.dispatchEvent(
+    //     new Event("input", {
+    //       bubbles: true,
+    //     }),
+    //   );
+    //   // actionForm.focus();
+    //   //actionForm.value = "dummyValue";
+    //   // action.style.display = "none";
+    //   // actionForm.style.display = "none";
+    // }
 
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
     if (actionOther) {
-      actionOther.dispatchEvent(
-        new Event("input", {
-          bubbles: true,
-        }),
-      );
+      // actionOther.dispatchEvent(
+      //   new Event("input", {
+      //     bubbles: true,
+      //   }),
+      // );
       // actionOther.focus();
-      // actionOther.value = "dummyValue";
+      actionOther.value = "dummy_value";
       // actionOther.style.display = "none";
-      // Array.from(document.querySelectorAll("*")).find(
-      //   (el) => el.textContent.trim() === "Action*",
-      // ).style.display = "none"; // hide the "action*" text above as well
+      Array.from(document.querySelectorAll("*")).find(
+        (el) => el.textContent.trim() === "Action*",
+      ).style.display = "none"; // hide the "action*" text above as well
     }
 
     // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)

@@ -13,7 +13,7 @@
     timesLoaded++;
     console.log("Route Change Detected!");
     var url = window.location.href.split("/");
-    if (url.includes("contacts") === true && allowedLocation()) {
+    if (url.includes("contacts") === true) {
       console.log("restarting script");
       restartScript();
     }
@@ -328,11 +328,13 @@ try {
 // checks if the current location is jostens or not
 function allowedLocation() {
   if (globalLocationList != []) {
+    // newLocation.js doesn't instantly fill the list, so we wait until it has contents
     let pagelocation = window.location.href.split("/")[5];
-    //console.log(globalLocationList);
+    // console.log(globalLocationList);
     return (
       globalLocationList.find((obj) => obj.id === pagelocation)?.isJostens ==
       "true"
     );
   }
+  return true; // default option
 }

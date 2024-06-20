@@ -83,19 +83,25 @@
       let actionForm = document.querySelector(
         '.form-row .form-group input[name="description"]',
       );
+      document.getElementsByName("5urH45uOzZQ5sZfaRC08")[0].dispatchEvent(new Event("input", {
+          bubbles: true
+        }));
       actionForm.value = "dummyValue";
-      // action.style.display = "none";
-      // actionForm.style.display = "none";
+      action.style.display = "none";
+      actionForm.style.display = "none";
     }
 
     let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
 
     if (actionOther) {
+      document.getElementsByName("5urH45uOzZQ5sZfaRC08")[0].dispatchEvent(new Event("input", {
+          bubbles: true
+        }));
       actionOther.value = "dummyValue";
-      // actionOther.style.display = "none";
-      // Array.from(document.querySelectorAll("*")).find(
-      //   (el) => el.textContent.trim() === "Action*",
-      // ).style.display = "none"; // hide the "action*" text above as well
+      actionOther.style.display = "none";
+      Array.from(document.querySelectorAll("*")).find(
+        (el) => el.textContent.trim() === "Action*",
+      ).style.display = "none"; // hide the "action*" text above as well
     }
 
     // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)

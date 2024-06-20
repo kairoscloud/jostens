@@ -70,7 +70,7 @@
     );
     if (buttonElement) {
       if (buttonElement.innerHTML.includes("proceed")) {
-        buttonElement.click();
+        //buttonElement.click();
       }
     }
 
@@ -89,7 +89,7 @@
         }),
       );
       // actionForm.focus();
-      actionForm.value = "dummyValue";
+      //actionForm.value = "dummyValue";
       // action.style.display = "none";
       // actionForm.style.display = "none";
     }
@@ -104,10 +104,10 @@
       );
       // actionOther.focus();
       // actionOther.value = "dummyValue";
-      actionOther.style.display = "none";
-      Array.from(document.querySelectorAll("*")).find(
-        (el) => el.textContent.trim() === "Action*",
-      ).style.display = "none"; // hide the "action*" text above as well
+      // actionOther.style.display = "none";
+      // Array.from(document.querySelectorAll("*")).find(
+      //   (el) => el.textContent.trim() === "Action*",
+      // ).style.display = "none"; // hide the "action*" text above as well
     }
 
     // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)

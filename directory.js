@@ -58,7 +58,7 @@
   }
 
   function activeListen() {
-    //console.log("Listening"); // uncomment when testing
+    console.log("Listening"); // uncomment when testing
 
     if (!allowedLocation()) {
       throw new Error("Not allowed location. Stopping script. Ignore me!");

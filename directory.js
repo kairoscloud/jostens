@@ -225,6 +225,22 @@ try {
     body.appendChild(formElement);
   }
 
+  function addUploadWindow(event) {
+    event.preventDefault();
+    let cfInner = document.querySelector("body > customform");
+    let prevCFInner = cfInner.innerHTML;
+    cfInner.innerHTML =
+      `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Select file</h5><p>Once you're done, copy the link.</p><button type="button" aria-label="Close" onclick="closeUpload('` +
+      prevCFInner +
+      `')" class="close">×</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body" style="position: relative; width: 100%; height: calc(75vh - 54px); overflow: hidden;"><iframe src="https://app.kairoscloud.io/location/owNEzpbrfBjp4weSARXD/medias" style="position: absolute; top: -54px; left: 0; width: 100%; height: calc(75vh); border: none;">
+    </iframe></div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
+  }
+
+  function closeUpload(prevCFInner) {
+    let cfInner = document.querySelector("body > customform");
+    cfInner.innerHTML = prevCFInner;
+  }
+
   function closeForm() {
     let body = document.querySelector("body");
     let formElement = document.querySelector("customForm");

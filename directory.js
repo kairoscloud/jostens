@@ -1,165 +1,164 @@
 // this anonymizes the script. Makes it so that, if ran twice, it won't conflict with itself.
 
-(function () {
-  console.log("Jostens Directory Loaded!");
-  let timesLoaded = 0;
-  listenInterval = "";
-  URLInterval = "";
+console.log("Jostens Directory Loaded!");
+let timesLoaded = 0;
+listenInterval = "";
+URLInterval = "";
 
-  // Listen for Page Change
-  window.addEventListener("routeChangeEvent", pageFunc);
-  pageFunc();
+// Listen for Page Change
+window.addEventListener("routeChangeEvent", pageFunc);
+pageFunc();
 
-  function pageFunc() {
-    timesLoaded++;
-    console.log("Route Change Detected!");
-    var url = window.location.href.split("/");
-    if (url.includes("contacts") === true) {
-      console.log("restarting script");
-      restartScript();
-    }
+function pageFunc() {
+  timesLoaded++;
+  console.log("Route Change Detected!");
+  var url = window.location.href.split("/");
+  if (url.includes("contacts") === true) {
+    console.log("restarting script");
+    restartScript();
   }
+}
 
-  let prevCFInner = "";
+let prevCFInner = "";
 
-  function restartScript() {
-    let checkInterval = setInterval(testIfLoaded, 100);
+function restartScript() {
+  let checkInterval = setInterval(testIfLoaded, 100);
 
-    function testIfLoaded() {
-      console.log("Checking if loaded");
-      var lastElement = document.querySelector(
-        "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
-      );
-      // if the last element in the toolbar is loaded
-      if (lastElement) {
-        // if not Jostens subaccount...
-        if (
-          !document
-            .querySelector(".filter-option .filter-option-inner")
-            .innerHTML.includes("Jostens")
-        ) {
-          throw new Error(
-            "Not a Jostens subaccount. Stopping script. Ignore me!",
-          );
-          clearInterval(checkInterval);
-        }
-        console.log("Loaded");
-        clearInterval(checkInterval); // stop checking
-        listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
-        URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
-      }
-    }
-
-    function checkIfPageChange() {
-      if (!window.location.href.includes("contacts")) {
-        // if not in "contacts" anymore
-        clearInterval(listenInterval);
-        clearInterval(URLInterval);
-        throw new Error("Page change detected. Stopping script. Ignore me!"); // this stops all execution of directory.js once the user is no longer on contacts page
-      }
-    }
-  }
-
-  function activeListen() {
-    console.log("Listening"); // uncomment when testing
-
-    if (!allowedLocation()) {
-      throw new Error("Not allowed location. Stopping script. Ignore me!");
-    }
-
-    // listen for and click the "ok, proceed" button
-    let buttonElement = document.querySelector(
-      "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
-    );
-    if (buttonElement) {
-      if (buttonElement.innerHTML.includes("proceed")) {
-        buttonElement.click();
-      }
-    }
-
-    // listen for and hide the "action" label and field
-    let action = document.querySelector(
-      "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
-    );
-
-    if (action) {
-      let actionForm = document.querySelector(
-        '.form-row .form-group input[name="description"]',
-      );
-      actionForm.dispatchEvent(
-        new Event("input", {
-          bubbles: true,
-        }),
-      );
-      actionForm.value = "dummyValue";
-      action.style.display = "none";
-      actionForm.style.display = "none";
-    }
-
-    let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
-
-    if (actionOther) {
-      let tagField = document.querySelector(
-        "input.py-1.outline-none.border-0.focus\\:border-0.focus\\:ring-0.focus\\:outline-none.sm\\:text-sm",
-      );
-
-      tagField.dispatchEvent(
-        new Event("input", {
-          bubbles: true,
-        }),
-      );
-
-      actionOther.value = "dummy_value";
-
-      actionOther.dispatchEvent(
-        new Event("input", {
-          bubbles: true,
-        }),
-      );
-
-      //actionOther.focus();
-      // actionOther.style.display = "none";
-      Array.from(document.querySelectorAll("*")).find(
-        (el) => el.textContent.trim() === "Action*",
-      ).style.display = "none"; // hide the "action*" text above as well
-    }
-
-    // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)
-    let lastElement = document.querySelector(
+  function testIfLoaded() {
+    console.log("Checking if loaded");
+    var lastElement = document.querySelector(
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
     );
+    // if the last element in the toolbar is loaded
     if (lastElement) {
-      DeleteElems();
-      if (!document.getElementById("schoolContactButton")) {
-        addSchoolContactButton();
+      // if not Jostens subaccount...
+      if (
+        !document
+          .querySelector(".filter-option .filter-option-inner")
+          .innerHTML.includes("Jostens")
+      ) {
+        throw new Error(
+          "Not a Jostens subaccount. Stopping script. Ignore me!",
+        );
+        clearInterval(checkInterval);
       }
+      console.log("Loaded");
+      clearInterval(checkInterval); // stop checking
+      listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
+      URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
     }
   }
 
-  function DeleteElems() {
-    // JACOB TODO: name each element being deleted in comments
-    document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
-    ).style.display = "none";
-    document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)",
-    ).style.display = "none";
-    document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
-    ).style.display = "none";
-    document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(1)",
-    ).style.display = "none";
-    document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(8)",
-    ).style.display = "none";
+  function checkIfPageChange() {
+    if (!window.location.href.includes("contacts")) {
+      // if not in "contacts" anymore
+      clearInterval(listenInterval);
+      clearInterval(URLInterval);
+      throw new Error("Page change detected. Stopping script. Ignore me!"); // this stops all execution of directory.js once the user is no longer on contacts page
+    }
+  }
+}
+
+function activeListen() {
+  console.log("Listening"); // uncomment when testing
+
+  if (!allowedLocation()) {
+    throw new Error("Not allowed location. Stopping script. Ignore me!");
   }
 
-  function addSchoolContactButton() {
-    console.log("Adding School Contact Button");
+  // listen for and click the "ok, proceed" button
+  let buttonElement = document.querySelector(
+    "button.hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
+  );
+  if (buttonElement) {
+    if (buttonElement.innerHTML.includes("proceed")) {
+      buttonElement.click();
+    }
+  }
 
-    let schoolContactButton = document.createElement("schoolContactButton");
-    schoolContactButton.innerHTML = `
+  // listen for and hide the "action" label and field
+  let action = document.querySelector(
+    "span[data-v-56639245][data-v-4a572634].text-sm.font-medium.text-gray-700",
+  );
+
+  if (action) {
+    let actionForm = document.querySelector(
+      '.form-row .form-group input[name="description"]',
+    );
+    actionForm.dispatchEvent(
+      new Event("input", {
+        bubbles: true,
+      }),
+    );
+    actionForm.value = "dummyValue";
+    action.style.display = "none";
+    actionForm.style.display = "none";
+  }
+
+  let actionOther = document.querySelector(".mt-2 .mt-1 input#action");
+
+  if (actionOther) {
+    let tagField = document.querySelector(
+      "input.py-1.outline-none.border-0.focus\\:border-0.focus\\:ring-0.focus\\:outline-none.sm\\:text-sm",
+    );
+
+    tagField.dispatchEvent(
+      new Event("input", {
+        bubbles: true,
+      }),
+    );
+
+    actionOther.value = "dummy_value";
+
+    actionOther.dispatchEvent(
+      new Event("input", {
+        bubbles: true,
+      }),
+    );
+
+    //actionOther.focus();
+    // actionOther.style.display = "none";
+    Array.from(document.querySelectorAll("*")).find(
+      (el) => el.textContent.trim() === "Action*",
+    ).style.display = "none"; // hide the "action*" text above as well
+  }
+
+  // check for the last element in the toolbar (this happens when "all" is clicked, and the toolbar refreshes)
+  let lastElement = document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
+  );
+  if (lastElement) {
+    DeleteElems();
+    if (!document.getElementById("schoolContactButton")) {
+      addSchoolContactButton();
+    }
+  }
+}
+
+function DeleteElems() {
+  // JACOB TODO: name each element being deleted in comments
+  document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(11)",
+  ).style.display = "none";
+  document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(12)",
+  ).style.display = "none";
+  document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
+  ).style.display = "none";
+  document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(1)",
+  ).style.display = "none";
+  document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(8)",
+  ).style.display = "none";
+}
+
+function addSchoolContactButton() {
+  console.log("Adding School Contact Button");
+
+  let schoolContactButton = document.createElement("schoolContactButton");
+  schoolContactButton.innerHTML = `
       <span
         data-v-0c055ff2=""
         data-tooltip="tooltip"
@@ -178,42 +177,41 @@
         </span>
 `;
 
-    let listElement = document.querySelector(
-      "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
-    );
+  let listElement = document.querySelector(
+    "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left",
+  );
 
-    listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
+  listElement.insertBefore(schoolContactButton, listElement.children[1]); // append it, but make it first.
 
-    // add eventListeners to display tooltip when hovering over
-    schoolContactButton.addEventListener("mouseover", () => {
-      let offsetX = 0;
-      // This is to account for the menu's being opened or not. If the menu is open, the tooltip will be off by a bit.
-      if (
-        document
-          .querySelector(
-            "#sidebar-v2 > div.sm\\:hidden.lg\\:block.xl\\:block.absolute.-right-2.bottom-5.z-50 > button",
-          )
-          .innerHTML.includes("fa-chevron-circle-left")
-      ) {
-        offsetX = 250;
-      } else {
-        offsetX = 83;
-      }
-      let body = document.querySelector("body");
-      let tooltipElem = document.createElement("addSchoolTooltip");
-      tooltipElem.id = "addSchoolTooltip";
-      tooltipElem.innerHTML =
-        `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="-1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(` +
-        offsetX +
-        `px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
-      body.append(tooltipElem);
-    });
+  // add eventListeners to display tooltip when hovering over
+  schoolContactButton.addEventListener("mouseover", () => {
+    let offsetX = 0;
+    // This is to account for the menu's being opened or not. If the menu is open, the tooltip will be off by a bit.
+    if (
+      document
+        .querySelector(
+          "#sidebar-v2 > div.sm\\:hidden.lg\\:block.xl\\:block.absolute.-right-2.bottom-5.z-50 > button",
+        )
+        .innerHTML.includes("fa-chevron-circle-left")
+    ) {
+      offsetX = 250;
+    } else {
+      offsetX = 83;
+    }
+    let body = document.querySelector("body");
+    let tooltipElem = document.createElement("addSchoolTooltip");
+    tooltipElem.id = "addSchoolTooltip";
+    tooltipElem.innerHTML =
+      `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="-1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(` +
+      offsetX +
+      `px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add School Contact</div></div>`;
+    body.append(tooltipElem);
+  });
 
-    schoolContactButton.addEventListener("mouseout", () => {
-      document.getElementById("addSchoolTooltip").remove();
-    });
-  }
-})();
+  schoolContactButton.addEventListener("mouseout", () => {
+    document.getElementById("addSchoolTooltip").remove();
+  });
+}
 
 try {
   // if this script is loaded twice, these functions will already exist. This prevents an "already declared" error.
@@ -233,10 +231,7 @@ try {
     event.preventDefault();
     let cfInner = document.querySelector("body > customform");
     prevCFInner = cfInner.innerHTML;
-    cfInner.innerHTML =
-      `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Select file</h5><p>Once you're done, copy the link.</p><button type="button" aria-label="Close" onclick="closeUpload()" class="close">×</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body" style="position: relative; width: 100%; height: calc(75vh - 54px); overflow: hidden;"><iframe src="https://app.kairoscloud.io/location/` +
-      window.location.href.split("/")[5];
-    +`/medias" style="position: absolute; top: -54px; left: 0; width: 100%; height: calc(75vh); border: none;">
+    cfInner.innerHTML = `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Select file</h5><p>Once you're done, copy the link.</p><button type="button" aria-label="Close" onclick="closeUpload()" class="close">×</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body" style="position: relative; width: 100%; height: calc(75vh - 54px); overflow: hidden;"><iframe src="https://app.kairoscloud.io/location/owNEzpbrfBjp4weSARXD/medias" style="position: absolute; top: -54px; left: 0; width: 100%; height: calc(75vh); border: none;">
     </iframe></div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
   }
 

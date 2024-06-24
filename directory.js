@@ -215,6 +215,13 @@ function addSchoolContactButton() {
 
 try {
   // if this script is loaded twice, these functions will already exist. This prevents an "already declared" error.
+
+  async function pasteLink() {
+    await navigator.clipboard.readText().then((text) => {
+      document.getElementById("ASClogo").value = text;
+    });
+  }
+
   function addForm() {
     let body = document.querySelector("body");
 
@@ -242,12 +249,6 @@ try {
   function closeUpload() {
     let cfInner = document.querySelector("body > customform");
     cfInner.innerHTML = prevCFInner;
-  }
-
-  async function pasteLink() {
-    await navigator.clipboard.readText().then((text) => {
-      document.getElementById("ASClogo").value = text;
-    });
   }
 
   function closeForm() {

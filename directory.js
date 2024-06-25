@@ -134,36 +134,35 @@ function activeListen() {
       addSchoolContactButton();
     }
   }
+
+  // if in "detail" window of contact...
+  // remove the unwanted fields for school contacts (contact, general info, additional info)
   if (
     document.querySelector(
       "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
     )
   ) {
-    if (
-      document.querySelector(
-        "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div.w-full.contact-detail-nav.items-center.px-2.py-2\\.5.border-b.border-gray-200 > div:nth-child(1) > span",
-      ).innerText == "School Contact" &&
-      document.querySelector(
-        // the "tab" section (contact & company)
-        "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
-      ).style.display != "none"
-    ) {
-      modifyDetail();
-    }
+    modifyDetail();
   }
 }
 
 function modifyDetail() {
-  let nodeList = document.querySelector(
-    "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
-  ).childNodes; // the element ids are randomized across the subaccounts, so we have to select them as child nodes
-  nodeList[9].style.display = "none"; // contact
-  nodeList[10].style.display = "none"; // general info
-  nodeList[11].style.display = "none"; // additional info
-  document.querySelector(
-    // the "tab" section (contact & company)
-    "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
-  ).style.display = "none";
+  if (
+    document.querySelector(
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div.w-full.contact-detail-nav.items-center.px-2.py-2\\.5.border-b.border-gray-200 > div:nth-child(1) > span",
+    ).innerText == "School Contact"
+  ) {
+    document.querySelector(
+      // the "tab" section (contact & company)
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
+    ).style.display = "none";
+    let nodeList = document.querySelector(
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
+    ).childNodes; // the element ids are randomized across the subaccounts, so we have to select them as child nodes
+    nodeList[9].style.display = "none"; // contact
+    nodeList[10].style.display = "none"; // general info
+    nodeList[11].style.display = "none"; // additional info
+  }
 }
 
 function DeleteElems() {

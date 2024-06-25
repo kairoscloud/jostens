@@ -297,16 +297,11 @@ try {
       <span id='iframeHere'></span>
       </div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
 
-    let formCheckInterval = setInterval(() => {
-      // await until HTML has been appended
-      let iframeHere = document.getElementById("iframeHere");
-      if (iframeHere) {
-        let uploadIframe = document.getElementById("uploadIframe");
-        iframeHere.appendChild(uploadIframe);
-        uploadIframe.style.display = "block";
-        clearInterval(formCheckInterval);
-      }
-    }, 500);
+    setTimeout(() => {
+      let uploadIframe = document.getElementById("uploadIframe");
+      document.getElementById("iframeHere").appendChild(uploadIframe);
+      uploadIframe.style.display = "block";
+    }, 0);
   }
 
   function closeUpload() {

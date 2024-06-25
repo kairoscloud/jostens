@@ -48,11 +48,14 @@ function restartScript() {
       listenInterval = setInterval(activeListen, 50); // repeat every 50ms, indefinitely
 
       // append the iframe
-      let iframeX = document.createElement("tempiframeContainer");
-      iframeX.innerHTML =
-        `<iframe id="uploadIframe" src="https://app.kairoscloud.io/location/` +
+      let iframeX = document.createElement("iframe");
+      iframeX.id = "uploadIframe";
+      iframeX.src =
+        "https://app.kairoscloud.io/location/" +
         window.location.href.split("/")[5] +
-        `/medias" style="position: absolute; top: 0px; left: 0; width: 1px; height: 1px; border: none;"></iframe>`;
+        "/medias";
+      iframeX.style =
+        "position: absolute; top: 0px; left: 0; width: 1px; height: 1px; border: none;";
       document.body.appendChild(iframeX);
 
       URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely

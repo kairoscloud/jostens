@@ -151,7 +151,7 @@ function modifyDetail() {
     "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div.w-full.contact-detail-nav.items-center.px-2.py-2\\.5.border-b.border-gray-200 > div:nth-child(1) > span",
   ).innerText;
 
-  if (docContactName == "School Contact" || docContactName == undefined) {
+  if (docContactName == "School Contact" || docContactName == null) {
     // the "tab" section (contact & company)
     document.querySelector(
       "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",

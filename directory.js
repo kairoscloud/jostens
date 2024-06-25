@@ -147,13 +147,13 @@ function activeListen() {
 }
 
 function modifyDetail() {
-  if (
+  let docContactName = document.querySelector(
+    "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div.w-full.contact-detail-nav.items-center.px-2.py-2\\.5.border-b.border-gray-200 > div:nth-child(1) > span",
+  ).innerText;
+
+  if (docContactName == "School Contact" || docContactName == undefined) {
+    // the "tab" section (contact & company)
     document.querySelector(
-      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div.w-full.contact-detail-nav.items-center.px-2.py-2\\.5.border-b.border-gray-200 > div:nth-child(1) > span",
-    ).innerText == "School Contact"
-  ) {
-    document.querySelector(
-      // the "tab" section (contact & company)
       "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
     ).style.display = "none";
     let nodeList = document.querySelector(
@@ -162,6 +162,16 @@ function modifyDetail() {
     nodeList[9].style.display = "none"; // contact
     nodeList[10].style.display = "none"; // general info
     nodeList[11].style.display = "none"; // additional info
+  } else {
+    document.querySelector(
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
+    ).style.display = "block";
+    let nodeList = document.querySelector(
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
+    ).childNodes; // the element ids are randomized across the subaccounts, so we have to select them as child nodes
+    nodeList[9].style.display = "block"; // contact
+    nodeList[10].style.display = "block"; // general info
+    nodeList[11].style.display = "block"; // additional info
   }
 }
 

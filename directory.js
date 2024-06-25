@@ -155,15 +155,15 @@ function activeListen() {
   }
 
   // await until HTML has been appended
-  let iframeHere = document.getElementById("iframeHere");
-  if (iframeHere) {
-    if (iframeHere.childNodes.length == 0) {
-      let uploadIframe = document.getElementById("uploadIframe");
-      iframeHere.appendChild(uploadIframe);
-      uploadIframe.style.width = "100%";
-      uploadIframe.style.height = "75vh";
-    }
-  }
+  // let iframeHere = document.getElementById("iframeHere");
+  // if (iframeHere) {
+  //   if (iframeHere.childNodes.length == 0) {
+  //     let uploadIframe = document.getElementById("uploadIframe");
+  //     iframeHere.appendChild(uploadIframe);
+  //     uploadIframe.style.width = "100%";
+  //     uploadIframe.style.height = "75vh";
+  //   }
+  // }
 } // end activeListen
 
 function modifyDetail() {

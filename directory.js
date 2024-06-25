@@ -52,7 +52,7 @@ function restartScript() {
       iframeX.innerHTML =
         `<iframe id="uploadIframe" src="https://app.kairoscloud.io/location/` +
         window.location.href.split("/")[5] +
-        `/medias" style="position: absolute; top: 0px; left: 0; width: 20px; height: 20px; border: none;"></iframe>`;
+        `/medias" style="position: absolute; top: 0px; left: 0; width: 1px; height: 1px; border: none;"></iframe>`;
       document.body.appendChild(iframeX);
 
       URLInterval = setInterval(checkIfPageChange, 2000); // repeat every 2 seconds, indefinitely
@@ -157,13 +157,12 @@ function activeListen() {
   // await until HTML has been appended
   let iframeHere = document.getElementById("iframeHere");
   if (iframeHere) {
-    //if ((iframeHere.childNodes.length = 0)) {
-    let uploadIframe = document.getElementById("uploadIframe");
-    iframeHere.appendChild(uploadIframe);
-    //uploadIframe.style.width = "100%";
-    //uploadIframe.style.height = "75vh";
-
-    //}
+    if (iframeHere.childNodes.length == 0) {
+      let uploadIframe = document.getElementById("uploadIframe");
+      iframeHere.appendChild(uploadIframe);
+      uploadIframe.style.width = "100%";
+      uploadIframe.style.height = "75vh";
+    }
   }
 } // end activeListen
 

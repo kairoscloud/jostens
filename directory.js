@@ -293,15 +293,20 @@ try {
     event.preventDefault();
     let cfInner = document.querySelector("body > customform");
     prevCFInner = cfInner.innerHTML;
-    (cfInner.innerHTML = `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Select file</h5><p>Once you're done, copy the link.</p><button type="button" aria-label="Close" onclick="closeUpload()" class="close">↩</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body" style="position: relative; width: 100%; height: 75vh; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 50px; width: 150px; z-index: 10; background-color: #0D2D3F; display: block"></div>
+    cfInner.innerHTML = `<customform><div data-v-4a7d910a="" hide-title="" id="__BVID__310___BV_modal_outer_" style="position: absolute; z-index: 1040;"><div id="__BVID__310" role="dialog" aria-labelledby="__BVID__310___BV_modal_title_" aria-describedby="__BVID__310___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 0px;"><div class="modal-dialog modal-sm"><span tabindex="0"></span><div id="__BVID__310___BV_modal_content_" tabindex="-1" class="modal-content"><header id="__BVID__310___BV_modal_header_" class="modal-header"><h5 id="__BVID__310___BV_modal_title_" class="modal-title"></h5><h5 data-v-4a7d910a="" class="modal-title">Select file</h5><p>Once you're done, copy the link.</p><button type="button" aria-label="Close" onclick="closeUpload()" class="close">↩</button></header><div id="__BVID__310___BV_modal_body_" class="modal-body" style="position: relative; width: 100%; height: 75vh; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 50px; width: 150px; z-index: 10; background-color: #0D2D3F; display: block"></div>
       <span id='iframeHere'></span>
-      </div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`).then(
-      () => {
+      </div><!----></div><span tabindex="0"></span></div></div><div id="__BVID__310___BV_modal_backdrop_" class="modal-backdrop"></div></div></customform>`;
+
+    let formCheckInterval = setInterval(() => {
+      // await until HTML has been appended
+      let iframeHere = document.getElementById("iframeHere");
+      if (iframeHere) {
         let uploadIframe = document.getElementById("uploadIframe");
-        document.getElementById("iframeHere").appendChild(uploadIframe);
+        iframeHere.appendChild(uploadIframe);
         uploadIframe.style.display = "block";
-      },
-    );
+        clearInterval(formCheckInterval);
+      }
+    }, 500);
   }
 
   function closeUpload() {

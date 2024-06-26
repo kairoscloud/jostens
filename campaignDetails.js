@@ -4,9 +4,10 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
     if (
       (document.querySelector("#SubNavPaneHeader > div > div > div").innerText =
         "Campaign Details")
-    )
+    ) {
       clearInterval(checkIfCampaignDetailsInterval);
-    campaignDetails();
+      campaignDetails();
+    }
   }
 }, 3000);
 

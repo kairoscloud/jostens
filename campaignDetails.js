@@ -43,8 +43,8 @@ function campaignDetails() {
   // use case description
 
   let useCaseDescription = document.createElement("span");
-  useCaseDescription.attributes =
-    "id='useCaseDescriptionPopup' style='display: none' ";
+  useCaseDescription.id = "useCaseDescriptionPopup";
+  useCaseDescription.style = "display: none";
   useCaseDescription.innerHTML = `<div
       class="v-binder-follower-content"
       v-placement="bottom-end"

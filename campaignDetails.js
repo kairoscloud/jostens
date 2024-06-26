@@ -29,22 +29,34 @@ function campaignDetails() {
   let popupInsertable = document.createElement("div");
   popupInsertable.className = "v-binder-follower-container";
   popupInsertable.id = "popupInsertable";
-  popupInsertable.style = "z-index: 2000";
+  popupInsertable.style = "z-index: 2001";
   document.body.appendChild(popupInsertable);
 
   // clickable background
 
   let background = document.createElement("div");
-  background.id = "v-binder-view-measurer";
-  background.style =
-    "position: fixed; inset: 0px; pointer-events: none; visibility: hidden;";
+  background.id = "clickableBackground";
+  background.onclick = () => {
+    document.getElementById("clickableBackground").style.display = "none";
+    document.getElementById("useCaseDescriptionPopup").style.display = "none";
+  };
+  background.style = `
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                z-index: 2000;
+    `;
   document.body.appendChild(background);
 
   // use case description
 
   let useCaseDescription = document.createElement("span");
   useCaseDescription.id = "useCaseDescriptionPopup";
-  useCaseDescription.style = "display: none";
+  useCaseDescription.style = "display: none; z-index: 2002;";
   useCaseDescription.innerHTML = `<div
       class="v-binder-follower-content"
       v-placement="bottom-end"
@@ -190,5 +202,6 @@ function campaignDetails() {
 
 function useCaseDescription() {
   alert("Clicked!");
+  document.getElementById("clickableBackground").style.display = "block";
   document.getElementById("useCaseDescriptionPopup").style.display = "block";
 }

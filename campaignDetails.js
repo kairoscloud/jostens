@@ -1,9 +1,14 @@
 let checkIfCampaignDetailsInterval = setInterval(() => {
-  console.log("Listening for campaign details...");
-  if (document.querySelector("#SubNavPaneHeader > div > div > div")) {
+  //console.log("Listening for campaign details...");
+  if (
+    document.querySelector(
+      "#FormMessagingUsecase > div > div.n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item > label > span.n-form-item-label__text",
+    )
+  ) {
     if (
-      (document.querySelector("#SubNavPaneHeader > div > div > div").innerText =
-        "Campaign Details")
+      (document.querySelector(
+        "#FormMessagingUsecase > div > div.n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item > label > span.n-form-item-label__text",
+      ).innerText = "Campaign Use case")
     ) {
       clearInterval(checkIfCampaignDetailsInterval);
       campaignDetails();
@@ -12,5 +17,5 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
 }, 3000);
 
 function campaignDetails() {
-  alert("campaign details detected!");
+  alert("Found campaign details!");
 }

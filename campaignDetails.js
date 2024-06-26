@@ -18,4 +18,12 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
 
 function campaignDetails() {
   alert("Found campaign details!");
+  document
+    .querySelector("#ExampleUsecaseDescription > div > div")
+    .setAttribute("onclick", "test(event)");
+}
+
+function test(event) {
+  event.preventDefault();
+  alert("Clicked!");
 }

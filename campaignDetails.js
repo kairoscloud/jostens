@@ -220,11 +220,7 @@ function useCaseDescription() {
   document.getElementById(
     "useCaseDescriptionPopup",
   ).children[0].style.transform =
-    "transform: translateX(" +
-    x +
-    "px) translateY(" +
-    y +
-    "px) translateX(-100%)";
+    "translateX(" + x + "px) translateY(" + y + "px) translateX(-100%)";
   document.getElementById("clickableBackground").style.display = "block";
   document.getElementById("useCaseDescriptionPopup").style.display = "block";
 }

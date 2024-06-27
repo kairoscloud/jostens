@@ -379,6 +379,7 @@ function copyText(text) {
     // these might not be created yet, so we encapsulate them in a try-block
     document.getElementById("exampleUserConsentPopup").style.display = "none";
     document.getElementById("exampleOptInPopup").style.display = "none";
+    document.getElementById("clickableBackground2").style.display = "block";
   } catch (error) {}
 
   navigator.clipboard.writeText(text);

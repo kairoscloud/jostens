@@ -374,6 +374,13 @@ function copyText(text) {
   document.getElementById("useCaseDescriptionPopup").style.display = "none";
   document.getElementById("sampleMessage1Popup").style.display = "none";
   document.getElementById("sampleMessage2Popup").style.display = "none";
+
+  try {
+    // these might not be created yet, so we encapsulate them in a try-block
+    document.getElementById("exampleUserConsentPopup").style.display = "none";
+    document.getElementById("exampleOptInPopup").style.display = "none";
+  } catch (error) {}
+
   navigator.clipboard.writeText(text);
 }
 

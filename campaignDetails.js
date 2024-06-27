@@ -15,14 +15,19 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
       ).innerText = "Campaign Use case "; // add space
       campaignDetails();
       let checkIfNextPageInterval = setInterval(() => {
-        if (document.querySelector("#SubNavPaneHeader > div > div > div")) {
+        if (
+          document.querySelector(
+            "#FormContactInfo > div > div.forced-gap-1.relative.flex.flex-col > div > label > span.n-form-item-label__text",
+          )
+        ) {
           if (
-            document.querySelector("#SubNavPaneHeader > div > div > div")
-              .innerHTML == "User Consent"
+            document.querySelector(
+              "#FormContactInfo > div > div.forced-gap-1.relative.flex.flex-col > div > label > span.n-form-item-label__text",
+            ).innerHTML == "How do lead/contacts consent to receive messages?"
           ) {
             document.querySelector(
-              "#SubNavPaneHeader > div > div > div",
-            ).innerHTML = "User Consent "; // add space
+              "#FormContactInfo > div > div.forced-gap-1.relative.flex.flex-col > div > label > span.n-form-item-label__text",
+            ).innerHTML = "How do lead/contacts consent to receive messages? "; // add space
             alert("nextpage detected!");
           }
         }
@@ -32,7 +37,7 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
 }, 3000);
 
 function campaignDetails() {
-  alert("Found campaign details!");
+  //alert("Found campaign details!");
 
   // the 3 drop-down menus
 

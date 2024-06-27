@@ -3,7 +3,8 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
   if (
     document.querySelector(
       "#FormMessagingUsecase > div > div.n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item > label > span.n-form-item-label__text",
-    )
+    ) &&
+    document.querySelector(".jostens")
   ) {
     if (
       document.querySelector(

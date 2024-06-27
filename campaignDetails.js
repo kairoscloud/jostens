@@ -226,6 +226,13 @@ function useCaseDescription() {
 }
 
 function sampleMessage1() {
+  let esm = document.querySelector("#ExampleSampleMessage1");
+
+  let x = esm.getBoundingClientRect().x + esm.getBoundingClientRect().width;
+  let y = esm.getBoundingClientRect().y + esm.getBoundingClientRect().height;
+  document.getElementById("sampleMessage1Popup").children[0].style.transform =
+    "translateX(" + x + "px) translateY(" + y + "px) translateX(-100%)";
+
   document.getElementById("clickableBackground").style.display = "block";
   document.getElementById("sampleMessage1Popup").style.display = "block";
 }

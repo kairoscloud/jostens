@@ -397,9 +397,9 @@ function nextPage() {
   // clickable background
 
   let background = document.createElement("div");
-  background.id = "clickableBackground";
+  background.id = "clickableBackground2";
   background.onclick = () => {
-    document.getElementById("clickableBackground").style.display = "none";
+    document.getElementById("clickableBackground2").style.display = "none";
     document.getElementById("exampleUserConsentPopup").style.display = "none";
     // add more here
   };
@@ -522,6 +522,6 @@ function exampleUserConsent() {
   ).children[0].style.transform =
     "translateX(" + x + "px) translateY(" + y + "px) translateX(-100%)";
 
-  document.getElementById("clickableBackground").style.display = "block";
+  document.getElementById("clickableBackground2").style.display = "block";
   document.getElementById("exampleUserConsentPopup").style.display = "block";
 }

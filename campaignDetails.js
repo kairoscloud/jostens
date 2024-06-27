@@ -6,12 +6,27 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
     )
   ) {
     if (
-      (document.querySelector(
+      document.querySelector(
         "#FormMessagingUsecase > div > div.n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item > label > span.n-form-item-label__text",
-      ).innerText = "Campaign Use case")
+      ).innerText == "Campaign Use case"
     ) {
-      clearInterval(checkIfCampaignDetailsInterval);
+      document.querySelector(
+        "#FormMessagingUsecase > div > div.n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item > label > span.n-form-item-label__text",
+      ).innerText = "Campaign Use case "; // add space
       campaignDetails();
+      let checkIfNextPageInterval = setInterval(() => {
+        if (document.querySelector("#SubNavPaneHeader > div > div > div")) {
+          if (
+            document.querySelector("#SubNavPaneHeader > div > div > div")
+              .innerHTML == "User Consent"
+          ) {
+            document.querySelector(
+              "#SubNavPaneHeader > div > div > div",
+            ).innerHTML = "User Consent "; // add space
+            alert("nextpage detected!");
+          }
+        }
+      }, 3000);
     }
   }
 }, 3000);

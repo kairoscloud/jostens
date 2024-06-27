@@ -42,6 +42,8 @@ function campaignDetails() {
   background.onclick = () => {
     document.getElementById("clickableBackground").style.display = "none";
     document.getElementById("useCaseDescriptionPopup").style.display = "none";
+    document.getElementById("sampleMessage1Popup").style.display = "none";
+    // add more here
   };
   background.style = `
                 display: none;

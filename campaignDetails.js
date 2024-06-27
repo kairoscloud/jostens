@@ -213,6 +213,18 @@ function campaignDetails() {
 }
 
 function useCaseDescription() {
+  let eud = document.getElementById("ExampleUsecaseDescription");
+
+  let x = eud.getBoundingClientRect().x + eud.getBoundingClientRect().width;
+  let y = eud.getBoundingClientRect().y + eud.getBoundingClientRect().height;
+  document.getElementById(
+    "useCaseDescriptionPopup",
+  ).children[0].style.transform =
+    "transform: translateX(" +
+    x +
+    "px) translateY(" +
+    y +
+    "px) translateX(-100%)";
   document.getElementById("clickableBackground").style.display = "block";
   document.getElementById("useCaseDescriptionPopup").style.display = "block";
 }

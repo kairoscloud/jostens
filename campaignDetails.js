@@ -35,7 +35,7 @@ let checkIfCampaignDetailsInterval = setInterval(() => {
       }, 3000);
     }
   }
-}, 3000);
+}, 2000);
 
 function campaignDetails() {
   //alert("Found campaign details!");
@@ -512,7 +512,7 @@ function nextPage() {
 }
 
 function exampleUserConsent() {
-  let esm = document.querySelector("#exampleUserConsent");
+  let esm = document.querySelector("#ExampleUserConsent");
 
   let x = esm.getBoundingClientRect().x + esm.getBoundingClientRect().width;
   let y = esm.getBoundingClientRect().y + esm.getBoundingClientRect().height;

@@ -340,7 +340,8 @@ try {
         "school",
         "` +
       document.getElementById("ASCname").value +
-      `"],
+      `"
+      ],
       "customFields": [
               {
                 "key": "school_name",

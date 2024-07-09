@@ -397,7 +397,7 @@ try {
           createContact(accessTokenP, contactP).then(() => {
             createSmartList(
               // create a smart list containing that school contact
-              window.Location.href.split("/")[5],
+              window.location.href.split("/")[5],
               document.getElementById("ASCname").value,
             );
           });

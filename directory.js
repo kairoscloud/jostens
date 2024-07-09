@@ -392,11 +392,15 @@ try {
       .then(() => {
         // after location token acquired, create the contact
         if (accessTokenP == "") {
-          // if still blank
-          // TODO: create new FB entry
           console.log("Location not found in FB!");
         } else {
-          createContact(accessTokenP, contactP);
+          createContact(accessTokenP, contactP).then(() => {
+            createSmartList(
+              // create a smart list containing that school contact
+              window.Location.href.split("/")[5],
+              document.getElementById("ASCname").value,
+            );
+          });
         }
       });
 
@@ -422,6 +426,43 @@ try {
       console.log(data);
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async function createSmartList(SMlocation, SMname) {
+    const owner = "kairoscloud";
+    const repo = "tokenrefresh";
+    const workflow_id = "playwright.yml";
+    const githubToken = globalGitPat;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow_id}/dispatches`;
+    const data = {
+      ref: "main",
+      inputs: {
+        SMlocationID: SMlocation,
+        schoolName: SMname,
+      },
+    };
+    const headers = {
+      Authorization: `Bearer ${githubToken}`,
+      Accept: "application/vnd.github.v3+json",
+      "Content-Type": "application/json",
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      console.log("Workflow triggered successfully");
+    } catch (error) {
+      console.error("Failed to trigger workflow", error.message);
     }
   }
 } catch (error) {}

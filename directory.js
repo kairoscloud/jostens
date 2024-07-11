@@ -161,7 +161,7 @@ function activeListen() {
     // create a new HTML element with the innerHTMl above:
     var formElement = document.createElement("customForm");
     formElement.id = "customFormWrapper";
-    formElement.style.display = "none";
+    formElement.style.display = "block";
     formElement.innerHTML = formHTML;
 
     body.appendChild(formElement);
@@ -294,11 +294,13 @@ try {
   }
 
   function addForm() {
-    document.getElementById("customFormWrapper").style.display = "block";
+    document.getElementById("addFormHTML").style.display = "block";
   }
 
   function closeForm() {
-    document.getElementById("customFormWrapper").style.display = "none";
+    document.getElementById("addFormHTML").style.display = "none";
+    document.getElementById("uploadIframeWindow").style.display = "none";
+    document.getElementById("campaignSettingsHTML").style.display = "none";
   }
 
   function addUploadWindow(event) {

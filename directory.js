@@ -352,7 +352,9 @@ try {
     let contactP =
       `{
       "firstName": "` +
-      document.getElementById("ASCname").value.replace(/'/g, "’") +
+      document
+        .getElementById("ASCname")
+        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
       `",
       "lastName": "",
       "companyName": "Campaign",
@@ -363,14 +365,18 @@ try {
       "tags": [
         "Campaign",
         "` +
-      document.getElementById("ASCname").value.replace(/'/g, "’") +
+      document
+        .getElementById("ASCname")
+        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
       `"
       ],
       "customFields": [
               {
                 "key": "school_name",
                 "field_value": "` +
-      document.getElementById("ASCname").value.replace(/'/g, "’") +
+      document
+        .getElementById("ASCname")
+        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
       `"
               },
               {
@@ -395,7 +401,9 @@ try {
               {
                 "key": "campaign_name",
                 "field_value": "` +
-      document.getElementById("ASCname").value.replace(/'/g, "’") +
+      document
+        .getElementById("ASCname")
+        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
       `"
               },
 
@@ -482,7 +490,7 @@ try {
               window.location.href.split("/")[5],
               document
                 .getElementById("ASCcampaignName")
-                .value.replace(/'/g, "’"),
+                .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’"),
             );
           });
         }

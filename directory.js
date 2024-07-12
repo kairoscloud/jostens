@@ -258,9 +258,9 @@ function addSchoolContactButton() {
         )
         .innerHTML.includes("fa-chevron-circle-left")
     ) {
-      offsetX = 250;
+      offsetX = 255;
     } else {
-      offsetX = 83;
+      offsetX = 88;
     }
     let body = document.querySelector("body");
     let tooltipElem = document.createElement("addSchoolTooltip");
@@ -268,7 +268,7 @@ function addSchoolContactButton() {
     tooltipElem.innerHTML =
       `<div id="__bv_tooltip_167__addSchoolTooltip" role="tooltip" tabindex="-1" data-v-0c055ff2="" class="tooltip b-tooltip bs-tooltip-top" x-placement="top" style="position: absolute; transform: translate3d(` +
       offsetX +
-      `px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 50px;"></div><div class="tooltip-inner">Add Campaign</div></div>`;
+      `px, 141px, 0px); top: 0px; left: 0px; will-change: transform;"><div class="arrow" style="left: 41px;"></div><div class="tooltip-inner">Add Campaign</div></div>`;
     body.append(tooltipElem);
   });
 

@@ -366,7 +366,7 @@ try {
     let contactP =
       `{
       "firstName": "` +
-      document.getElementById("ASCcampaignName").value +
+      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
       `",
       "lastName": "",
       "companyName": "Campaign",
@@ -377,7 +377,7 @@ try {
       "tags": [
         "Campaign",
         "` +
-      document.getElementById("ASCcampaignName").value +
+      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
       `"
       ],
       "customFields": [
@@ -409,7 +409,7 @@ try {
               {
                 "key": "campaign_name",
                 "field_value": "` +
-      document.getElementById("ASCcampaignName").value +
+      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
       `"
               },
 
@@ -494,7 +494,9 @@ try {
             createSmartList(
               // create a smart list containing that school contact
               window.location.href.split("/")[5],
-              document.getElementById("ASCcampaignName").value,
+              document
+                .getElementById("ASCcampaignName")
+                .value.replace(/'/g, "’"),
             );
           });
         }

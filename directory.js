@@ -354,7 +354,8 @@ try {
       "firstName": "` +
       document
         .getElementById("ASCname")
-        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
+        .value.replace(/[\n\r\t\b\f\\\'\"]/g, "’")
+        .replace(/&/g, "＆") +
       `",
       "lastName": "",
       "companyName": "Campaign",
@@ -367,7 +368,8 @@ try {
         "` +
       document
         .getElementById("ASCname")
-        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
+        .value.replace(/[\n\r\t\b\f\\\'\"]/g, "’")
+        .replace(/&/g, "＆") +
       `"
       ],
       "customFields": [
@@ -376,7 +378,8 @@ try {
                 "field_value": "` +
       document
         .getElementById("ASCname")
-        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
+        .value.replace(/[\n\r\t\b\f\\\'\"]/g, "’")
+        .replace(/&/g, "＆") +
       `"
               },
               {
@@ -403,7 +406,8 @@ try {
                 "field_value": "` +
       document
         .getElementById("ASCname")
-        .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’") +
+        .value.replace(/[\n\r\t\b\f\\\'\"]/g, "’")
+        .replace(/&/g, "＆") +
       `"
               },
 
@@ -490,7 +494,8 @@ try {
               window.location.href.split("/")[5],
               document
                 .getElementById("ASCcampaignName")
-                .value.replace(/[\n\r\t\b\f\\\'\"&]/g, "’"),
+                .value.replace(/[\n\r\t\b\f\\\'\"]/g, "’")
+                .replace(/&/g, "＆"),
             );
           });
         }

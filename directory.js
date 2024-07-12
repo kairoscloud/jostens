@@ -236,7 +236,7 @@ function addSchoolContactButton() {
             data-original-title="Add Campaign"
             class="btn btn-light btn-sm">
 
-            <i class="fas fa-school" style="position: relative;left: -1px;"></i>
+            <i class="fas fa-mail-bulk" style="position: relative;left: -1px;"></i>
             </button>
         </span>
 `;
@@ -260,7 +260,7 @@ function addSchoolContactButton() {
     ) {
       offsetX = 255;
     } else {
-      offsetX = 88;
+      offsetX = 91;
     }
     let body = document.querySelector("body");
     let tooltipElem = document.createElement("addSchoolTooltip");

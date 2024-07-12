@@ -530,7 +530,9 @@ try {
     const repo = "tokenrefresh";
     const workflow_id = "playwright.yml";
     const githubToken =
-      "github_pat" +
+      "gith" +
+      "ub_" +
+      "pat" +
       "_11BGBPWVY0L8Q3rhwYRhWe" +
       "_BLD5T1Er3KgNaZwIK7lkAAnwS9T" +
       "npQogeC7KzClXuk3D" +

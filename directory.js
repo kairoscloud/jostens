@@ -313,6 +313,7 @@ try {
     document.getElementById("addFormHTML").style.display = "none";
     document.getElementById("uploadIframeWindow").style.display = "none";
     document.getElementById("campaignSettingsHTML").style.display = "none";
+    document.getElementById("landingPagesHTML").style.display = "none";
   }
 
   function addUploadWindow(event) {
@@ -404,6 +405,63 @@ try {
       document.getElementById("ASClogo").value +
       `"
               },
+
+              {
+                "key": "campaign_name",
+                "field_value": "` +
+      document.getElementById("ASCcampaignName").value +
+      `"
+              },
+
+              {
+                "key": "campaign_start_date",
+                "field_value": "` +
+      document.getElementById("ASCcampaignStartDate").value +
+      `"
+              },
+
+              {
+                "key": "order_due_date",
+                "field_value": "` +
+      document.getElementById("ASCorderDueDate").value +
+      `"
+              },
+
+              {
+                "key": "jostens_website_link",
+                "field_value": "` +
+      document.getElementById("ASCjostensWebsiteLink").value +
+      `"
+              },
+
+              {
+                "key": "landing_page_1",
+                "field_value": "` +
+      document.getElementById("ASClandingPage1").value +
+      `"
+              },
+
+              {
+                "key": "landing_page_2",
+                "field_value": "` +
+      document.getElementById("ASClandingPage2").value +
+      `"
+              },
+
+              {
+                "key": "landing_page_3",
+                "field_value": "` +
+      document.getElementById("ASClandingPage3").value +
+      `"
+              },
+
+              {
+                "key": "landing_page_4",
+                "field_value": "` +
+      document.getElementById("ASClandingPage4").value +
+      `"
+              },
+
               {
                 "key": "last_updated",
                 "field_value": "` +
@@ -431,13 +489,14 @@ try {
         if (accessTokenP == "") {
           console.log("Location not found in FB!");
         } else {
-          createContact(accessTokenP, contactP).then(() => {
-            createSmartList(
-              // create a smart list containing that school contact
-              window.location.href.split("/")[5],
-              document.getElementById("ASCname").value,
-            );
-          });
+          createContact(accessTokenP, contactP);
+          // createContact(accessTokenP, contactP).then(() => {
+          //   createSmartList(
+          //     // create a smart list containing that school contact
+          //     window.location.href.split("/")[5],
+          //     document.getElementById("ASCname").value,
+          //   );
+          // });
         }
       });
 

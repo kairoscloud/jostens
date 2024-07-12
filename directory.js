@@ -489,14 +489,14 @@ try {
         if (accessTokenP == "") {
           console.log("Location not found in FB!");
         } else {
-          createContact(accessTokenP, contactP);
-          // createContact(accessTokenP, contactP).then(() => {
-          //   createSmartList(
-          //     // create a smart list containing that school contact
-          //     window.location.href.split("/")[5],
-          //     document.getElementById("ASCcampaignName").value,
-          //   );
-          // });
+          //createContact(accessTokenP, contactP);
+          createContact(accessTokenP, contactP).then(() => {
+            createSmartList(
+              // create a smart list containing that school contact
+              window.location.href.split("/")[5],
+              document.getElementById("ASCcampaignName").value,
+            );
+          });
         }
       });
 

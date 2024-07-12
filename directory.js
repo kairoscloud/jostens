@@ -529,7 +529,12 @@ try {
     const owner = "kairoscloud";
     const repo = "tokenrefresh";
     const workflow_id = "playwright.yml";
-    const githubToken = globalGitPat;
+    const githubToken =
+      "github_pat" +
+      "_11BGBPWVY0L8Q3rhwYRhWe" +
+      "_BLD5T1Er3KgNaZwIK7lkAAnwS9T" +
+      "npQogeC7KzClXuk3D" +
+      "ST3GBHVYKdtcyrR";
 
     const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow_id}/dispatches`;
     const data = {

@@ -366,7 +366,7 @@ try {
     let contactP =
       `{
       "firstName": "` +
-      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
+      document.getElementById("ASCname").value.replace(/'/g, "′") +
       `",
       "lastName": "",
       "companyName": "Campaign",
@@ -377,14 +377,14 @@ try {
       "tags": [
         "Campaign",
         "` +
-      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
+      document.getElementById("ASCname").value.replace(/'/g, "′") +
       `"
       ],
       "customFields": [
               {
                 "key": "school_name",
                 "field_value": "` +
-      document.getElementById("ASCname").value +
+      document.getElementById("ASCname").value.replace(/'/g, "′") +
       `"
               },
               {
@@ -409,7 +409,7 @@ try {
               {
                 "key": "campaign_name",
                 "field_value": "` +
-      document.getElementById("ASCcampaignName").value.replace(/'/g, "’") +
+      document.getElementById("ASCname").value.replace(/'/g, "′") +
       `"
               },
 

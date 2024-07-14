@@ -182,6 +182,15 @@ function modifyDetail() {
     base[9].style.display = "none"; // hide "contact"
     base[10].style.display = "none"; // hide "general info"
     base[11].style.display = "none"; // hide "additional info"
+
+    // modify the campaign manager button
+    document.getElementById("id-415645").onclick = window.open(
+      "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
+        window.location.href.split("/")[5] + // get the location ID
+        "#" +
+        window.location.href.split("/")[8], // get the contact ID
+      "_blank", // open in new tab
+    );
   }
 }
 

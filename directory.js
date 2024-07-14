@@ -184,7 +184,7 @@ function modifyDetail() {
     base[11].style.display = "none"; // hide "additional info"
 
     // modify the campaign manager button
-    if (document.getElementById("id-415645")) {
+    if (document.getElementById("id-415645") != (null || undefined)) {
       document.getElementById("id-415645").onclick = window.open(
         "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
           window.location.href.split("/")[5] + // get the location ID

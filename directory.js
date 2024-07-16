@@ -171,8 +171,8 @@ function activeListen() {
 } // end activeListen
 
 function modifyDetail() {
-  let docContactName = document.querySelectorAll(
-    ".text-sm.font-medium.text-gray-700.\\!text-\\[\\#188bf6\\].grow",
+  let docContactName = document.getElementById(
+    "button_1720537206973",
   ).innerText;
 
   if (docContactName == "Campaign Settings" || docContactName == null) {
@@ -189,8 +189,9 @@ function modifyDetail() {
       "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
         window.location.href.split("/")[5] + // get the location ID
         "#" +
-        window.location.href.split("/")[8], // get the contact ID
-      "_blank", // open in new tab
+        window.location.href.split("/")[8] + // get the contact ID
+        "#" +
+        "_blank", // open in new tab
     );
   }
 }

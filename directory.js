@@ -175,7 +175,7 @@ function modifyDetail() {
     'button[data-id="button_1720537206973"]',
   ).innerText;
 
-  if (docContactName == "Campaign Settings" || docContactName == null) {
+  if (docContactName == " Manage Campaign" || docContactName == null) {
     let base = document.querySelector(
       "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
     ).childNodes;
@@ -189,17 +189,18 @@ function modifyDetail() {
 
     // modify the campaign manager button
 
-    document.getElementById("id-415645").onclick = window.open(
-      "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
-        window.location.href.split("/")[5] + // get the location ID
-        "#" +
-        window.location.href.split("/")[8] + // get the contact ID
-        "#" +
-        document.querySelector(
-          "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
-        ).value, // get the contact name, which we'll use as the tag
-      "_blank", // open in new tab
-    );
+    document.querySelector('button[data-id="button_1720537206973"]').onclick =
+      window.open(
+        "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
+          window.location.href.split("/")[5] + // get the location ID
+          "#" +
+          window.location.href.split("/")[8] + // get the contact ID
+          "#" +
+          document.querySelector(
+            "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
+          ).value, // get the contact name, which we'll use as the tag
+        "_blank", // open in new tab
+      );
   }
 }
 

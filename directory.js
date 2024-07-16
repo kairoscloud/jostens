@@ -171,11 +171,11 @@ function activeListen() {
 } // end activeListen
 
 function modifyDetail() {
-  let docContactName = document.querySelector(
-    'button[data-id="button_1720537206973"]',
-  ).innerText;
+  let docContactName = Array.from(
+    document.querySelectorAll('button[data-id="button_1720537206973"]'),
+  ).find((btn) => btn.innerText === " Manage Campaign");
 
-  if (docContactName == " Manage Campaign" || docContactName == null) {
+  if (docContactName !== undefined) {
     let base = document.querySelector(
       "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
     ).childNodes;

@@ -430,6 +430,13 @@ try {
               },
 
               {
+                "key": "campaign_status",
+                "field_value": "` +
+      "Scheduled" +
+      `"
+              },
+
+              {
                 "key": "order_due_date",
                 "field_value": "` +
       document.getElementById("ASCorderDueDate").value +

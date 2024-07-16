@@ -171,7 +171,9 @@ function activeListen() {
 } // end activeListen
 
 function modifyDetail() {
-  let docContactName = document.querySelector("#id-524959").innerText;
+  let docContactName = document.querySelector(
+    'button[data-id="button_1720537206973"]',
+  ).innerText;
 
   if (docContactName == "Campaign Settings" || docContactName == null) {
     let base = document.querySelector(

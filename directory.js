@@ -171,9 +171,7 @@ function activeListen() {
 } // end activeListen
 
 function modifyDetail() {
-  let docContactName = document.getElementById(
-    "button_1720537206973",
-  ).innerText;
+  let docContactName = document.querySelector("#id-524959").innerText;
 
   if (docContactName == "Campaign Settings" || docContactName == null) {
     let base = document.querySelector(
@@ -183,6 +181,10 @@ function modifyDetail() {
     base[10].style.display = "none"; // hide "general info"
     base[11].style.display = "none"; // hide "additional info"
 
+    document.querySelector(
+      "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2) > div > div > nav > span.text-center.whitespace-nowrap.py-2\\.5.px-1.border-b-2.font-medium.text-sm.capitalize.w-1\\/2.cursor-pointer.border-transparent.text-gray-500.hover\\:text-gray-700.hover\\:border-gray-300",
+    ).style.display = "none"; // hide "company" tab
+
     // modify the campaign manager button
 
     document.getElementById("id-415645").onclick = window.open(
@@ -191,7 +193,10 @@ function modifyDetail() {
         "#" +
         window.location.href.split("/")[8] + // get the contact ID
         "#" +
-        "_blank", // open in new tab
+        document.querySelector(
+          "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
+        ).value, // get the contact name, which we'll use as the tag
+      "_blank", // open in new tab
     );
   }
 }

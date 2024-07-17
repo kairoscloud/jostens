@@ -135,12 +135,15 @@ function activeListen() {
 
   // if in "detail" window of contact...
   // remove the unwanted fields for school contacts (contact, general info, additional info)
-  if (
-    document.querySelector(
-      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
-    )
-  ) {
-    //modifyDetail();
+  //
+  let businessName = document.querySelector(
+    "#contact\\.company_name > div.hl-text-input-container.contact\\.company_name > div.relative.rounded-md.shadow-sm > input",
+  );
+
+  if (businessName) {
+    if (businessName.value == "Campaign") {
+      modifyDetail();
+    }
   }
 
   if (!document.getElementById("customFormWrapper")) {
@@ -172,11 +175,12 @@ function activeListen() {
 
 function modifyDetail() {
   console.log("ModifyDetail found!");
-  let docContactName = Array.from(
+  let campaignManagerButton = Array.from(
     document.querySelectorAll('button[data-id="button_1720537206973"]'),
   ).find((btn) => btn.innerText === " Manage Campaign");
 
-  if (docContactName) {
+  if (campaignManagerButton) {
+    campaignManagerButton.innerText = "Campaign Manager"; // we correct it so that it won't try modifying it twice
     let base = document.querySelector(
       "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
     ).childNodes;

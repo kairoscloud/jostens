@@ -142,7 +142,7 @@ function activeListen() {
 
   if (businessName) {
     if (businessName.value == "Campaign") {
-      //modifyDetail();
+      modifyDetail();
     }
   }
 
@@ -196,7 +196,7 @@ function modifyDetail() {
 
         // modify the campaign manager button
 
-        docContactName.onclick = window.open(
+        campaignManagerButton.onclick = window.open(
           "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
             window.location.href.split("/")[5] + // get the location ID
             "#" +

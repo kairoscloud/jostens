@@ -142,7 +142,7 @@ function activeListen() {
 
   if (businessName) {
     if (businessName.value == "Campaign") {
-      modifyDetail();
+      //modifyDetail();
     }
   }
 

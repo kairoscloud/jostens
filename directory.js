@@ -177,7 +177,7 @@ function modifyDetail() {
   console.log("ModifyDetail found!");
   let campaignManagerButton = Array.from(
     document.querySelectorAll('button[data-id="button_1720537206973"]'),
-  ).find((btn) => btn.innerText === " Manage Campaign");
+  ).find((btn) => btn.innerText == " Manage Campaign");
 
   if (campaignManagerButton) {
     console.log("Modifying!");
@@ -201,22 +201,26 @@ function modifyDetail() {
           "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2) > div > div > nav > span.text-center.whitespace-nowrap.py-2\\.5.px-1.border-b-2.font-medium.text-sm.capitalize.w-1\\/2.cursor-pointer.border-transparent.text-gray-500.hover\\:text-gray-700.hover\\:border-gray-300",
         ).style.display = "none"; // hide "company" tab
 
-        // modify the campaign manager button
-
-        campaignManagerButton.onclick = window.open(
-          "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
-            window.location.href.split("/")[5] + // get the location ID
-            "#" +
-            window.location.href.split("/")[8] + // get the contact ID
-            "#" +
-            document.querySelector(
-              "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
-            ).value, // get the contact name, which we'll use as the tag
-          "_blank", // open in new tab
-        );
         modified = true;
-        campaignManagerButton.innerText = " Manage Campaign "; // we correct it so that it won't try modifying it twice
       } catch (e) {}
+    }
+
+    if (modified == true) {
+      // modify the campaign manager button
+
+      campaignManagerButton.onclick = window.open(
+        "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
+          window.location.href.split("/")[5] + // get the location ID
+          "#" +
+          window.location.href.split("/")[8] + // get the contact ID
+          "#" +
+          document.querySelector(
+            "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
+          ).value, // get the contact name, which we'll use as the tag
+        "_blank", // open in new tab
+      );
+      modified = true;
+      campaignManagerButton.innerText = " Manage Campaign "; // we correct it so that it won't try modifying it twice
     }
   }
 }

@@ -192,7 +192,7 @@ function modifyDetail() {
     base[11].style.display = "none"; // hide "additional info"
 
     document.querySelector(
-      "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2) > div > div > nav > span.text-center.whitespace-nowrap.py-2\\.5.px-1.border-b-2.font-medium.text-sm.capitalize.w-1\\/2.cursor-pointer.border-transparent.text-gray-500.hover\\:text-gray-700.hover\\:border-gray-300",
+      "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
     ).style.display = "none"; // hide "company" tab
     // modify the campaign manager button
     document.querySelector('[data-id="button_1720537206973"]').onclick = () =>

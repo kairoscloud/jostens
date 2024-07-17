@@ -171,11 +171,12 @@ function activeListen() {
 } // end activeListen
 
 function modifyDetail() {
+  console.log("ModifyDetail found!");
   let docContactName = Array.from(
     document.querySelectorAll('button[data-id="button_1720537206973"]'),
   ).find((btn) => btn.innerText === " Manage Campaign");
 
-  if (docContactName !== undefined) {
+  if (docContactName) {
     let base = document.querySelector(
       "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",
     ).childNodes;

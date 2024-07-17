@@ -140,7 +140,7 @@ function activeListen() {
       "#contact-details > div > div.relative.p-0.hl_contact-details-left > div > div.absolute.top-0.left-0.w-full.bg-white.z-\\[999\\] > div:nth-child(2)",
     )
   ) {
-    modifyDetail();
+    //modifyDetail();
   }
 
   if (!document.getElementById("customFormWrapper")) {

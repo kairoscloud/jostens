@@ -23,7 +23,7 @@ function restartScript() {
   let checkInterval = setInterval(testIfLoaded, 100);
 
   function testIfLoaded() {
-    console.log("Checking if loaded");
+    //console.log("Checking if loaded");
 
     var lastElement = document.querySelector(
       "#smartlists > div.hl_controls.hl_smartlists--controls > div.hl_controls--left > span.bulk-actions-list > span:nth-child(14)",
@@ -59,7 +59,7 @@ function restartScript() {
 }
 
 function activeListen() {
-  console.log("Listening"); // uncomment when testing
+  //console.log("Listening"); // uncomment when testing
 
   if (!allowedLocation()) {
     throw new Error("Not allowed location. Stopping script. Ignore me!");

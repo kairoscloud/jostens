@@ -181,7 +181,12 @@ function modifyDetail() {
 
   if (campaignManagerButton) {
     let modified = false;
+    let iterations = 0;
     while (modified == false) {
+      if (iterations == 100) {
+        modified = true;
+      }
+      iterations++;
       try {
         let base = document.querySelector(
           "#contact-details > div.hl_contact-details-new--wrap > div.relative.p-0.hl_contact-details-left > div > div.h-full.overflow-y-auto.search-container",

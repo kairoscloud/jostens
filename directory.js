@@ -177,7 +177,7 @@ function modifyDetail() {
   console.log("ModifyDetail found!");
   let campaignManagerButton = Array.from(
     document.querySelectorAll('button[data-id="button_1720537206973"]'),
-  ).find((btn) => btn.innerText == " Manage Campaign");
+  ).find((btn) => btn.innerText === " Manage Campaign");
 
   if (campaignManagerButton) {
     console.log("Modifying!");
@@ -205,23 +205,21 @@ function modifyDetail() {
       } catch (e) {}
     }
 
-    if (modified == true) {
-      // modify the campaign manager button
-
-      campaignManagerButton.onclick = window.open(
-        "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
-          window.location.href.split("/")[5] + // get the location ID
-          "#" +
-          window.location.href.split("/")[8] + // get the contact ID
-          "#" +
-          document.querySelector(
-            "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
-          ).value, // get the contact name, which we'll use as the tag
-        "_blank", // open in new tab
-      );
-      modified = true;
-      campaignManagerButton.innerText = " Manage Campaign "; // we correct it so that it won't try modifying it twice
-    }
+    // if (modified == true) {
+    //   // modify the campaign manager button
+    //   campaignManagerButton.onclick = window.open(
+    //     "https://app.kairoscloud.io/v2/preview/mm3gWvA4HHdA2hiQMHFt?notrack=true#" +
+    //       window.location.href.split("/")[5] + // get the location ID
+    //       "#" +
+    //       window.location.href.split("/")[8] + // get the contact ID
+    //       "#" +
+    //       document.querySelector(
+    //         "#contact\\.first_name > div.hl-text-input-container.contact\\.first_name > div.relative.rounded-md.shadow-sm > input",
+    //       ).value, // get the contact name, which we'll use as the tag
+    //     "_blank", // open in new tab
+    //   );
+    //   campaignManagerButton.innerText = " Manage Campaign "; // we correct it so that it won't try modifying it twice
+    // }
   }
 }
 

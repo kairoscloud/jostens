@@ -180,8 +180,10 @@ function modifyDetail() {
   ).find((btn) => btn.innerText === " Manage Campaign");
 
   if (campaignManagerButton) {
+    console.log("Modifying!");
     let modified = false;
     let iterations = 0;
+
     while (modified == false) {
       if (iterations == 100) {
         modified = true;

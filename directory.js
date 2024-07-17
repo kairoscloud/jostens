@@ -175,9 +175,9 @@ function activeListen() {
 
 function modifyDetail() {
   console.log("ModifyDetail found!");
-  let campaignManagerButton = Array.from(
-    document.querySelectorAll('button[data-id="button_1720537206973"]'),
-  ).find((btn) => btn.innerText === " Manage Campaign");
+  let campaignManagerButton = document.querySelector(
+    '[data-id="button_1720537206973"]',
+  );
 
   if (
     campaignManagerButton && // if exists

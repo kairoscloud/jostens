@@ -1,11 +1,12 @@
-console.log("CONTACTS LOADED!");
-let cScript_ver = 0;
+let cScript_ver = 1;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autoclicks "ok, proceed"
 //  - Hides the action label/field
 //  - Hides each of the toolbar elements (5 total)
 //  - Autofills the search field with whatever query is passed through the URL
+// To-do:
+// - todo
 // This script takes the place of the old directory.js
 // Runs on https://app.kairoscloud.io/v2/location/*/contacts/smart_list/All
 // Loads from (github link here)
@@ -24,8 +25,21 @@ active[cScript_id] = Date.now();
 // called on initialization or restart
 main_contacts();
 function main_contacts() {
-  // global variables we're resetting
-  console.log("main called!");
+  waitForElement("#sidebar-v2", function (element) {
+    console.log("Element found:", element);
+  });
+}
+
+function waitForElement(query, callback) {
+  const checkElement = () => {
+    const element = document.querySelector(query);
+    if (element) {
+      callback(element);
+    } else {
+      requestAnimationFrame(checkElement);
+    }
+  };
+  checkElement();
 }
 
 //// End global scope ////

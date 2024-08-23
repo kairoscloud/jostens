@@ -1,11 +1,11 @@
-let cScript_ver = 15;
+let cScript_ver = 16;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
+//  - Hide the action label/field
 // To-do:
-//  - Autoclicks "ok, proceed"
-//  - Hides the action label/field
-//  - Hides each of the toolbar elements (5 total)
+//  - Autoclick "ok, proceed"
+//  - Hide each of the toolbar elements (5 total)
 // This script takes the place of the old directory.js
 // Runs on https://app.kairoscloud.io/v2/location/*/contacts/smart_list/All
 // Loads from (github link here)
@@ -74,6 +74,14 @@ function main_contacts() {
   waitForElement("#info", true, function (element) {
     element.style.display = "none";
   });
+
+  waitForElement(
+    "#__BVID__331___BV_modal_body_ > div > div > div.card > div.modal-buttons.d-flex.align-items-center.justify-content-between.px-2 > div > button",
+    true,
+    function (element) {
+      element.click();
+    },
+  );
 }
 
 function waitForElement(query, continuous, callback) {

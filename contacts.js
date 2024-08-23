@@ -1,4 +1,4 @@
-let cScript_ver = 11;
+let cScript_ver = 12;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -39,6 +39,7 @@ function main_contacts() {
   if (window.location.href.includes("?search=")) {
     waitForElement(
       ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
+      false,
       function (element) {
         // extract the query from the URL (?search=)
         let query = new URLSearchParams(window.location.search).get("search");
@@ -50,27 +51,32 @@ function main_contacts() {
     );
   }
 
-  waitForElement(".n-input__input-el", function (element) {
-    // autofill & hide action field
-    element.value = " ";
+  waitForElement(".n-input__input-el", true, function (element) {
+    // autofill the action field
+    element.value = "null";
     element.dispatchEvent(new Event("input", { bubbles: true }));
-    element.style.display = "none";
   });
 
-  // hide the action label
-  waitForElement(".n-form-item-label__text", function (element) {
-    element.style.display = "none";
-  });
+  // hide the action label + field
+  waitForElement(
+    ".n-form-item.n-form-item--medium-size.n-form-item--top-labelled.hl-form-item",
+    true,
+    function (element) {
+      element.style.display = "none";
+    },
+  );
 }
 
-function waitForElement(query, callback) {
+function waitForElement(query, continuous, callback) {
   console.log("Listening for element '" + query + "'...");
   const observer = new MutationObserver(() => {
     const element = document.querySelector(query);
     // if exists, and if not already modified
     if (element && !element.hasAttribute("cScriptModified")) {
       element.setAttribute("cScriptModified", true); // mark as modified
-      observer.disconnect();
+      if (!continuous) {
+        observer.disconnect();
+      }
       console.log("Found element '" + query + "'");
       callback(element); // call the callback function with found element as arg
     }
@@ -82,7 +88,9 @@ function waitForElement(query, callback) {
   const element = document.querySelector(query);
   if (element && !element.hasAttribute("cScriptModified")) {
     element.setAttribute("cScriptModified", true);
-    observer.disconnect();
+    if (!continuous) {
+      observer.disconnect();
+    }
     console.log("Found element '" + query + "'");
     callback(element);
   }

@@ -1,4 +1,4 @@
-let cScript_ver = 7;
+let cScript_ver = 9;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -11,7 +11,6 @@ let cScript_ver = 7;
 // Loads from (github link here)
 // Jacob Westra – jacob@thekairosmedia.com
 
-//// Begin global scope ////
 let cScript_id = "contacts"; // autoload form id later
 let cScript_hash = hash(document.currentScript.textContent).substring(4); // last 4 hex digits of hash
 console.log(cScript_id + " v" + cScript_ver + "-" + cScript_hash); // format: id v00-ffff
@@ -22,29 +21,31 @@ active[cScript_id] = Date.now();
 // all variables will be reset when main is called again
 
 // called on initialization or restart
-let sbox = "";
 main_contacts();
 function main_contacts() {
-  waitForElement(
-    ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
-    function (element) {
-      sbox = element;
-      // extract the query from the URL (?search=)
-      let query = new URLSearchParams(window.location.search).get("search");
-      console.log("Searchbox found. Autofilling with '" + query + "'");
-      element.value = query; // autofill the search field
-      // we trigger the "input" event
-      element.dispatchEvent(new Event("input", { bubbles: true }));
-    },
-  );
+  if (window.location.href.includes("?search=")) {
+    waitForElement(
+      ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
+      function (element) {
+        // extract the query from the URL (?search=)
+        let query = new URLSearchParams(window.location.search).get("search");
+        console.log("Searchbox found. Autofilling with '" + query + "'");
+        element.value = query; // autofill the search field
+        // we trigger the "input" event
+        element.dispatchEvent(new Event("input", { bubbles: true }));
+      },
+    );
+  }
 }
 
 function waitForElement(query, callback) {
+  console.log("Listening for element '" + query + "'...");
   const observer = new MutationObserver(() => {
     const element = document.querySelector(query);
     if (element && !element.hasAttribute("cScriptModified")) {
       element.setAttribute("cScriptModified", true);
       observer.disconnect();
+      console.log("Found element '" + query + "'");
       callback(element);
     }
   });
@@ -56,8 +57,7 @@ function waitForElement(query, callback) {
   if (element && !element.hasAttribute("cScriptModified")) {
     element.setAttribute("cScriptModified", true);
     observer.disconnect();
+    console.log("Found element '" + query + "'");
     callback(element);
   }
 }
-
-//// End global scope ////

@@ -1,4 +1,4 @@
-let cScript_ver = 5;
+let cScript_ver = 6;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -22,9 +22,9 @@ active[cScript_id] = Date.now();
 // all variables will be reset when main is called again
 
 // called on initialization or restart
+let sbox = "";
 main_contacts();
 function main_contacts() {
-  let sbox = "";
   waitForElement(
     ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
     function (element) {

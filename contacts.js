@@ -1,4 +1,4 @@
-let cScript_ver = 2;
+let cScript_ver = 3;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autoclicks "ok, proceed"
@@ -25,15 +25,19 @@ active[cScript_id] = Date.now();
 // called on initialization or restart
 main_contacts();
 function main_contacts() {
-  waitForElement("#sidebar-v2", function (element) {
-    console.log("Element found:", element);
-  });
+  waitForElement(
+    ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
+    function (element) {
+      element.value = "autofilled!";
+    },
+  );
 }
 
 function waitForElement(query, callback) {
   const observer = new MutationObserver(() => {
     const element = document.querySelector(query);
-    if (element) {
+    if (element && !element.hasAttribute("cScriptModified")) {
+      element.setAttribute("cScriptModified", true);
       observer.disconnect();
       callback(element);
     }
@@ -43,7 +47,8 @@ function waitForElement(query, callback) {
 
   // Initial check in case the element is already present
   const element = document.querySelector(query);
-  if (element) {
+  if (element && !element.hasAttribute("cScriptModified")) {
+    element.setAttribute("cScriptModified", true);
     observer.disconnect();
     callback(element);
   }

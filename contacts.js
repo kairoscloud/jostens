@@ -1,3 +1,4 @@
+console.log("CONTACTS LOADED!");
 let cScript_ver = 0;
 // The Kairos Cloud contacts custom script
 // What does it do?

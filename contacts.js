@@ -1,11 +1,16 @@
-let cScript_ver = 17;
+let cScript_ver = 18;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
-//  - Hide the action label/field
+//  - Autofills & hides the action label/field
+//  - Autoclicks "ok, proceed"
 // To-do:
-//  - Autoclick "ok, proceed"
 //  - Hide each of the toolbar elements (5 total)
+//    - pipeline change
+//    - Send review requests
+//    - Email verification
+//    - Add/edit to company
+//    - Merge up to 10 contacts
 // This script takes the place of the old directory.js
 // Runs on https://app.kairoscloud.io/v2/location/*/contacts/smart_list/All
 // Loads from (github link here)
@@ -75,11 +80,27 @@ function main_contacts() {
     element.style.display = "none";
   });
 
+  // autoclick the "ok, proceed" button
   waitForElement(
     ".hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
     true,
     function (element) {
       element.click();
+    },
+  );
+
+  hideToolbarElement('Pipeline Change');
+  hideToolbarElement('Send Review Requests');
+  hideToolbarElement('Email Verification');
+  hideToolbarElement('Add/Edit to Company');
+  hideToolbarElement('Merge up to 10 Contacts');
+
+function hideToolbarElement(title) {
+  waitForElement(
+    'span[data-tooltip="tooltip"][data-placement="top"][title="' + title + '"]',
+    false,
+    function (element) {
+      element.style.display = "none";
     },
   );
 }

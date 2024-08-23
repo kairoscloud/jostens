@@ -1,4 +1,4 @@
-let cScript_ver = 25;
+let cScript_ver = 26;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -90,14 +90,14 @@ function main_contacts() {
     },
   );
 
-  // // hide the action label + field
-  // waitForElement(
-  //   "#bulk-action-form > div:nth-child(5)",
-  //   true,
-  //   function (element) {
-  //     element.style.display = "none";
-  //   },
-  // );
+  // hide the action label + field
+  waitForElement(
+    "#bulk-action-form > div:nth-child(5)",
+    true,
+    function (element) {
+      element.style.display = "none";
+    },
+  );
 
   // hide the info/warning box ("Please note the actions will be performed over a period of time...")
   waitForElement("#info", true, function (element) {

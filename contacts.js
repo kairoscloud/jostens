@@ -1,4 +1,4 @@
-let cScript_ver = 9;
+let cScript_ver = 10;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -23,6 +23,14 @@ active[cScript_id] = Date.now();
 // called on initialization or restart
 main_contacts();
 function main_contacts() {
+  let activeUpdateIntv = setInterval(() => {
+    active[cScript_id] = Date.now();
+    if (stop[cScript_id]) {
+      clearInterval(activeUpdateIntv);
+      console.log(cScript_id + " stopped!");
+    }
+  }, 2000);
+
   if (window.location.href.includes("?search=")) {
     waitForElement(
       ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
@@ -42,11 +50,12 @@ function waitForElement(query, callback) {
   console.log("Listening for element '" + query + "'...");
   const observer = new MutationObserver(() => {
     const element = document.querySelector(query);
+    // if exists, and if not already modified
     if (element && !element.hasAttribute("cScriptModified")) {
-      element.setAttribute("cScriptModified", true);
+      element.setAttribute("cScriptModified", true); // mark as modified
       observer.disconnect();
       console.log("Found element '" + query + "'");
-      callback(element);
+      callback(element); // call the callback function with found element as arg
     }
   });
 

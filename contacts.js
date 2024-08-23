@@ -1,4 +1,4 @@
-let cScript_ver = 1;
+let cScript_ver = 2;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autoclicks "ok, proceed"
@@ -31,15 +31,22 @@ function main_contacts() {
 }
 
 function waitForElement(query, callback) {
-  const checkElement = () => {
+  const observer = new MutationObserver(() => {
     const element = document.querySelector(query);
     if (element) {
+      observer.disconnect();
       callback(element);
-    } else {
-      requestAnimationFrame(checkElement);
     }
-  };
-  checkElement();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Initial check in case the element is already present
+  const element = document.querySelector(query);
+  if (element) {
+    observer.disconnect();
+    callback(element);
+  }
 }
 
 //// End global scope ////

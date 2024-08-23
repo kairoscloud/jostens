@@ -1,4 +1,4 @@
-let cScript_ver = 10;
+let cScript_ver = 11;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -23,6 +23,9 @@ active[cScript_id] = Date.now();
 // called on initialization or restart
 main_contacts();
 function main_contacts() {
+  // this is just protocol as defined by the script loader
+  // it's not necessary for the functionality of the rest of the script
+  // it's just a way to keep track of the script's status
   let activeUpdateIntv = setInterval(() => {
     active[cScript_id] = Date.now();
     if (stop[cScript_id]) {
@@ -31,6 +34,8 @@ function main_contacts() {
     }
   }, 2000);
 
+  // autofill the search field with the query from the URL
+  // GHL should honestly have this feature built in
   if (window.location.href.includes("?search=")) {
     waitForElement(
       ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
@@ -44,6 +49,18 @@ function main_contacts() {
       },
     );
   }
+
+  waitForElement(".n-input__input-el", function (element) {
+    // autofill & hide action field
+    element.value = " ";
+    element.dispatchEvent(new Event("input", { bubbles: true }));
+    element.style.display = "none";
+  });
+
+  // hide the action label
+  waitForElement(".n-form-item-label__text", function (element) {
+    element.style.display = "none";
+  });
 }
 
 function waitForElement(query, callback) {

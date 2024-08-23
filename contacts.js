@@ -1,4 +1,4 @@
-let cScript_ver = 6;
+let cScript_ver = 7;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
@@ -29,16 +29,12 @@ function main_contacts() {
     ".hl-text-input.shadow-sm.focus\\:ring-curious-blue-500.focus\\:border-curious-blue-500.block.w-full.sm\\:text-sm.border-gray-300.rounded.disabled\\:opacity-50.text-gray-800.form-light",
     function (element) {
       sbox = element;
-      element.value = "autofilled!"; // autofill the search field
-      // we press "enter" to search
-      const event = new KeyboardEvent("keydown", {
-        key: "Enter",
-        code: "Enter",
-        keyCode: 13, // 'Enter' key code
-        which: 13,
-        bubbles: true, // Allows the event to bubble up the DOM
-      });
-      element.dispatchEvent(event);
+      // extract the query from the URL (?search=)
+      let query = new URLSearchParams(window.location.search).get("search");
+      console.log("Searchbox found. Autofilling with '" + query + "'");
+      element.value = query; // autofill the search field
+      // we trigger the "input" event
+      element.dispatchEvent(new Event("input", { bubbles: true }));
     },
   );
 }

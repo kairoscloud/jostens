@@ -1,2607 +1,957 @@
-<title>Campaign Manager DEMO | Kairos Cloud</title>
-<html>
-    <head>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script src="https://kairoscloud.github.io/main/globalFirebase.js"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-            rel="stylesheet"
-        />
-        <style>
-            .linkContainer {
-                width: 100%;
-                height: 100%;
-                border: none;
-                opacity: 1;
-                animation: linkContainerAppear 1s ease;
-            }
-
-            @keyframes linkContainerAppear {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-
-            .expandLPBox {
-                height: 20em;
-                animation: expandLPBoxEffect 0.4s ease;
-            }
-
-            @keyframes expandLPBoxEffect {
-                from {
-                    height: 2.9em;
-                }
-                to {
-                    height: 20em;
-                }
-            }
-
-            .contractLPBox {
-                height: 1.1em;
-                align-items: flex-start !important;
-                animation: contractLPBoxEffect 0.4s ease;
-            }
-
-            @keyframes contractLPBoxEffect {
-                from {
-                    height: 20em;
-                }
-                to {
-                    height: 2.9em;
-                }
-            }
-
-            .clickableLink {
-                cursor: pointer;
-                color: #0c3d6d;
-                font-size: 10pt;
-                margin-top: 10px;
-            }
-
-            .unclickableLink {
-                cursor: not-allowed;
-                color: #a0a0a0;
-                font-size: 10pt;
-                margin-top: 10px;
-                margin-bottom: -10px;
-            }
-
-            ::-webkit-scrollbar {
-                width: 8px; /* Adjust the width as needed */
-            }
-
-            ::-webkit-scrollbar-track {
-                background: transparent; /* Make the track transparent */
-            }
-
-            /* Style the scrollbar thumb */
-            ::-webkit-scrollbar-thumb {
-                background-color: #c1c1c1; /* Change the color as needed */
-                border-radius: 10px; /* Round the corners */
-            }
-
-            ::-webkit-scrollbar-thumb:hover {
-                background: #7d7d7d; /* Change color on hover */
-            }
-
-            .fields {
-                margin-top: 15px;
-                margin-right: 3%;
-                margin-left: 49%;
-                /* it should be scrollable when there's too much content*/
-                overflow-y: auto;
-                max-height: 97vh;
-            }
-
-            .fields a {
-                text-decoration: none;
-                color: darkblue;
-            }
-
-            #uploadiframe {
-                border: none;
-                width: 10%;
-            }
-
-            .fieldLabel {
-                font-size: 11pt !important;
-                font-weight: 500 !important;
-                color: #2c3538;
-                margin-top: 20px;
-                margin-bottom: 7px;
-            }
-
-            .previewImage {
-                width: 20%;
-                /* border: 1px solid #d1d5de; */
-                border-radius: 5px;
-                padding: 10px;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-
-            .nothingHere {
-                /* center text horizontally */
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                /* center text vertically */
-                align-items: center;
-            }
-
-            body {
-                overflow: hidden;
-                margin-left: 10px;
-            }
-
-            .topnav {
-                overflow: hidden;
-                background-color: white;
-                border-bottom: 2px solid #e5e5e5;
-            }
-
-            #newCampaign {
-                color: #31324a;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: #165ef0;
-                border-radius: 5px;
-                color: white;
-                font-weight: 500;
-                cursor: pointer;
-            }
-
-            #plus {
-                font-weight: 700;
-                font-size: 20px;
-                padding-right: 10px;
-            }
-
-            #buttonContainer {
-                margin-top: 20px;
-                margin-bottom: 10px;
-                width: 100%;
-                display: flexbox;
-            }
-
-            #deleteCampaign {
-                font-weight: 500;
-                color: red !important;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: white;
-                border: 1px solid red;
-                border-radius: 5px;
-                margin: 8px;
-                color: #2c3538;
-                cursor: pointer;
-            }
-
-            #save {
-                float: right;
-                font-weight: 500;
-                color: #31324a;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: white;
-                border: 1px solid #d1d5de;
-                border-radius: 5px;
-                margin: 8px;
-                color: #2c3538;
-                cursor: pointer;
-            }
-
-            .greyedOut {
-                background-color: #f0f0f0 !important; /* Light grey background */
-                border: 1px solid #d1d5de !important;
-                color: #a0a0a0 !important; /* Light grey text */
-                cursor: not-allowed !important; /* Change cursor to indicate disabled state */
-            }
-
-            .topnav span:hover {
-                cursor: pointer;
-            }
-
-            .topnav span.active {
-                cursor: pointer;
-            }
-
-            .ghlText {
-                font-family: "Roboto", sans-serif;
-                font-weight: 400;
-                font-style: normal;
-                color: #2c3538;
-                font-size: 12pt;
-            }
-
-            #title {
-                float: left;
-                font-size: 18pt;
-                margin: 10px;
-            }
-
-            .input-field {
-                padding: 12px 10px; /* Adjust padding to match button styles */
-                font-size: 14px; /* Match font size with button styles */
-                border: 1px solid #d1d5de; /* Match border style with button styles */
-                border-radius: 5px; /* Match border radius with button styles */
-                color: #2c3538; /* Match text color with button styles */
-                box-sizing: border-box; /* Ensure padding is included in width */
-                width: 200px; /* Adjust width as needed */
-                margin-top: -1px;
-                margin-bottom: -1px;
-            }
-
-            .input-field:focus {
-                outline: none; /* Remove outline on focus */
-                border-color: #165ef0; /* Highlight border color on focus */
-            }
-
-            .dropdown {
-                margin-top: 3px;
-                margin-bottom: 8px;
-                margin: 3px;
-            }
-
-            .dropdown select {
-                padding: 5px 5px;
-                font-size: 14px;
-                border: 1px solid #d1d5de;
-                border-radius: 5px;
-                color: #2c3538;
-                box-sizing: border-box;
-                background-color: #ffffff;
-                cursor: pointer;
-                appearance: none; /* Remove default arrow on some browsers */
-            }
-
-            .dropdown select:focus {
-                outline: none;
-                border-color: #165ef0;
-            }
-
-            #mainContainer {
-                margin-top: 50px;
-            }
-
-            .dropdown .chevron {
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
-                pointer-events: none; /* Ensure the chevron does not intercept clicks */
-            }
-
-            .column {
-                width: 46%;
-                float: left;
-                border-right: 2px solid #e5e5e5;
-                height: 100vh;
-            }
-
-            .campaign {
-                width: calc(100% - 22px);
-                color: #31324a;
-                text-align: center;
-                padding-left: 11px;
-                padding-top: 3px;
-                padding-bottom: 14px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: white;
-                border: 1px solid #d1d5de;
-                border-radius: 5px;
-                color: #2c3538;
-                margin-top: 10px;
-                -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.05);
-                -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.05);
-                box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.05);
-            }
-
-            .campaign:hover {
-                background-color: #fafafa;
-            }
-
-            .statusBox {
-                border-radius: 5px;
-                background-color: #e2e2e2;
-                font-size: 8pt;
-                padding: 4px;
-            }
-
-            .dot {
-                height: 6px;
-                width: 6px;
-                background-color: green;
-                border-radius: 50%;
-                display: inline-block;
-                margin-right: 5px;
-                margin-bottom: 1px;
-            }
-
-            .campaign div {
-                text-align: left;
-                padding-top: 10px;
-                place-items: center;
-            }
-
-            .manageButton {
-                float: right;
-                right: 10px;
-                font-weight: 500;
-                color: #31324a;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: transparent;
-                border: 1px solid #d1d5de;
-                border-radius: 5px;
-                margin: 8px;
-                color: #2c3538;
-                cursor: pointer;
-            }
-
-            .manageButton:hover {
-                background-color: #f0f0f0;
-            }
-
-            .landingPageButton {
-                font-weight: 500;
-                text-align: left;
-                padding: 12px 11px;
-                /* put text in the vertical center */
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: white;
-                border: 1px solid #d1d5de;
-                border-radius: 5px;
-                margin-top: 10px;
-                margin-bottom: 10px;
-                color: #2c3538;
-                cursor: pointer;
-            }
-
-            .landingPageButton:hover {
-                background-color: #f0f0f0;
-            }
-
-            .expandLPBox:hover {
-                background-color: white !important;
-            }
-
-            .initials {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background-color: #165ef0;
-                color: white;
-                font-size: 20px;
-                text-align: center;
-                line-height: 50px;
-                margin: 10px;
-            }
-
-            hr {
-                margin: 8px;
-            }
-
-            .saveNew {
-                float: right;
-                color: #31324a;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: #165ef0;
-                border-radius: 5px;
-                margin: 8px;
-                color: white;
-                font-weight: 500;
-                cursor: pointer;
-                border: 1px solid #165eff;
-            }
-
-            .openMediaLibrary {
-                color: #31324a;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: #165ef0;
-                border-radius: 5px;
-                margin: 8px;
-                color: white;
-                font-weight: 500;
-                cusor: pointer;
-                border: 1px solid #165eff;
-            }
-
-            .delete {
-                float: right;
-                color: white;
-                text-align: center;
-                padding: 9px 11px;
-                text-decoration: none;
-                font-size: 14px;
-                background-color: #f03434; /* Red color for delete action */
-                border-radius: 5px;
-                margin: 8px;
-                font-weight: 500;
-                cursor: pointer;
-                border: 1px solid #f03434; /* Matching border color */
-            }
-
-            #mediaLibraryContainer {
-                /* this will be overlaid atop all other UI elements. make it opaque dark gray*/
-                /* also, make all content centered vertically and horizontally */
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 1000;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                justify-content: center;
-                overflow: hidden;
-            }
-
-            #mediaLibraryIframe {
-                width: 100%; /* this is to offset the menu being hidden */
-                height: 100%;
-                border: none;
-                background-color: white;
-                overflow: hidden;
-            }
-
-            #mediaLibraryWindow {
-                background-color: white;
-                width: 95%;
-                height: 90vh;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-                overflow: hidden;
-            }
-
-            .mediaTopBar {
-                /* make content vertically in center */
-                display: flex;
-                align-items: center;
-                text-align: center;
-                height: 10vh;
-                margin-left: 15px;
-            }
-
-            .mediaTopBar svg {
-                margin-left: 0;
-                margin-right: 15px;
-                float: right;
-                cursor: pointer;
-            }
-
-            .loading {
-                display: none;
-                justify-content: center;
-                align-items: center;
-                height: 35px !important;
-                background-color: #f0f0f0;
-                border-radius: 5px;
-                margin-top: 7px;
-                padding: 10px;
-            }
-
-            #campaignsLoaded {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 20px;
-                background-color: #f0f0f0;
-                border-radius: 5px;
-                margin-top: 7px;
-                padding: 10px;
-                width: calc(100% - 42px);
-            }
-
-            #domError {
-                /* error in the bottom right */
-                position: absolute;
-                bottom: 1.5em;
-                right: 1em;
-                /* put text in center */
-                display: flex;
-                align-items: center;
-                background-color: #fcf0f0;
-                color: lightcoral;
-                padding: 5px;
-                border: 1px solid lightcoral;
-                border-radius: 3px;
-                /* glowing red shadow for box*/
-                box-shadow: 0 0 1px #f03434;
-                height: 3em;
-                padding-left: 4em;
-                padding-right: 1em;
-                max-width: 33em;
-            }
-
-            #warningTriangle {
-                position: absolute;
-                left: 0.3em;
-                font-size: 2.5em;
-                margin-right: 0.5em;
-            }
-
-            .swipeIn {
-                display: flex !important;
-                animation:
-                    swipeInEffect 0.3s ease-in-out,
-                    fadeOut 1s ease-in-out 6s forwards;
-            }
-
-            @keyframes swipeInEffect {
-                from {
-                    opacity: 0;
-                    transform: translateY(100%);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            @keyframes fadeOut {
-                to {
-                    opacity: 0;
-                }
-            }
-
-            .lastUpdated {
-                font-size: 14px;
-                color: #2c3538;
-                margin-top: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <div
-            id="DOMerror"
-            class="ghlText"
-            style="
-                position: absolute;
-                bottom: 1.5em;
-                right: 1em;
-                display: none;
-                align-items: center;
-                background-color: #fcf0f0;
-                color: lightcoral;
-                padding: 5px;
-                border: 1px solid lightcoral;
-                border-radius: 3px;
-                box-shadow: 0 0 1px #f03434;
-                height: 3em;
-                padding-left: 4em;
-                padding-right: 1em;
-                max-width: 33em;
-                animation:
-                    swipeInEffect 0.3s ease-in-out,
-                    fadeOut 1s ease-in-out 6s forwards;
-            "
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+/>
+<style>
+    .clickableLink {
+        cursor: pointer;
+        color: #0c3d6d;
+        font-size: 10pt;
+        margin-top: 10px;
+    }
+
+    .unclickableLink {
+        cursor: not-allowed;
+        color: #a0a0a0;
+        font-size: 10pt;
+        margin-top: 10px;
+        margin-bottom: -10px;
+    }
+
+    .fieldLabel {
+        font-size: 11pt !important;
+        font-weight: 500 !important;
+        color: #2c3538;
+        margin-top: 20px;
+        margin-bottom: 7px;
+    }
+
+    #deleteCampaign {
+        font-weight: 500;
+        color: red !important;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid red;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    #save {
+        float: right;
+        font-weight: 500;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    .greyedOut {
+        background-color: #f0f0f0 !important; /* Light grey background */
+        border: 1px solid #d1d5de !important;
+        color: #a0a0a0 !important; /* Light grey text */
+        cursor: not-allowed !important; /* Change cursor to indicate disabled state */
+    }
+
+    .ghlText {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #2c3538;
+        font-size: 12pt;
+    }
+
+    .input-field {
+        padding: 12px 10px; /* Adjust padding to match button styles */
+        font-size: 14px; /* Match font size with button styles */
+        border: 1px solid #d1d5de; /* Match border style with button styles */
+        border-radius: 5px; /* Match border radius with button styles */
+        color: #2c3538; /* Match text color with button styles */
+        width: auto;
+        margin: -5px;
+        margin-top: -15px;
+    }
+
+    .input-field:focus {
+        border: 1px solid #d1d5de;
+    }
+
+    .dropdown {
+        margin-top: 3px;
+        margin-bottom: 8px;
+        margin: 3px;
+        margin-right: -6px;
+    }
+
+    .dropdown select {
+        padding: 5px 5px;
+        font-size: 14px;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        color: #2c3538;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        cursor: pointer;
+        appearance: none; /* Remove default arrow on some browsers */
+    }
+
+    .dropdown select:focus {
+        outline: none;
+        border-color: #165ef0;
+    }
+
+    .dropdown .chevron {
+        transform: translateX(-25px);
+    }
+
+    .manageButton {
+        float: right;
+        right: 10px;
+        font-weight: 500;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: transparent;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    .manageButton:hover {
+        background-color: #f0f0f0;
+    }
+
+    .saveNew {
+        float: right;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: #165ef0;
+        border-radius: 5px;
+        margin: 8px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid #165eff;
+    }
+
+    .delete {
+        float: right;
+        color: white;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: #f03434; /* Red color for delete action */
+        border-radius: 5px;
+        margin: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid #f03434; /* Matching border color */
+    }
+
+    #domError {
+        /* error in the bottom right */
+        position: absolute;
+        bottom: 1.5em;
+        right: 1em;
+        /* put text in center */
+        display: flex;
+        align-items: center;
+        background-color: #fcf0f0;
+        color: lightcoral;
+        padding: 5px;
+        border: 1px solid lightcoral;
+        border-radius: 3px;
+        /* glowing red shadow for box*/
+        box-shadow: 0 0 1px #f03434;
+        height: 3em;
+        padding-left: 4em;
+        padding-right: 1em;
+        max-width: 33em;
+    }
+
+    #warningTriangle {
+        position: absolute;
+        left: 0.3em;
+        font-size: 2.5em;
+        margin-right: 0.5em;
+    }
+
+    .swipeIn {
+        display: flex !important;
+        animation:
+            swipeInEffect 0.3s ease-in-out,
+            fadeOut 1s ease-in-out 6s forwards;
+    }
+
+    @keyframes swipeInEffect {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeOut {
+        to {
+            opacity: 0;
+        }
+    }
+
+    .exitX {
+        height: 1em;
+        width: 1em;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        padding: 0.2em;
+        border-radius: 0.2em;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5em;
+    }
+
+    .exitX:hover {
+        background-color: #e0e0e0;
+    }
+</style>
+<body class="ghlText">
+    <div>
+        <span
+            type="text"
+            class="input-field ghlText"
+            style="width: 15%; border-right: none; margin-right: -5px"
         >
-            <span
-                id="warningTriangle"
-                style="
-                    position: absolute;
-                    left: 0.3em;
-                    font-size: 2.5em;
-                    margin-right: 0.5em;
-                "
-                >⚠</span
-            >
-            <span>
-                <span style="font-weight: bold">Error: </span>
-                <span id="errorMessage"> Error would go here!</span>
+            <span class="dropdown">
+                <select id="domainSelect" oninput="domainInput()">
+                    <option value="custom">
+                        Custom link &nbsp; &nbsp; &nbsp; &nbsp;
+                    </option>
+                    <option value="jostens.co">
+                        Jostens.co/ &nbsp; &nbsp; &nbsp; &nbsp;
+                    </option>
+                </select>
+                <svg
+                    class="chevron"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="chevronname"
+                >
+                    <path
+                        d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                        stroke="#2c3538"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
             </span>
+        </span>
+        <input
+            id="pathURLBox"
+            placeholder="path-to-my-page"
+            oninput="pathInput()"
+            value=""
+            style="
+                width: 48%;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                margin-right: 5%;
+                outline: none !important;
+            "
+            class="input-field"
+            type="text"
+        />
+        <span class="exitX" onclick="outwardMessage('collapse')">
+            <svg
+                width="100"
+                height="100"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <line
+                    x1="20"
+                    y1="60"
+                    x2="50"
+                    y2="30"
+                    stroke="white"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+                <line
+                    x1="50"
+                    y1="30"
+                    x2="80"
+                    y2="60"
+                    stroke="white"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+            </svg>
+        </span>
+    </div>
+    <div style="white-space: nowrap; display: block" id="allOtherWrapper">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px">
+            Redirects to...
         </div>
+        <br />
 
-        <!-- Title removed as of 8/6/24, Drew doesn't like it :( I thought it was pretty cool, R.I.P. -->
-        <!-- <div class="topnav" style="display: flexbox">
-            <span id="title" class="ghlText" style="width: 98%"
-                >All Campaigns</span
+        <div>
+            <span
+                class="input-field ghlText"
+                id="typeContaner"
+                style="
+                    width: 9em !important;
+                    border-right: none;
+                    margin-right: -5px;
+                    display: inline-block;
+                    padding: 12px 10px;
+                "
             >
-            <p
-                class="ghlText"
-                style="font-size: 10pt; padding: 5px 10px"
-                id="subText"
-            >
-                For (location title)
-            </p>
-        </div> -->
-        <span id="mediaLibraryContainer" style="visibility: hidden">
-            <div id="mediaLibraryWindow">
-                <span class="ghlText mediaTopBar">
-                    <span style="font-size: 18pt">Select Media</span>
-                    <span id="linkGoesHere" style="margin-left: 20px"></span>
-                    <!-- the "select" button -->
-                    <span
-                        class="saveNew greyedOut"
-                        style="margin-left: auto"
-                        id="mediaSelectButton"
-                        onclick="instateMediaLink()"
-                        >Select</span
+                <span class="dropdown">
+                    <select
+                        id="typeSelect"
+                        oninput="typeInput()"
+                        style="
+                            margin: -10px;
+                            margin-left: -4px;
+                            margin-right: 0;
+                        "
                     >
-                    <!-- some code-readable only variables that I'm storing in the HTML -->
-                    <span id="selectingMediaFor" style="display: none"></span>
-                    <span id="mediaLink" style="display: none"></span>
+                        <option value="Funnel">Funnel</option>
+                        <option value="SMS">
+                            SMS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            &nbsp; &nbsp; &nbsp;
+                        </option>
+                        <option value="Phone">Phone</option>
+                        <option value="Email">Email</option>
+                        <option value="URL">URL</option>
+                    </select>
                     <svg
-                        onclick="closeMediaLibrary()"
-                        width="30"
-                        height="30"
-                        viewBox="0 0 50 50"
+                        class="chevron"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        id="chevronname"
                     >
-                        <line
-                            x1="15"
-                            y1="15"
-                            x2="35"
-                            y2="35"
-                            stroke="grey"
-                            stroke-width="4"
+                        <path
+                            d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                            stroke="#2c3538"
+                            stroke-width="1.5"
                             stroke-linecap="round"
-                        />
-                        <line
-                            x1="35"
-                            y1="15"
-                            x2="15"
-                            y2="35"
-                            stroke="grey"
-                            stroke-width="4"
-                            stroke-linecap="round"
+                            stroke-linejoin="round"
                         />
                     </svg>
                 </span>
-                <!-- The old media selector. We'll add this back once we've reworked the injected selection script -->
-                <!-- <iframe
-                    id="mediaLibraryIframe"
-                    src="https://app.kairoscloud.io/v2/location/yfyIrXrm61r57rx3ex4N/media-storage"
-                ></iframe> -->
-            </div>
-        </span>
-        <div class="column">
-            <div id="buttonContainer" class="ghlText">
-                <span id="newCampaign" onclick="newCampaign()"
-                    ><span id="plus">+</span>New Campaign</span
-                >
-                <!-- <span id="deleteCampaign">Delete Campaign</span> -->
-            </div>
+            </span>
+            <span style="background-color: white;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        display: inline-block;"
+                        class="input-field"
+                        id="funnelSelectWrapper"
+            >
+
+                            <span class="dropdown">
+                                <select
+                                    id="funnelSelect"
+                                    style="
+                                        margin: -10px;
+                                        margin-left: -4px;
+                                        margin-right: -6px;
+                                    "
+                                >
+                                </select>
+                                <svg
+                                    class="chevron"
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    id="chevronname"
+                                >
+                                    <path
+                                        d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                                        stroke="#2c3538"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </span>
+
+                </span>
+                <!-- display = inline-block when visible -->
+            <span id="abcWrapper" style="display:none">
             <input
-                class="input-field ghlText"
-                style="width: calc(100% - 22px); margin-top: 7px"
-                placeholder="Search campaigns..."
-                id="searchBox"
+                id="a"
+                placeholder="recipient"
+                oninput=""
+                value=""
+                style="
+                    width: 48%;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    margin-right: 5%;
+                    outline: none !important;
+                "
+                class="input-field"
                 type="text"
             />
-            <!-- <div id="campaignsLoaded" class="ghlText">
-                Searching Campaigns... (0/0)
-            </div> -->
-            <div
-                id="campaignsContainer"
-                class="ghlText"
-                style="overflow: scroll; height: 85vh"
-            >
-                <!-- <div class="campaign">
-                    <span class="manageButton">Manage</span>
-                    <div>
-                        CampaignName
-                        <span class="statusBox"
-                            ><span
-                                class="dot"
-                                style="background-color: #165ef0"
-                            ></span
-                            >Schedule</span
-                        >
-                        <div style="font-size: 9pt">63 contacts</div>
-                    </div>
-                </div> -->
+            <div>
+                <input
+                    id="b"
+                    placeholder="subject"
+                    oninput=""
+                    value=""
+                    style="
+                        width: 48%;
+                        border-radius: 0;
+                        margin-right: 5%;
+                        outline: none !important;
+                        margin-top: 4px !important;
+                        position: relative;
+                        left: 9em;
+                        margin-left: 10px;
+                    "
+                    class="input-field"
+                    type="text"
+                />
             </div>
-        </div>
-        <div id="previewContainer">
-            <!-- <span
-                style="display: none"
-                class="fields ghlText"
-                id="previewIDHere"
-            >
-                <span
-                    id="updateButtonPreviewIDHere"
-                    class="saveNew greyedOut"
-                    onclick="updateCampaign('docIDHere')"
-                    >Update</span
-                >
-                <span style="font-size: 16pt">Title</span>
-                <p style="font-size: 10pt">
-                    <a
-                        href="https://app.kairoscloud.io/v2/location/owNEzpbrfBjp4weSARXD/contacts/smart_list/gBtkrLwfuXevKitGiA06"
-                        target="_blank"
-                        >63 contacts</a
-                    >
-                </p>
-                <div>
-                    <div class="ghlText fieldLabel">School Name</div>
-                    <input
-                        class="input-field"
-                        id="schoolNamePreviewIDHere"
-                        style="width: 40%"
-                        placeholder="ex. 'Central High School'"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">School Location</div>
-                    <input
-                        class="input-field"
-                        id="schoolLocationPreviewIDHere"
-                        style="width: 60%"
-                        placeholder="Address"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">School Mascot</div>
-                    <input
-                        class="input-field"
-                        id="schoolMascotPreviewIDHere"
-                        style="width: 30%"
-                        placeholder="ex. 'Tigers'"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">School Logo Link</div>
-                    <input
-                        class="input-field"
-                        id="schoolLogoPreviewIDHere"
-                        style="width: 70%"
-                        placeholder="ex. 'https://www.example.com/logo.png'"
-                    />
-                </div>
-                <!-- campaign stuff -->
-            <!-- <div>
-                    <div class="ghlText fieldLabel" style="display: flexbox">
-                        Jostens Website Link
-                    </div>
-                    <span
-                        type="text"
-                        class="input-field ghlText greyedOut"
-                        style="
-                            width: 15%;
-                            border-top-right-radius: 0;
-                            border-bottom-right-radius: 0;
-                            border-right: none;
-                            margin-right: -5px;
-                        "
-                        >jostens.co/</span
-                    >
-                    <input
-                        id="jostensWebsiteLinkPreviewIDHere"
-                        placeholder="path-to-my-page"
-                        style="
-                            width: 30%;
-                            border-top-left-radius: 0;
-                            border-bottom-left-radius: 0;
-                            margin-right: 5%;
-                        "
-                        class="input-field"
-                        type="text"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">Order due date</div>
-                    <input
-                        type="datetime-local"
-                        class="input-field"
-                        id="orderDueDatePreviewIDHere"
-                        style="width: 35%"
-                    />
-                    <!-- format: '2023-12-23T23:24' -->
-            <!-- </div>
-            </span> -->
-        </div>
-    </body>
-    <script>
-        // Welcome to the campaign manager!
-        // This is the 3rd iteration of the campaign manager, it's built mainly around Firebase
-        // Campaigns are loaded in from firebase and inserted into the DOM, following a "template" (see HTML inside `` javascript below)
-        // The campaigns are added to the DOM in batches of 10, and more are loaded as the user scrolls to the bottom of the page
-        // Upon updating, a few things happen
-        // - Check if the name isn't already taken
-        // - All contacts are updated at a rate of 9/sec (90/10sec) to avoid maxxing out the calls/sec
-        // - The tag is updated
-        // - We use the GHL API to make the short links
-        // - The campaign is updated in firebase
-        // - And some other clean-up stuff
-        // A lot of the functions revolve around the "docID", which is the campaign's unique ID in firebase
-        // It's an 11-character random hexadecimal string, we make it random to avoid naming collisions. The user is never really exposed to this
-        // You'll see it mentioned a lot, especially in HTML element IDs. It's usually something like "'schoolName' + docID"
-        // You'll also see the parameter "which", which is either 1 or 2. It's always in the context of paths or funnels, since there are two of each
-        // There are a lot of moving parts here, and it's gotten complicated really quickly. Nothing some segmentation can't solve though :)
-        // Jacob Westra – jacob@thekairosmedia.com, (616) 312-5302
-
-        // all global variables
-        let campaignsList = [];
-        let rendered = [];
-        let maxLoaded = 0;
-        let searchMode = false;
-        let validPath = [];
-        validPath[1] = false;
-        validPath[2] = false;
-        let prevPath1s = [];
-        let prevPath2s = [];
-        let prevFunnel1s = [];
-        let prevFunnel2s = [];
-        let linkID1s = [];
-        let linkID2s = [];
-        // get the location ID from the parameter '?location=' in the URL
-        let locationID = new URLSearchParams(window.location.search).get(
-            "location",
-        );
-
-        let devView = window.location.href.includes("devView");
-
-        // detect when the user has scrolled to the bottom of the campaigns
-        const scrollableElement = document.getElementById("campaignsContainer");
-        scrollableElement.addEventListener("scroll", () => {
-            const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
-
-            if (scrollTop + clientHeight >= scrollHeight) {
-                if (searchMode) {
-                    return;
-                }
-                let nextLimit = maxLoaded + 10; // load 10 more campaigns
-                let prevMaxLoaded = maxLoaded;
-                console.log(
-                    "Scrolled to the bottom! Loading campaigns " +
-                        maxLoaded +
-                        " - " +
-                        nextLimit,
-                );
-                for (
-                    maxLoaded;
-                    maxLoaded < campaignsList.length && maxLoaded < nextLimit;
-                    maxLoaded++
-                ) {
-                    // load +10 more campaigns max
-                    //console.log(maxLoaded);
-                    addCampaignToDOM(
-                        campaignsList[maxLoaded].data(),
-                        campaignsList[maxLoaded].id,
-                        false,
-                        nextLimit,
-                    );
-                }
-                try {
-                    document.getElementById(
-                        `loading${prevMaxLoaded - 1}`,
-                    ).style.display = "none";
-                } catch {}
-            }
-        });
-
-        // create an eventlistener for when the user presses ENTER in the search box
-        document
-            .getElementById("searchBox")
-            .addEventListener("keydown", function (event) {
-                searchMode = true;
-                try {
-                    document.getElementById(
-                        "loading" + (maxLoaded - 1),
-                    ).style.display = "none";
-                } catch {} // sometimes there isn't a 'loading...' element to hide because there are less than 25 campaigns
-                let search = document.getElementById("searchBox").value;
-                // if search is blank, show all campaigns that've been previously rendered
-                if (search == "") {
-                    let campaigns = document.getElementsByClassName("campaign");
-                    for (let i = 0; i < campaigns.length; i++) {
-                        campaigns[i].style.display = "block";
-                    }
-                    try {
-                        document.getElementById(
-                            "loading" + (maxLoaded - 1),
-                        ).style.display = "flex";
-                    } catch {}
-                    searchMode = false;
-                    return;
-                }
-
-                if (event.key != "Enter") {
-                    return;
-                }
-
-                // search array of all campaigns.
-                // if campaign name includes search, display it
-                // if not, hide it
-                // if already displayed, skip
-                for (let i = 0; i < campaignsList.length; i++) {
-                    let campaignID = campaignsList[i].id;
-                    let campaign = campaignsList[i].data();
-                    let campaignName = campaign.name;
-                    if (
-                        campaignName
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                    ) {
-                        // campaign meets criteria
-                        if (rendered[campaignID]) {
-                            // display it
-                            document.getElementById(
-                                "displayCard" + campaignID,
-                            ).style.display = "block";
-                        } else {
-                            // add it to the DOM
-                            addCampaignToDOM(campaign, campaignID, false); // why was it originally true? Maybe come back to this, jake
-                        }
-                    } else {
-                        // campaign does not meet criteria
-                        try {
-                            document.getElementById(
-                                "displayCard" + campaignID,
-                            ).style.display = "none";
-                        } catch {}
-                    }
-                }
-            });
-
-        let locationAccessKey = "";
-        let jdlocationAccessKey = ""; // access key for Jostens Demo
-        let funnelList = "";
-        getLocationAccessKey(locationID);
-
-        // retrieve all campaigns from Firebase
-        // then write them to the DOM
-        async function getCampaigns() {
-            const campaignsRef = firestore
-                .collection("campaigns_restructured")
-                .doc(locationID)
-                .collection("campaigns");
-            const snapshot = await campaignsRef.get();
-            snapshot.forEach((doc) => {
-                campaignsList.push(doc);
-            });
-
-            // go for whichever is smaller: 50 or the length of the campaignsList
-            for (
-                maxLoaded;
-                maxLoaded < campaignsList.length && maxLoaded < 25;
-                maxLoaded++
-            ) {
-                // load 25 campaigns max
-                //console.log(maxLoaded);
-                addCampaignToDOM(
-                    campaignsList[maxLoaded].data(),
-                    campaignsList[maxLoaded].id,
-                    false,
-                    25,
-                );
-            }
-        }
-
-        async function getLocationAccessKey(loc) {
-            firestore // grab the location access key from Firebase
-                .collection("tokens")
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (doc.id == "owNEzpbrfBjp4weSARXD") {
-                            jdlocationAccessKey =
-                                doc.data().locationAccessToken;
-                        }
-                        if (doc.id == loc) {
-                            locationAccessKey = doc.data().locationAccessToken;
-                            //console.log(locationAccessKey);
-                            getFunnelList();
-                            // escape the forEach
-                            return;
-                        }
-                    });
-                });
-        }
-
-        async function addCampaignToDOM(campaign, docID, isNew, max) {
-            if (rendered[docID]) {
-                return;
-            }
-
-            let campaignName = campaign.name || "";
-            let locationID = campaign.locationID || "";
-            let numContacts = campaign.numContacts || "";
-            let smartListID = campaign.smartListID || "";
-            let jostensWebsiteLink = campaign.jostensWebsiteLink || "";
-            let orderDueDate = campaign.orderDueDate || "";
-            let schoolName = campaign.schoolName || "";
-            let schoolLocation = campaign.schoolLocation || "";
-            let schoolMascot = campaign.mascot || "";
-            let schoolLogo = campaign.schoolLogo || "";
-            let landingPage1 = campaign.landingPage1 || "";
-            let landingPage2 = campaign.landingPage2 || "";
-            let funnel1 = campaign.funnel1 || "";
-            let funnel2 = campaign.funnel2 || "";
-            let lastUpdated = campaign.lastUpdated || "";
-            let tagID = campaign.tagID || "";
-            let redirectID1 = campaign.redirectID1 || "";
-            let redirectID2 = campaign.redirectID2 || "";
-
-            let page1IsJostens = false;
-            let page2IsJostens = false;
-
-            if (landingPage1.includes("https://jostens.co/")) {
-                page1IsJostens = true;
-                prevPath1s[docID] = landingPage1.split(
-                    "https://jostens.co/",
-                )[1];
-            }
-            if (landingPage2.includes("https://jostens.co/")) {
-                page2IsJostens = true;
-                prevPath2s[docID] = landingPage2.split(
-                    "https://jostens.co/",
-                )[1];
-            }
-
-            if (isNew) {
-                // this will be the default for all new campaigns
-                page1IsJostens = true;
-                page2IsJostens = true;
-            }
-
-            prevFunnel1s[docID] = funnel1;
-            prevFunnel2s[docID] = funnel2;
-
-            let campaignsContainer =
-                document.getElementById("campaignsContainer");
-
-            rendered[docID] = true;
-
-            if (isNew) {
-                campaignsContainer.innerHTML =
-                    `
-                <div class="campaign" onclick="display('${docID}')" id="displayCard${docID}">
-                    <div style="font-size: 14pt">
-                        <span id="campaignName${docID}">${campaignName}</span>
-                        <div style="font-size: 9pt" id="cardNumContacts${docID}">${numContacts == "" ? "No contacts yet. Click 'manage' to get started" : numContacts + " contacts"} </div>
-                    </div>
-                </div>
-            ` + campaignsContainer.innerHTML;
-            } else {
-                // campaign is not new, so we add it to the bottom instead
-                campaignsContainer.insertAdjacentHTML(
-                    "beforeend",
-                    `
-                <div class="campaign" onclick="display('${docID}')" id="displayCard${docID}">
-                    <div style="font-size: 14pt">
-                        <span id="campaignName${docID}">${campaignName}</span>
-                        <div style="font-size: 9pt" id="cardNumContacts${docID}">${numContacts == "" ? "No contacts yet. Click 'manage' to get started" : numContacts + " contacts"} </div>
-                    </div>
-                </div>
-                ${
-                    max - 1 == maxLoaded
-                        ? `<span class="loading" id="loading${maxLoaded}" style="display: flex">
-                Loading...</span>`
-                        : ""
-                }
-            `,
-                );
-            }
-            // add preview
-
-            let defaultOption1 = `<option value="null">Select landing page...&nbsp; &nbsp; &nbsp;</option>`;
-            let defaultOption2 = `<option value="null">Select landing page...&nbsp; &nbsp; &nbsp;</option>`;
-            let localFunnelList = funnelList; // a localized copy of the funnelList, so we can remove options from it
-
-            if (
-                funnel1 != "" &&
-                funnel1 != "null" &&
-                funnel1 != "undefined" &&
-                funnel1 != undefined &&
-                funnel1 != null
-            ) {
-                if (!funnelList.includes(funnel1)) {
-                    defaultOption1 = `<option value="invalid">[Deleted funnel] &nbsp; &nbsp; &nbsp;</option>`;
-                } else {
-                    let funnelName = funnelList
-                        .split(funnel1 + '">')[1]
-                        .split("</option>")[0];
-                    defaultOption1 = `<option value="${funnel1}">${funnelName}</option>`;
-                    localFunnelList = localFunnelList.replace(
-                        defaultOption1,
-                        "",
-                    ); // remove it from the funnellist
-                }
-            }
-
-            if (
-                funnel2 != "" &&
-                funnel2 != "null" &&
-                funnel2 != "undefined" &&
-                funnel2 != undefined &&
-                funnel2 != null
-            ) {
-                if (!funnelList.includes(funnel2)) {
-                    defaultOption2 = `<option value="invalid">[Deleted funnel] &nbsp; &nbsp; &nbsp;</option>`;
-                } else {
-                    let funnelName = funnelList
-                        .split(funnel2 + '">')[1]
-                        .split("</option>")[0];
-                    defaultOption2 = `<option value="${funnel2}">${funnelName}</option>`;
-                    localFunnelList = localFunnelList.replace(
-                        defaultOption2,
-                        "",
-                    ); // remove it from the funnellist
-                }
-            }
-
-            let previewContainer = document.getElementById("previewContainer");
-            previewContainer.innerHTML += `
-            <span
-                style="display: none"
-                class="fields ghlText previewType"
-                id="${docID}"
-            >
-                <span
-                    id="updateButton${docID}"
-                    class="saveNew"
-                    onclick="updateCampaign('${docID}')"
-                    style="cursor: pointer"
-                    >Update</span
-                >
-                <div style="margin-top: 10px"></div>
-                <span style="font-size: 16pt; outline: none; border: 1px solid transparent;" class="inputFor${docID}" id="titleFor${docID}" contenteditable="true">${campaignName}</span>
-                <span style="display: none" id="oldCampaignNameFor${docID}">${campaignName}</span>
-                <p style="font-size: 10pt">
-                    <br>
-                    <a
-                        id="numContacts${docID}"
-                        href=
-                        "${
-                            numContacts == ""
-                                ? 'javascript:" style="color: grey; cursor: default"' // do nothing
-                                : "https://app.kairoscloud.io/v2/location/" +
-                                  locationID +
-                                  "/contacts/smart_list/All?search=" +
-                                  encodeURIComponent(campaignName) +
-                                  '" target="_blank"'
-                        }"
-                        >${numContacts == "" ? "No" : numContacts} contacts</a
-                    >
-                    <br>
-                </p>
-                <div>
-                <progress id="progressBar${docID}" value="32" max="366" style="width: 100%; display: none"></progress>
-                </div>
-                <img src="${!schoolLogo.includes("http") ? "https://jbwx.github.io/KairosMedia/iframetest/noimage.png" : schoolLogo}" style="width: 30%; padding-top: 15px; margin-bottom: -10px; margin-left: -4px; margin-top: 2px" class="logoPreview" id="imgPreview${docID}">
-                <div>
-                    <div class="ghlText fieldLabel">School Name</div>
-                    <input
-                        class="input-field inputFor${docID}"
-                        id="schoolName${docID}"
-                        style="width: 40%"
-                        placeholder="ex. 'Central High School'"
-                        value="${schoolName}"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">School Location</div>
-                    <input
-                        class="input-field inputFor${docID}"
-                        id="schoolLocation${docID}"
-                        style="width: 60%"
-                        placeholder="City, State"
-                        value="${schoolLocation}"
-                    />
-                </div>
-                <div>
-                    <div class="ghlText fieldLabel">School Mascot</div>
-                    <input
-                        class="input-field inputFor${docID}"
-                        id="schoolMascot${docID}"
-                        style="width: 30%"
-                        placeholder="ex. 'Tigers'"
-                        value="${schoolMascot}"
-                    />
-                </div>
-                <div> <!-- Start school logo link -->
-                        <div class="ghlText fieldLabel" style="display: flexbox">
-                            School Logo Link
-                        </div>
-                        <span
-                            type="text"
-                            class="input-field ghlText"
-                            onclick="openMediaLibraryTemp()"
-                            style="
-                                width: 15%;
-                                border-radius: 5px;
-                                border-top-right-radius: 0;
-                                border-bottom-right-radius: 0;
-                                border-right: none;
-                                margin-right: -5px;
-
-                                color: #31324a;
-                                text-align: center;
-                                text-decoration: none;
-                                font-size: 14px;
-                                background-color: #165ef0;
-
-                                color: white;
-                                font-weight: 500;
-                                cursor: pointer;
-                                border: 1px solid #165eff;
-                            "> Open Media Storage
-                            </span>
-                            <input
-                                class="input-field inputFor${docID}"
-                                id="schoolLogo${docID}"
-                                style="width: 70%; border-top-left-radius: 0; border-bottom-left-radius: 0;"
-                                placeholder="ex. 'https://www.example.com/logo.png'"
-                                value="${schoolLogo}"
-                            />
-                    </div> <!-- End school logo link -->
-                <!-- campaign stuff -->
-                <div>
-                    <div class="ghlText fieldLabel" style="display: flexbox">
-                        Jostens Website Link
-                    </div>
-
-                    <input
-                        id="jostensWebsiteLink${docID}"
-                        placeholder="ex. 'https://jostens.com/a10b9a639035f'"
-                        value="${jostensWebsiteLink}"
-                        style="
-                            width: 70%;
-                        "
-                        class="input-field inputFor${docID}"
-                        type="text"
-                    />
-                </div>
-                <div>
-                        <div class="ghlText fieldLabel" style="display: flexbox">
-                            Landing Page #1
-                        </div>
-                        <div class="landingPageButton inputFor${docID}"
-                              id="landingPageBox1${docID}"
-                              value="${landingPage1}"
-                              style="width: 90%;"
-                              onclick="toggleLinkContainer('${docID}', 1)"
-                            >
-                            <span id="landingPage1Text${docID}" style="display: block">${landingPage1}</span>
-                            <span id="redirectID1${docID}" style="display: none">${redirectID1}</span>
-                        </div>
-                        <!--<iframe src="linkShortenerComponent.html"></iframe> -->
-                        <div id="clickableLink1${docID}" class="clickableLink" onclick="openLandingPage(1, '${docID}')">Open in new tab</div>
-                </div>
-                <!-- LANDING PAGE 2 -->
-                <div style="height: 10px"></div>
-                <div>
-                        <div class="ghlText fieldLabel" style="display: flexbox">
-                            Landing Page #2
-                        </div>
-                        <div class="landingPageButton inputFor${docID}"
-                              id="landingPageBox2${docID}"
-                              value="${landingPage1}"
-                              style="width: 90%;"
-                              onclick="toggleLinkContainer('${docID}', 2)"
-                            >
-                            <span id="landingPage2Text${docID}" style="display: block">${landingPage2}</span>
-                            <span id="redirectID2${docID}" style="display: none">${redirectID2}</span>
-                        </div>
-                        <!--<iframe src="linkShortenerComponent.html"></iframe> -->
-                </div>
-                <div id="clickableLink2${docID}" class="clickableLink" onclick="openLandingPage(2, '${docID}')">Open in new tab</div>
-                <!-- END LANDING PAGE 2 -->
-                <div>
-                    <div class="ghlText fieldLabel">Order Due Date</div>
-                    <input
-                        type="date"
-                        class="input-field inputFor${docID}"
-                        id="orderDueDate${docID}"
-                        style="width: 22%"
-                        value="${orderDueDate}"
-                        onchange="updateDate('${docID}')"
-                    />
-                    <!-- format: '2023-12-23T23:24' -->
-                    <div class="ghlText" style="margin-top: 15px; font-size: 11pt;" id="datePreview${docID}">${getDate(orderDueDate)}</div>
-                </div>
-                <div>
-                  <span class="saveNew" style="border: 1px solid red; background-color: #ffcece; color: #ff1b1b; cursor: pointer" onclick="deleteCampaign('${docID}')">Delete</span>
-                </div>
-                <br>
-                <span class="lastUpdated" id="lastUpdatedFor${docID}">${lastUpdated == "" ? "" : "Last updated " + unixTimeToDate(lastUpdated)}</span>
-                <br>
-                <br>
-                ${devView ? `<a class="clickableLink" href="https://console.firebase.google.com/u/3/project/kairos-test-eedd6/firestore/databases/-default-/data/~2Fcampaigns_restructured~2F` + locationID + `~2Fcampaigns~2F` + docID + `" target="_blank">Open in Firebase</a>` : ""}
-                <br>
-                <span id="tagID${docID}" style="display: none">${tagID}</span>
+            <div>
+                <textarea
+                    id="c"
+                    placeholder="body"
+                    oninput=""
+                    value=""
+                    style="
+                        width: 48%;
+                        height: 7em;
+                        border-radius: 0;
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                        margin-right: 5%;
+                        outline: none !important;
+                        margin-top: 4px !important;
+                        position: relative;
+                        left: 9em;
+                        margin-left: 10px;
+                        resize: none;
+                    "
+                    class="input-field ghlText"
+                    type="text"
+                /></textarea>
+            </div>
             </span>
-            `;
+        </div>
+    </div>
+    <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
+</body>
+<script>
+    // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
+    let urlParams = new URLSearchParams(window.location.search);
+    let locationID = urlParams.get("locationID");
+    let locationAccessKey = urlParams.get("locationAccessKey");
+    let componentID = urlParams.get("componentID");
+    let savedURL = urlParams.get("savedURL");
+    let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
+    // log all variables in one big console.log
+    console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
 
-            await sleep(300); // wait for DOM to update
-            // this is not really a good fix. Ideally we do some asynchronous shenanigans to reduce loading time (this is also half of the reason campaign loading is slow, the other half being DOM update lag)
+    // all elements
+    let allOtherWrapper = document.getElementById("allOtherWrapper");
+    let pathURLBox = document.getElementById("pathURLBox");
+    let domainSelect = document.getElementById("domainSelect");
+    let typeSelect = document.getElementById("typeSelect");
+    let abcWrapper = document.getElementById("abcWrapper");
+    let funnelSelect = document.getElementById("funnelSelect");
+    let funnelSelectWrapper = document.getElementById("funnelSelectWrapper");
+    let saveButton = document.getElementById("compSaveButton");
+    let redirectID = "";
 
-            // add event listeners to un-grey out "update button"
-            document
-                .querySelectorAll(".inputFor" + docID)
-                .forEach((element) => {
-                    element.addEventListener("input", () => {
-                        let updateButton = document.getElementById(
-                            `updateButton${docID}`,
-                        );
+    // body components
 
-                        if (
-                            document.getElementById("domainSelect1" + docID)
-                                .value == "customDomain"
-                        ) {
-                            document.getElementById(
-                                "forwardsTo1" + docID,
-                            ).style.display = "none";
-                            document.getElementById(
-                                "path1" + docID,
-                            ).attributes.placeholder.value =
-                                "https://my-custom-domain.com/path";
-                            // make not green
-                            let pathBox = document.getElementById(
-                                "path1" + docID,
-                            );
-                            pathBox.style.border = "1px solid #d1d5de";
-                            pathBox.style.backgroundColor = "white";
-                        } else {
-                            document.getElementById(
-                                "forwardsTo1" + docID,
-                            ).style.display = "block";
-                            document.getElementById(
-                                "path1" + docID,
-                            ).attributes.placeholder.value = "path-to-my-page";
-                        }
+    let a = document.getElementById("a");
+    let b = document.getElementById("b");
+    let c = document.getElementById("c");
 
-                        if (
-                            document.getElementById("domainSelect2" + docID)
-                                .value == "customDomain"
-                        ) {
-                            document.getElementById(
-                                "forwardsTo2" + docID,
-                            ).style.display = "none";
-                            document.getElementById(
-                                "path2" + docID,
-                            ).attributes.placeholder.value =
-                                "https://my-custom-domain.com/path";
-                            // make not green
-                            let pathBox = document.getElementById(
-                                "path1" + docID,
-                            );
-                            pathBox.style.border = "1px solid #d1d5de";
-                            pathBox.style.backgroundColor = "white";
-                        } else {
-                            document.getElementById(
-                                "forwardsTo2" + docID,
-                            ).style.display = "block";
-                            document.getElementById(
-                                "path2" + docID,
-                            ).attributes.placeholder.value = "path-to-my-page";
-                        }
+    let validPath = false;
 
-                        // make the title in the card the same as the title in the preview
-                        // replace newlines with nothing
-                        document.getElementById(
-                            `campaignName${docID}`,
-                        ).innerText = document
-                            .getElementById(`titleFor${docID}`)
-                            .innerText.replace(/\n/g, "");
-                        // updateButton.classList.remove("greyedOut"); // old legacy code from when update was greyed out when no changes were made
-                        // updateButton.innerText = "Update";
-                        if (
-                            document.getElementById("funnelSelect1" + docID)
-                                .value == "invalid" ||
-                            document.getElementById("funnelSelect2" + docID)
-                                .value == "invalid"
-                        ) {
-                            updateButton.classList.add("greyedOut");
-                        } else {
-                            updateButton.classList.remove("greyedOut");
-                        }
-                    });
-                });
+    // logic to load jostens or custom link
+    if(savedURL.includes("https://jostens.co")){
+      let importedPath = savedURL.split("https://jostens.co/")[1];
+      getLink(importedPath).then((redirectObj) => {
+        if(redirectObj){
+          redirectID = redirectObj._id;
+          console.log("Found redirect for '" + importedPath + "'! RedirectID: " + redirectID);
+          configJostensLink(redirectObj);
+        } else {
+          console.log("No redirect found for '" + importedPath + "'");
+          configJostensLink(redirectObj);
         }
+      });
+    } else {
+      configCustomLink();
+    }
 
-        function updateDate(docID) {
-            try {
-                document.getElementById("datePreview" + docID).innerText =
-                    formatDate(
-                        document.getElementById("orderDueDate" + docID).value,
-                    );
-            } catch (e) {} // date user enters won't always be valid, so just ignore if error thrown
+    getFunnelList().then((funnelList) => {
+      funnelSelect.innerHTML = funnelList;
+    });
+
+    function configCustomLink(){
+      allOtherWrapper.style.display = "none";
+      domainSelect.value = "custom";
+      pathURLBox.value = savedURL;
+    }
+
+    function configJostensLink(redirectObj){
+      let target = redirectObj ? redirectObj.target : "";
+      pathURLBox.value = savedURL.split("https://jostens.co/")[1];
+      domainSelect.value = "jostens.co";
+      allOtherWrapper.style.display = "block";
+      let importedType = redirectObj ? getType(target) : "Funnel";
+      fillFields(target, importedType);
+      subConfig = importedType;
+      typeSelect.value = importedType;
+      eval("subConfig" + importedType + "()");
+      if(redirectObj){
+        pathInput();
+      }
+    }
+
+    function getType(target){
+      if(target.includes("params=sms")){
+        return "SMS";
+      }
+      if(target.includes("params=mailto")){
+        return "Email";
+      }
+      if(target.includes("params=tel")){
+        return "Phone";
+      }
+      if(target.includes("https://app.kairoscloud.io/v2/preview/")){
+        return "Funnel";
+      }
+      if(target.includes("http")){
+        return "URL";
+      }
+    }
+
+    function fillFields(target, importedType){
+      console.log(target);
+      // the fields are as follows:
+      // a = recipient
+      // b = subject
+      // c = body
+      // And the target can be any of the following:
+      // sms, mailto, tel, funnel, url
+      // we need to autofill the fields based on the target
+      // important detail: &params= is URI encoded, so we need to decode it
+      let params = decodeURIComponent(target.split("&params=")[1]);
+      //console.log("Params: " + params);
+      if(importedType == "SMS"){
+        let recipient = params.split("sms:")[1].split("?")[0];
+        let message = params.split("body=")[1];
+        a.value = recipient;
+        c.value = message;
+      }
+      if(importedType == "Email"){
+        let recipient = params.split("mailto:")[1].split("?")[0];
+        let subject = params.split("subject=")[1].split("&")[0];
+        let body = params.split("body=")[1];
+        a.value = recipient;
+        b.value = subject;
+        c.value = body;
+      }
+      if(importedType == "Phone"){
+        let recipient = params.split("tel:")[1];
+        a.value = recipient;
+      }
+      if(importedType == "Funnel"){
+        if(target == ""){
+          return;
         }
+        let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+        funnelSelect.value = funnelID;
+      }
+      if(importedType == "URL"){
+        a.value = target;
+      }
+    }
 
-        function getDate(givenDate) {
-            try {
-                return formatDate(givenDate);
-            } catch (e) {}
-        }
+    function domainInput(){
+      // subconfig to default: funnel
+      // + any other variables
+      if(domainSelect.value == "jostens.co"){
+        subConfig = "Funnel";
+        subConfigFunnel();
+        allOtherWrapper.style.display = "block";
+      } else { // custom domain
+        configCustomLink();
+      }
+      pathURLBox.value = "";
+    }
 
-        function formatDate(dateString) {
-            const [year, month, day] = dateString.split("-");
-            const date = new Date(Date.UTC(year, month - 1, day));
+    let subConfig = "";
+    function typeInput(){
+        let type = typeSelect.value;
+        eval("subConfig" + type + "()");
+        subConfig = type;
+    }
 
-            // Add 1 to the day
-            date.setUTCDate(date.getUTCDate() + 1);
+    function subConfigSMS(){
+      funnelSelectWrapper.style.display = "none"; // Hide funnelselect. inline-block to enable
+      abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
 
-            const options = { year: "numeric", month: "long", day: "numeric" };
-            let finalDate = date.toLocaleDateString("en-US", options);
-            if (
-                finalDate.toString() == "Invalid Date" ||
-                finalDate.toString() == "undefined"
-            ) {
-                // invalid date
-                return "";
-            } else {
-                return finalDate;
-            }
-        }
+      configField(a, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
+      configField(c, "inline", "Message");
+    }
 
-        // converts unix time ex. "1724818189617" to "DoW, Mo Day, Year at Time AM/PM" format ex. "Wed, Jan 1, 2023 at 12:00 AM
-        function unixTimeToDate(unixTime) {
-            let date = new Date(unixTime);
-            let options = {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-            };
-            return date.toLocaleDateString("en-US", options);
-        }
+    function subConfigEmail(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
 
-        function sleep(ms) {
-            return new Promise((resolve) => setTimeout(resolve, ms));
-        }
+      configField(a, "inline", "Recipient, ex. example@mail.com");
+      configField(b, "inline", "Subject");
+      configField(c, "inline", "Body");
+      }
 
-        function display(campaignID) {
-            document.querySelectorAll(".previewType").forEach((element) => {
-                element.style.display = "none";
+    function subConfigPhone(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+
+      configField(a, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
+      configField(c, "none", "");
+    }
+
+    function subConfigURL(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+
+      configField(a, "inline", "URL, ex. https://example.com");
+      configField(b, "none", "");
+      configField(c, "none", "");
+    }
+
+    function subConfigFunnel(){
+      funnelSelectWrapper.style.display = "inline-block";
+      abcWrapper.style.display = "none";
+    }
+
+    function configField(elem, display, placeholder){
+      elem.style.display = display;
+      elem.placeholder = placeholder;
+    }
+
+
+    async function getLink(path) {
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
+            path +
+            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            return await response.json().then((data) => {
+                console.log(data.data[0]);
+                return data.data[0];
             });
-            document.getElementById(campaignID).style.display = "block";
+        } catch (error) {
         }
+    }
 
-        function deleteCampaign(docID) {
-            document.querySelectorAll(".previewType").forEach((element) => {
-                element.style.display = "none";
-            });
-            document.getElementById("displayCard" + docID).style.display =
-                "none";
-            let campaignRef = firestore
-                .collection("campaigns_restructured")
-                .doc(locationID)
-                .collection("campaigns")
-                .doc(docID);
+    async function getFunnelList() {
+      let funnelList = "";
+        const url =
+            "https://services.leadconnectorhq.com/funnels/funnel/list?locationId=" +
+            locationID;
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + locationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
 
-            // Delete the document
-            campaignRef
-                .delete()
-                .then(() => {
-                    console.log("Document successfully deleted!");
-                    deleteTag(
-                        document
-                            .getElementById("campaignName" + docID)
-                            .innerText.toLowerCase(),
-                    );
-                    deleteLinkWrapper(docID);
-                })
-                .catch((error) => {
-                    console.error("Error removing document: ", error);
-                    domError("Error deleting campaign. Please try again.");
-                });
-        }
-
-        async function deleteLinkWrapper(docID) {
-            await getLinkID(
-                document.getElementById("path1" + docID).value,
-            ).then((linkID) => {
-                console.log("Deleting link 1");
-                deleteLink(linkID);
-            });
-
-            await getLinkID(
-                document.getElementById("path2" + docID).value,
-            ).then((linkID) => {
-                console.log("Deleting link 2");
-                deleteLink(linkID);
-            });
-        }
-
-        function newCampaign() {
-            let campaignsContainer =
-                document.getElementById("campaignsContainer");
-            if (!campaignsContainer.innerHTML.includes("tempNewCampaign")) {
-                campaignsContainer.innerHTML =
-                    `
-                <div class="campaign" id="tempNewCampaign">
-                    <span class="saveNew greyedOut" id="newSaveTemp" style="cursor: pointer; margin-top: 12px" onclick="saveNewCampaign()">Save</span>
-                    <span class="manageButton" style="margin-top: 12px" onclick="cancelNewCampaign()">Cancel</span>
-                    <div>
-                        <input type="text" class="input-field" placeholder="Name your campaign..." style="width: 50%" id="newCampaignNameInput" autofocus>
-                    </div>
-                </div>
-              ` + campaignsContainer.innerHTML;
-                // create new event listener for newCampaignNameInput's input value changing
-                document
-                    .getElementById("newCampaignNameInput")
-                    .addEventListener("input", function () {
-                        if (
-                            document.getElementById("newCampaignNameInput")
-                                .value == ""
-                        ) {
-                            // add ".greyedOut" class to newSaveTemp
-                            document
-                                .getElementById("newSaveTemp")
-                                .classList.add("greyedOut");
-                        } else {
-                            document
-                                .getElementById("newSaveTemp")
-                                .classList.remove("greyedOut");
-                        }
-                    });
-                // create a new eventlistener for enter key being pressed
-                document
-                    .getElementById("newCampaignNameInput")
-                    .addEventListener("keyup", function (event) {
-                        if (
-                            event.key === "Enter" &&
-                            document.getElementById("newCampaignNameInput")
-                                .value != ""
-                        ) {
-                            saveNewCampaign();
-                        }
-                    });
-            }
-        }
-
-        function cancelNewCampaign() {
-            document.getElementById("tempNewCampaign").remove();
-        }
-
-        function saveNewCampaign() {
-            const campaignName = document.getElementById(
-                "newCampaignNameInput",
-            ).value;
-            // if campaignName found in campaignsList, display error message
-            for (let i = 0; i < campaignsList.length; i++) {
-                if (
-                    campaignsList[i].data().name.toLowerCase() ==
-                    campaignName.toLowerCase()
-                ) {
-                    domError("Campaign name taken. Choose a different name.");
-                    return;
-                }
-            }
-            // Create a new tag for the campaign
-            createTag(campaignName).then((tagID) => {
-                console.log("Tag ID: " + tagID);
-                // Generate a new document ID
-                let newDocID = Math.random().toString(16).substring(4);
-                // Reference to the new campaign document in the reorganized collection
-                const newCampaignRef = firestore
-                    .collection("campaigns_restructured")
-                    .doc(locationID)
-                    .collection("campaigns")
-                    .doc(newDocID);
-                // Set the new campaign document
-                newCampaignRef
-                    .set({
-                        name: campaignName,
-                        locationID: locationID,
-                        tagID: tagID,
-                    })
-                    .then(() => {
-                        console.log("Document written with ID: ", newDocID);
-
-                        // Get the new campaign document
-                        return newCampaignRef.get();
-                    })
-                    .then((doc) => {
-                        if (doc.exists) {
-                            document.getElementById("tempNewCampaign").remove();
-                            addCampaignToDOM(doc.data(), doc.id, true);
-                            campaignsList.push(doc);
-                            display(doc.id);
-                        } else {
-                            console.log("No such document!");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error adding document: ", error);
-                    });
-            });
-        }
-
-        async function tryCreateTag(campaignName) {
-            let tagID = await getTagID(campaignName);
-            if (tagID == null) {
-                console.log("Could not find tag. Creating tag.");
-                createTag(campaignName);
-            }
-        }
-
-        async function updateCampaign(docID) {
-            if (
-                document.getElementById("updateButton" + docID).classList
-                    .length <= 1
-            ) {
-                let campaignName = document.getElementById(
-                    "campaignName" + docID,
-                ).innerText;
-                // check if campaign name is valid (hasn't already been used)
-                for (let i = 0; i < campaignsList.length; i++) {
-                    if (
-                        campaignsList[i].data().name.toLowerCase() ==
-                        campaignName.toLowerCase()
-                    ) {
-                        if (campaignsList[i].id != docID) {
-                            domError(
-                                "Campaign name taken. Choose a different name.",
-                            );
-
-                            return;
-                        }
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            let funnels = data.funnels;
+            //datax = data;
+            for (let i = 0; i < funnels.length; i++) {
+                // for each step
+                let steps = funnels[i].steps;
+                for (let j = 0; j < steps.length; j++) {
+                    let funnelName = funnels[i].name;
+                    let siteID = steps[j].pages[0];
+                    if (funnels[i].deleted == true) {
+                        funnelName = "[Deleted funnel]";
+                        siteID = "invalid";
                     }
+                    let stepName = steps[j].name;
+
+                    let displayName = shorten(funnelName) + " | " + shorten(stepName);
+                    funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
-                closeLinkContainer(docID, 1);
-                closeLinkContainer(docID, 2);
-
-                let updateButton = document.getElementById(
-                    `updateButton${docID}`,
-                );
-                updateButton.classList.add("greyedOut");
-                updateButton.innerText = "Updating...";
-                // update the campaign in the database
-                let campaignRef = firestore
-                    .collection("campaigns_restructured")
-                    .doc(locationID)
-                    .collection("campaigns")
-                    .doc(docID);
-                // get each of the input fields and store as variable
-                let schoolName = document.getElementById(
-                    "schoolName" + docID,
-                ).value;
-                let schoolLocation = document.getElementById(
-                    "schoolLocation" + docID,
-                ).value;
-                let schoolMascot = document.getElementById(
-                    "schoolMascot" + docID,
-                ).value;
-                let schoolLogo = document.getElementById(
-                    "schoolLogo" + docID,
-                ).value;
-                let jostensWebsiteLink = document.getElementById(
-                    "jostensWebsiteLink" + docID,
-                ).value;
-                let orderDueDate = document.getElementById(
-                    "orderDueDate" + docID,
-                ).value;
-                let tagID = document.getElementById("tagID" + docID).innerText;
-
-                if (tagID == "" || tagID == null || tagID == undefined) {
-                    tagID = await getTagID(campaignName);
-                    document.getElementById("tagID" + docID).innerText = tagID;
-                }
-
-                console.log("Tag ID: " + tagID);
-
-                // The two landing pages are special cases. If the domain is Jostens.co, we need to add the domain to the path
-                // Elsewise, the user has entered a full URL
-                let landingPage1 = document.getElementById(
-                    "landingPage1Text" + docID,
-                ).innerText;
-
-                // and we do the same thing for the second landing page
-                let landingPage2 = document.getElementById(
-                    "landingPage2Text" + docID,
-                ).innerText;
-
-                let oldCampaignName = document.getElementById(
-                    "oldCampaignNameFor" + docID,
-                ).innerText;
-
-                let redirectID1 = document.getElementById(
-                    "redirectID1" + docID,
-                ).innerText;
-                let redirectID2 = document.getElementById(
-                    "redirectID2" + docID,
-                ).innerText;
-                // get the last updated date, make it current unix time
-                let lastUpdated = Date.now();
-
-                // update in firebase, throw error if it fails, success message if it works
-                campaignRef
-                    .update({
-                        name: campaignName,
-                        schoolName: schoolName,
-                        schoolLocation: schoolLocation,
-                        mascot: schoolMascot,
-                        schoolLogo: schoolLogo,
-                        jostensWebsiteLink: jostensWebsiteLink,
-                        orderDueDate: orderDueDate,
-                        landingPage1: landingPage1,
-                        landingPage2: landingPage2,
-                        lastUpdated: lastUpdated,
-                        tagID: tagID,
-                        redirectID1: redirectID1,
-                        redirectID2: redirectID2,
-                    })
-                    .catch((error) => {
-                        console.error("Error updating document: ", error);
-                        domError(
-                            "Failure updating campaign. Please try again.",
-                        );
-                    })
-                    .then(() => {
-                        console.log("Document successfully updated!");
-                        document.getElementById(
-                            "lastUpdatedFor" + docID,
-                        ).innerText =
-                            "Last updated " + unixTimeToDate(lastUpdated);
-                        // What the below code does:
-                        // - reconstruct custom fields
-                        // - get list of contacts with tag, which is the docID
-                        //    - let contactsList = getContactsByTag(campaignRef.data().docID)
-                        // - update each contact with new school info
-                        //    - updateList(contactsList, customfields) = repeated call to updateContact()
-                        // - update campaign with new number of contacts
-                        // - update UI
-
-                        let customFields =
-                            `{
-                          "customFields": [
-                            {
-                              "key": "school_name",
-                              "value": "` +
-                            schoolName +
-                            `"
-                            },
-
-                            {
-                              "key": "mascot",
-                              "value": "` +
-                            schoolMascot +
-                            `"
-                            },
-
-                            {
-                              "key": "school_location",
-                              "value": "` +
-                            schoolLocation +
-                            `"
-                            },
-
-                            {
-                              "key": "school_logo_link",
-                              "value": "` +
-                            schoolLogo +
-                            `"
-                            },
-
-                            {
-                              "key": "jostens_website_link",
-                              "value": "` +
-                            jostensWebsiteLink +
-                            `"
-                            },
-
-                            {
-                              "key": "landing_page_1",
-                              "value": "` +
-                            landingPage1 +
-                            `"
-                            },
-
-                            {
-                              "key": "landing_page_2",
-                              "value": "` +
-                            landingPage2 +
-                            `"
-                            },
-
-                            {
-                              "key": "campaign_name",
-                              "value": "` +
-                            campaignName +
-                            `"
-                            },
-
-                            {
-                              "key": "last_updated",
-                              "value": "` +
-                            new Date().toISOString() +
-                            `"
-                            },
-
-                            {
-                              "key": "type",
-                              "value": "` +
-                            "customer" +
-                            `"
-                            },
-
-                            {
-                              "key": "order_due_date",
-                              "value": "` +
-                            formatDate(orderDueDate) +
-                            `"
-                            }
-
-                          ],
-                          "country": "US"
-                        }
-                        `;
-
-                        getContactsByTag(
-                            "https://services.leadconnectorhq.com/contacts/?locationId=" +
-                                locationID +
-                                "&query=" +
-                                oldCampaignName.toLowerCase() +
-                                "$&limit=100",
-                        ).then((data) => {
-                            let finalData = [];
-                            console.log(data);
-                            // query doesn't have exact matching (ghl moment) so we need to filter the exact matches ourselves
-                            for (let i = 0; i < data.length; i++) {
-                                console.log(data[i].tags);
-                                if (
-                                    data[i].tags.includes(
-                                        campaignName.toLowerCase(),
-                                    )
-                                ) {
-                                    finalData.push(data[i]);
-                                }
-                            }
-                            updateList(finalData, customFields, docID);
-                        });
-                    }); // end .then() after updating campaign
             }
+            return funnelList;
+        } catch (error) {
+            console.error(error);
         }
+    }
 
-        async function getContactsByTag(url) {
-            //console.log(url);
-            const options = {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
+    function shorten(str){
+      if(str.length > 14){
+        return str.substring(0, 14) + "...";
+      } else {
+        return str;
+      }
+    }
 
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                contactsList = data.contacts;
-                // since the API only returns 100 contacts at a time, we need to check if there are more contacts
-                if (contactsList.length == 100) {
-                    return contactsList.concat(
-                        await getContactsByTag(data.meta.nextPageUrl), // recursive call to get the next contacts
-                    );
-                } else {
-                    return contactsList;
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
+    function outwardMessage(message) {
+        window.parent.postMessage(componentID + "::" + message, "*");
+    }
 
-        let contlistx = "";
-        function updateList(contList, fields, docID) {
-            contlistx = contList;
-            let index = 0;
-            let max = contList.length || 0;
-            let tagID = document.getElementById("tagID" + docID).innerText;
-            if (contList.length == 0) {
-                let updateButton = document.getElementById(
-                    `updateButton${docID}`,
-                );
-                updateButton.innerText = "Update";
-                // remove greyedout class from updatebutton
-                updateButton.classList.remove("greyedOut");
+    async function save(){
+      let path = pathURLBox.value;
+      let oldPath = savedURL.split("https://jostens.co/")[1];
+      if(saveButton.classList.contains("greyedOut")){
+        return;
+      }
+      saveButton.innerHTML = "Saving...";
+      saveButton.classList.add("greyedOut");
+      if(domainSelect.value == "custom"){
+        deleteRedirect(redirectID);
+        outwardMessage("success(" + path + ")['']");
+        outwardMessage("collapse");
+        return;
+      }
+      let target = "";
+      if(subConfig == "SMS"){
+        let recipient = a.value;
+        let message = c.value;
+        target = "sms:" + recipient + "?body=" + message;
+      }
+      if(subConfig == "Email"){
+        let recipient = a.value;
+        let subject = b.value;
+        let body = c.value;
+        target = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
+      }
+      if(subConfig == "Phone"){
+        let recipient = a.value;
+        target = "tel:" + recipient;
+      }
+      if(subConfig == "URL"){
+        let url = a.value;
+        target = url;
+      }
+      if(subConfig == "Funnel"){
+        let funnel = funnelSelect.value;
+        target = "https://app.kairoscloud.io/v2/preview/" + funnel;
+      }
 
-                // update tag (grab old campaign name and new campaign name)
-                let campaignName = document.getElementById(
-                    "campaignName" + docID,
-                ).innerText;
-                let oldCampaignName = document.getElementById(
-                    "oldCampaignNameFor" + docID,
-                ).innerText;
-                updateTag(
-                    oldCampaignName.toLowerCase(),
-                    campaignName.toLowerCase(),
-                    tagID,
-                );
-                document.getElementById("numContacts" + docID).innerText =
-                    "No contacts";
-                document.getElementById("cardNumContacts" + docID).innerText =
-                    "No contacts yet. Click 'manage' to get started";
-                return;
-            }
-            let progBar = document.getElementById("progressBar" + docID);
-            progBar.max = max;
-            progBar.value = 0;
-            progBar.style.display = "block";
-            let progText = document.getElementById("numContacts" + docID);
-            let apiInterval = setInterval(() => {
-                updateContact(contList[index].id, fields);
-                progBar.value = index + 1;
-                progText.innerText =
-                    index + 1 + " / " + max + " contacts updated";
-                index++;
-                if (index >= max) {
-                    clearInterval(apiInterval);
-                    let updateButton = document.getElementById(
-                        `updateButton${docID}`,
-                    );
-                    updateButton.innerText = "Update";
-                    // update tag (grab old campaign name and new campaign name)
-                    let campaignName = document.getElementById(
-                        "campaignName" + docID,
-                    ).innerText;
-                    let oldCampaignName = document.getElementById(
-                        "oldCampaignNameFor" + docID,
-                    ).innerText;
-                    updateTag(
-                        oldCampaignName.toLowerCase(),
-                        campaignName.toLowerCase(),
-                        tagID,
-                    );
-                    // remove greyedout class from updatebutton
-                    updateButton.classList.remove("greyedOut");
-                    setTimeout(() => {
-                        progBar.style.display = "none";
-                        progText.innerText = max + " contacts";
-                    }, 1000);
-                }
-            }, 110); // every 120ms, we update a contact. This equals about 90 contacts per 10 seconds, below the API limit and giving us some space for people using the API elswehere
-            firestore
-                .collection("campaigns_restructured")
-                .doc(locationID)
-                .collection("campaigns")
-                .doc(docID)
-                .update({
-                    // update number of contacts in campaign
-                    numContacts: max,
-                });
-        }
+      if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
+        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + encodeURIComponent(target);
+      }
+      console.log(target);
 
-        async function updateContact(contactID, fields) {
-            const url =
-                "https://services.leadconnectorhq.com/contacts/" + contactID;
-            const options = {
-                method: "PUT",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: fields,
-            };
+      await deleteRedirect(redirectID);
+      createRedirect(path, target);
 
-            try {
-                await fetch(url, options);
-                console.log("Contact updated successfully!");
-            } catch (error) {
-                console.error(error);
-            }
-        }
+    }
 
-        async function deleteTag(tagName) {
-            getTagID(tagName).then((tagID) => {
-                const url =
-                    "https://services.leadconnectorhq.com/locations/" +
-                    locationID +
-                    "/tags/" +
-                    tagID;
-                const options = {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: "Bearer " + locationAccessKey,
-                        Version: "2021-07-28",
-                        Accept: "application/json",
-                    },
-                };
+    async function deleteRedirect(id){
+      if(id == ""){
+        console.log("No previous redirect to delete: skipping");
+        return;
+      }
+      console.log("Deleting redirect '" + id + "'");
+      const url = 'https://services.leadconnectorhq.com/funnels/lookup/redirect/' + id + '?locationId=owNEzpbrfBjp4weSARXD';
+      const options = {
+          method: "DELETE",
+          headers: {
+              Authorization: "Bearer " + jdlocationAccessKey,
+              Version: "2021-07-28",
+              Accept: "application/json",
+          },
+      };
 
-                try {
-                    const response = fetch(url, options);
-                    // const data = await response.json();
-                    // console.log(data);
-                    console.log("Successfully deleted tag " + tagName);
-                } catch (error) {
-                    console.error(error);
-                }
-            });
-        }
+      try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+          console.log(data);
+      } catch (error) {
+          console.error(error);
+      }
+    }
 
-        //let datax = "";
-        async function updateTag(oldTag, newTag, tagID) {
-            //console.log(tagID);
-            const url =
-                "https://services.leadconnectorhq.com/locations/" +
-                locationID +
-                "/tags/" +
-                tagID;
-            const options = {
-                method: "PUT",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: '{"name":"' + newTag + '"}',
-            };
-
-            try {
-                const response = await fetch(url, options);
-                //datax = response;
-                const data = await response.json();
-                console.log(data);
-                if (
-                    response.status != 200 &&
-                    response.status != 201 &&
-                    response.status != 204 &&
-                    response.status != 202
-                ) {
-                    throw new Error("Could not update tag");
-                }
-                console.log(
-                    "Successfully updated tag '" +
-                        oldTag +
-                        "' to '" +
-                        newTag +
-                        "'",
-                );
-            } catch (error) {
-                console.error(error);
-                domError("Could not update tag");
-            }
-        }
-
-        async function getTagID(tagName) {
-            const url =
-                "https://services.leadconnectorhq.com/locations/" +
-                locationID +
-                "/tags";
-            const options = {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
-
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                //console.log(data);
-                let tags = data.tags;
-                for (let i = 0; i < tags.length; i++) {
-                    if (tags[i].name == tagName.toLowerCase()) {
-                        //console.log(tags[i].id);
-                        return tags[i].id;
-                    }
-                }
-                return null;
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        // this never gets used
-        async function addTagToContact(contactID, tag) {
-            const url =
-                "https://services.leadconnectorhq.com/contacts/" +
-                contactID +
-                "/tags";
-            const options = {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: '{"tags":["' + tag + '"]}',
-            };
-
-            try {
-                const response = await fetch(url, options);
-                //const data = await response.json();
-                //console.log(data);
-                console.log("Tag successfully added to contact!");
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        async function createTag(tagName) {
-            const url =
-                "https://services.leadconnectorhq.com/locations/" +
-                locationID +
-                "/tags";
-            const options = {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: '{"name":"' + tagName + '"}',
-            };
-
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                console.log(data);
-                if (
-                    response.status != 200 &&
-                    response.status != 201 &&
-                    response.status != 204 &&
-                    response.status != 202
-                ) {
-                    throw new Error("Could not create tag");
-                }
-                let id = data.tag.id;
-                console.log("Tag successfully created with ID " + id);
-                return id;
-            } catch (error) {
-                console.error(error);
-                domError("Could not create tag");
-            }
-        }
-
-        async function getLinkID(path) {
-            const url =
-                "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
+    async function createRedirect(path, target) {
+      console.log("Creating redirect...");
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect";
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body:
+                `
+            {
+              "locationId": "` +
+                "owNEzpbrfBjp4weSARXD" +
+                `",
+              "domain": "jostens.co",
+              "path": "/` +
                 path +
-                "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
-            const options = {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + jdlocationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
+                `",
+                "target": "` + target + `",
+              "action": "url"
+            }`,
+        };
 
-            try {
-                const response = await fetch(url, options);
-                return await response.json().then((data) => {
-                    //console.log(data);
-                    return data.data[0]._id;
-                });
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            processResult(data, response.status)
             } catch (error) {
-                //console.error(path);
-                //console.error(error);
-            }
+            console.error(error);
         }
+    }
 
-        async function deleteLink(linkID) {
-            const url =
-                "https://services.leadconnectorhq.com/funnels/lookup/redirect/" +
-                linkID +
-                "?locationId=owNEzpbrfBjp4weSARXD";
-            const options = {
-                method: "DELETE",
-                headers: {
-                    Authorization: "Bearer " + jdlocationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
+    function pathInput(){
+      if(domainSelect.value == "custom"){
+        // custom domain is being used, therefore no need to validate path
+        pathURLBox.style.border = "1px solid #d1d5de";
+        pathURLBox.style.backgroundColor = "white";
+        saveButton.classList.remove("greyedOut");
+        return;
+      }
+      let path = pathURLBox.value;
+      let oldPath = savedURL.split("https://jostens.co/")[1];
+      shortenedLinkExists(path).then((linkExists) => {
+          if (path == oldPath) {
+              // matches old path
+              pathURLBox.style.border = "1px solid #d1d5de";
+              pathURLBox.style.backgroundColor = "white";
+              saveButton.classList.remove("greyedOut");
+              validPath = true;
+          } else if (!linkExists && isValidPath(path)) {
+            // valid
+              pathURLBox.style.border = "1px solid green";
+              pathURLBox.style.backgroundColor = "#D7EBC0";
+              saveButton.classList.remove("greyedOut");
+              validPath = true;
+          } else {
+            // invalid
+              pathURLBox.style.border = "1px solid lightcoral";
+              pathURLBox.style.backgroundColor = "#EAD3D3";
+              saveButton.classList.add("greyedOut");
+              validPath = false;
+          }
+      });
+    }
 
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                if (data.status != "ok") {
-                    console.log(
-                        "Could not delete previous link (might be first time creating link)",
-                    );
-                    //domError("Could not delete previous link");
-                }
-            } catch (error) {
-                //domError("Could not delete previous link");
-                onsole.log(
-                    "Could not delete previous link (might be first time creating link)",
-                );
-            }
-        }
+    function isValidPath(path) {
+      const urlSafeRegex = /^[a-zA-Z0-9\-_.~]+$/;
+      return urlSafeRegex.test(path);
+    }
 
-        // tests if a string is URL safe
-        function isUrlifyAble(str) {
-            const urlSafePattern = /^[a-zA-Z0-9\-._~:/?#\[\]@!$&'()*+,;=]*$/;
-            return urlSafePattern.test(str);
-        }
+    async function shortenedLinkExists(path) {
+      if(path == ""){
+        return true;
+      }
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
+            path +
+            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
 
-        async function shortenLink(path, siteID, docID, which) {
-            if (!isUrlifyAble(path)) {
-                domError(
-                    "Cannot shorten URL: Path contains invalid characters",
-                );
-                return;
-            }
-            if (path == "") {
-                // path is empty
-                domError("Cannot shorten URL: Path is empty");
-                return;
-            }
-
-            let fsValue = document.getElementById(
-                "funnelSelect" + which + docID,
-            ).value;
-
-            if (
-                fsValue == "" ||
-                fsValue == null ||
-                fsValue == "null" ||
-                fsValue == undefined
-            ) {
-                domError("Please select a funnel");
-                return;
-            }
-
-            if (which == 1) {
-                await getLinkID(prevPath1s[docID]).then((linkID) => {
-                    if (path != prevPath1s[docID]) {
-                        console.log(
-                            "Deleting old link (1): /" + prevPath1s[docID],
-                        );
-                        prevPath1s[docID] = path;
-                        deleteLink(linkID);
-                    }
-                });
-            } else {
-                // which == 2
-                await getLinkID(prevPath2s[docID]).then((linkID) => {
-                    if (path != prevPath2s[docID]) {
-                        console.log(
-                            "Deleting old link (2): /" + prevPath2s[docID],
-                        );
-                        prevPath2s[docID] = path;
-                        deleteLink(linkID);
-                    }
-                });
-            }
-
-            const url =
-                "https://services.leadconnectorhq.com/funnels/lookup/redirect";
-            const options = {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + jdlocationAccessKey,
-                    Version: "2021-07-28",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body:
-                    `
-                {
-                  "locationId": "` +
-                    "owNEzpbrfBjp4weSARXD" +
-                    `",
-                  "domain": "jostens.co",
-                  "path": "/` +
-                    path +
-                    `",
-                  "target": "https://app.kairoscloud.io/v2/preview/` +
-                    siteID +
-                    `",
-                  "action": "url"
-                }`,
-            };
-
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                // console.log("URL REDIR DATA: ");
-                console.log(data);
-                if (
-                    response.status == 200 ||
-                    response.status == 201 ||
-                    response.status == 204
-                ) {
-                    if (which == 1) {
-                        linkID1s[docID] = data.data.id;
-                    } else {
-                        linkID2s[docID] = data.data.id;
-                    }
-                    // update the campaign in firebase, setting redirectID to the new linkID for both
-                    let campaignRef = firestore
-                        .collection("campaigns_restructured")
-                        .doc(locationID)
-                        .collection("campaigns")
-                        .doc(docID);
-                    campaignRef.update({
-                        redirectID1: linkID1s[docID] || "",
-                        redirectID2: linkID2s[docID] || "",
-                    });
-                }
-            } catch (error) {
-                //console.error(error);
-                domError("Could not shorten link");
-            }
-        }
-
-        //let datax = "";
-        async function getFunnelList() {
-            const url =
-                "https://services.leadconnectorhq.com/funnels/funnel/list?locationId=" +
-                locationID;
-            const options = {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + locationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
-
-            try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                console.log(data);
-                let funnels = data.funnels;
-                //datax = data;
-                for (let i = 0; i < funnels.length; i++) {
-                    // for each step
-                    let steps = funnels[i].steps;
-                    for (let j = 0; j < steps.length; j++) {
-                        let funnelName = funnels[i].name;
-                        let siteID = steps[j].pages[0];
-                        if (funnels[i].deleted == true) {
-                            funnelName = "[Deleted funnel]";
-                            siteID = "invalid";
-                        }
-                        let stepName = steps[j].name;
-                        let displayName = funnelName + " | " + stepName;
-                        funnelList += `<option value="${siteID}">${displayName.length < 55 ? displayName : displayName.substring(0, 55) + "..."} &nbsp; &nbsp; &nbsp;</option>`;
-                    }
-                }
-                getCampaigns();
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        function closeMediaLibrary() {
-            document.getElementById("mediaLibraryContainer").style.visibility =
-                "hidden";
-        }
-
-        function openMediaLibrary(docID) {
-            document.getElementById("mediaLibraryContainer").style.visibility =
-                "visible";
-            // set the docID in the hidden html
-            document.getElementById("selectingMediaFor").innerText = docID;
-        }
-
-        function instateMediaLink() {
-            // if button is not greyed out
-            if (
-                !document
-                    .getElementById("mediaSelectButton")
-                    .classList.contains("greyedOut")
-            ) {
-                let docID =
-                    document.getElementById("selectingMediaFor").innerText;
-                console.log(docID);
-                let mediaLink = document.getElementById("mediaLink").innerText;
-                // put that value into the input box
-                document.getElementById("schoolLogo" + docID).value = mediaLink;
-                // put the image in the preview
-                document.getElementById("imgPreview" + docID).src = mediaLink;
-                closeMediaLibrary();
-            }
-        }
-
-        // DOM error function + global variables
-        // the function is recursive; if already displaying error, it waits and attempts again
-        // pushing onto an "error stack" might be a better solution for this in the future, but this is simpler
-        // we use globally-scoped variables so that the function doesn't have to select the elements every time
-        // the elements are static anyways, they're always in the DOM and never change
-        let errorMessage = document.getElementById("errorMessage");
-        let domErrorBox = document.getElementById("DOMerror");
-        let errorInProg = false;
-        function domError(text) {
-            // // "Muted" all errors for now
-            //console.log("Calling domError...");
-            // if (errorInProg) {
-            //     setTimeout(() => {
-            //         domError(text); // recursively call it one second later
-            //     }, 1000); // remove it once the animation is done
-            //     return;
-            // }
-            // errorMessage.innerText = text;
-            // domErrorBox.classList.add("swipeIn");
-            console.warn("Error: " + text); // we use console.warn instead of .error to avoid stopping the script
-            // errorInProg = true;
-            // setTimeout(() => {
-            //     domErrorBox.classList.remove("swipeIn");
-            //     errorInProg = false;
-            // }, 7000); // remove it once the animation is done (6s wait, 1s animation length)
-        }
-
-        // basically a wrapper function for shortenedLinkExists, just sorts out which path box is being checked, and which to change when valid/invalid
-        // "which" can be 1 or 2, for the two different path boxes
-        function checkPath(docID, which) {
-            let dropdownForPath = document.getElementById(
-                "domainSelect" + which + docID,
-            );
-
-            let pathBox = document.getElementById("path" + which + docID);
-            if (
-                pathBox.value == "" ||
-                dropdownForPath.value == "customDomain"
-            ) {
-                // reset to defaults
-                pathBox.style.border = "1px solid #d1d5de";
-                pathBox.style.backgroundColor = "white";
-                return;
-            }
-            shortenedLinkExists(pathBox.value).then((linkExists) => {
-                if (linkExists || !isUrlifyAble(pathBox.value)) {
-                    pathBox.style.border = "1px solid lightcoral";
-                    pathBox.style.backgroundColor = "#EAD3D3";
-                    // grey out the update button
-                    // document
-                    //     .getElementById("updateButton" + docID)
-                    //     .classList.add("greyedOut");
-                    validPath[which] = false;
-                } else {
-                    pathBox.style.border = "1px solid green";
-                    pathBox.style.backgroundColor = "#D7EBC0";
-                    // un-grey out the update button
-                    // document
-                    //     .getElementById("updateButton" + docID)
-                    //     .classList.remove("greyedOut");
-                    validPath[which] = true;
-                }
+        try {
+            const response = await fetch(url, options);
+            return await response.json().then((data) => {
+                return data.count == 1; // if the count is 1, the URL exists; if not, it doesn't
             });
+        } catch (error) {
+            console.error(error);
         }
+    }
 
-        // check if a given short URL exists or not
-        // usage: await shortenedLinkExists("example")
-        async function shortenedLinkExists(path) {
-            const url =
-                "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
-                path +
-                "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
-            const options = {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + jdlocationAccessKey,
-                    Version: "2021-07-28",
-                    Accept: "application/json",
-                },
-            };
-
-            try {
-                const response = await fetch(url, options);
-                return await response.json().then((data) => {
-                    //console.log(data.count);
-                    return data.count == 1; // if the count is 1, the URL exists; if not, it doesn't
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        // temporary function for after we've got the file selector figured out
-        // opens the media library in a new tab
-        // https://app.kairoscloud.io/v2/location/${locationID}/media-storage#iframeEmbed
-        function openMediaLibraryTemp() {
-            window.open(
-                `https://app.kairoscloud.io/v2/location/${locationID}/media-storage#iframeEmbed`,
-                "_blank",
-            );
-        }
-
-        function openLandingPage(which, docID) {
-            let url = document.getElementById(
-                `landingPage${which}Text${docID}`,
-            ).innerText;
-            window.open(url, "_blank");
-        }
-
-        //openLinkContainer('${docID}', 1)
-        function toggleLinkContainer(docID, which) {
-            let redirectID = document.getElementById(
-                "redirectID" + which + docID,
-            ).innerText;
-            let landingPageBox = document.getElementById(
-                "landingPageBox" + which + docID,
-            );
-            let componentID = Math.random().toString(16).substring(4);
-
-            if (landingPageBox.classList.contains("expandLPBox")) {
-                // contracting it
-                closeLinkContainer(docID, which);
-            } else {
-                // expanding it
-                landingPageBox.classList.add("expandLPBox");
-                landingPageBox.classList.remove("contractLPBox");
-                let linkText = document.getElementById(
-                    `landingPage${which}Text${docID}`,
-                ).innerText;
-                let iframeText = `<iframe src="https://kairoscloud.github.io/jostens/linkShortenerComponent.html?redirectID=${redirectID}&locationID=${locationID}&locationAccessKey=${locationAccessKey}&componentID=${"landingPageComp-" + which + "-" + docID}&savedURL=${linkText}&jdlocationAccessKey=${jdlocationAccessKey}" class="linkContainer">`;
-                //console.log(iframeText);
-                landingPageBox.innerHTML = `
-                  <span id="landingPage${which}Text${docID}" style="display: none">${linkText}</span>
-                  <span id="redirectID${which}${docID}" style="display: none">${redirectID}</span>
-                  ${iframeText}
-                   </iframe>
-                  `;
-            }
-        }
-
-        window.addEventListener("message", (event) => {
-            handleLinkComponentResponse(event.data);
-        });
-
-        function handleLinkComponentResponse(message) {
-            console.log("MESSAGE: " + message);
-            let componentID = message.split("::")[0];
-            let which = componentID.split("-")[1];
-            let docID = componentID.split("-")[2];
-            if (message.includes("::collapse")) {
-                closeLinkContainer(docID, which);
-            }
-            if (message.includes("::domError")) {
-                let error = message.split("::domError(")[1].split(")")[0];
-                domError(error);
-            }
-            if (message.includes("::success")) {
-                let url = message.split("::success(")[1].split(")")[0];
-                document.getElementById(
-                    `landingPage${which}Text${docID}`,
-                ).innerText = url;
-                closeLinkContainer(docID, which);
-            }
-        }
-
-        function closeLinkContainer(docID, which) {
-            let landingPageBox = document.getElementById(
-                "landingPageBox" + which + docID,
-            );
-            landingPageBox.classList.add("contractLPBox");
-            landingPageBox.innerHTML = `
-              <span id="landingPage${which}Text${docID}" style="display: block">${document.getElementById(`landingPage${which}Text${docID}`).innerText}</span>
-              <span id="redirectID${which}${docID}" style="display: none">${document.getElementById("redirectID" + which + docID).innerText}</span>
-              `;
-            setTimeout(() => {
-                landingPageBox.classList.remove("expandLPBox");
-                // document.getElementById(
-                //     `landingPage${which}Text${docID}`,
-                // ).style.display = "block";
-            }, 400); // 0.4s to ms
-        }
-    </script>
-</html>
+    let datax = "";
+    function processResult(data, status){
+      console.log(status);
+      console.log(data);
+      datax = data;
+      // console.log(data.data._id);
+      // console.log(data.id);
+      // console.log(data._id);
+      // account for all success statuses
+      if(status == 200 || status == 201 || status == 204 || status == 202){
+        let shortenedLink = "https://" + data.data.domain + data.data.path;
+        outwardMessage("success(" + shortenedLink + ")[" + data.data.id + "]");
+        outwardMessage("collapse");
+      } else {
+        // error
+        console.log(redirectID);
+        console.log(data);
+        outwardMessage("domError(Could not shorten link:)");
+      }
+      // remove greyedOut
+      saveButton.classList.remove("greyedOut");
+    }
+</script>

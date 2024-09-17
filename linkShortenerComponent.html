@@ -1,4 +1,3 @@
-<meta http-equiv="Content-Security-Policy" content="document-domain 'kairoscloud.io'">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -481,7 +480,6 @@
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
 </body>
 <script>
-    document.domain = "app.kairoscloud.io";
     // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
     let urlParams = new URLSearchParams(window.location.search);
     let locationID = urlParams.get("locationID");

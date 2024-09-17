@@ -480,16 +480,16 @@
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
 </body>
 <script>
+    document.domain = "app.kairoscloud.io";
     // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
     let urlParams = new URLSearchParams(window.location.search);
-    let redirectID = urlParams.get("redirectID");
     let locationID = urlParams.get("locationID");
     let locationAccessKey = urlParams.get("locationAccessKey");
     let componentID = urlParams.get("componentID");
     let savedURL = urlParams.get("savedURL");
     let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
     // log all variables in one big console.log
-    console.log({ redirectID, locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
+    console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
 
     // all elements
     let allOtherWrapper = document.getElementById("allOtherWrapper");
@@ -500,6 +500,7 @@
     let funnelSelect = document.getElementById("funnelSelect");
     let funnelSelectWrapper = document.getElementById("funnelSelectWrapper");
     let saveButton = document.getElementById("compSaveButton");
+    let redirectID = "";
 
     // body components
 
@@ -509,14 +510,17 @@
 
     let validPath = false;
 
+    // logic to load jostens or custom link
     if(savedURL.includes("https://jostens.co")){
-      getLink(savedURL.split("https://jostens.co/")[1]).then((redirectObj) => {
-        console.log(redirectObj);
-        if(redirectObj._id != undefined || redirectObj._id != null){
+      let importedPath = savedURL.split("https://jostens.co/")[1];
+      getLink(importedPath).then((redirectObj) => {
+        if(redirectObj){
           redirectID = redirectObj._id;
-         configJostensLink(redirectObj);
+          console.log("Found redirect for '" + importedPath + "'! RedirectID: " + redirectID);
+          configJostensLink(redirectObj);
         } else {
-          configCustomLink();
+          console.log("No redirect found for '" + importedPath + "'");
+          configJostensLink(redirectObj);
         }
       });
     } else {
@@ -534,15 +538,18 @@
     }
 
     function configJostensLink(redirectObj){
+      let target = redirectObj ? redirectObj.target : "";
       pathURLBox.value = savedURL.split("https://jostens.co/")[1];
       domainSelect.value = "jostens.co";
       allOtherWrapper.style.display = "block";
-      console.log(redirectObj);
-      let importedType = getType(redirectObj.target);
-      fillFields(redirectObj.target, importedType);
+      let importedType = redirectObj ? getType(target) : "Funnel";
+      fillFields(target, importedType);
       subConfig = importedType;
       typeSelect.value = importedType;
       eval("subConfig" + importedType + "()");
+      if(redirectObj){
+        pathInput();
+      }
     }
 
     function getType(target){
@@ -574,7 +581,7 @@
       // we need to autofill the fields based on the target
       // important detail: &params= is URI encoded, so we need to decode it
       let params = decodeURIComponent(target.split("&params=")[1]);
-      console.log("Params: " + params);
+      //console.log("Params: " + params);
       if(importedType == "SMS"){
         let recipient = params.split("sms:")[1].split("?")[0];
         let message = params.split("body=")[1];
@@ -594,6 +601,9 @@
         a.value = recipient;
       }
       if(importedType == "Funnel"){
+        if(target == ""){
+          return;
+        }
         let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
         funnelSelect.value = funnelID;
       }
@@ -603,7 +613,11 @@
     }
 
     function domainInput(){
+      // subconfig to default: funnel
+      // + any other variables
       if(domainSelect.value == "jostens.co"){
+        subConfig = "Funnel";
+        subConfigFunnel();
         allOtherWrapper.style.display = "block";
       } else { // custom domain
         configCustomLink();
@@ -682,7 +696,7 @@
         try {
             const response = await fetch(url, options);
             return await response.json().then((data) => {
-                console.log(data);
+                console.log(data.data[0]);
                 return data.data[0];
             });
         } catch (error) {
@@ -752,6 +766,7 @@
       saveButton.innerHTML = "Saving...";
       saveButton.classList.add("greyedOut");
       if(domainSelect.value == "custom"){
+        deleteRedirect(redirectID);
         outwardMessage("success(" + path + ")['']");
         outwardMessage("collapse");
         return;
@@ -785,21 +800,18 @@
         target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + encodeURIComponent(target);
       }
       console.log(target);
-      if(redirectID == ""){
-        // create new
-        createRedirect(path, target);
-      } else {
-        // if path is different, create new
-        if(path != oldPath){
-          deleteRedirect(redirectID);
-          createRedirect(path, target);
-        } else { // same path
-          updateRedirect(redirectID, target);
-        }
-      }
+
+      await deleteRedirect(redirectID);
+      createRedirect(path, target);
+
     }
 
     async function deleteRedirect(id){
+      if(id == ""){
+        console.log("No previous redirect to delete: skipping");
+        return;
+      }
+      console.log("Deleting redirect '" + id + "'");
       const url = 'https://services.leadconnectorhq.com/funnels/lookup/redirect/' + id + '?locationId=owNEzpbrfBjp4weSARXD';
       const options = {
           method: "DELETE",
@@ -820,6 +832,7 @@
     }
 
     async function createRedirect(path, target) {
+      console.log("Creating redirect...");
         const url =
             "https://services.leadconnectorhq.com/funnels/lookup/redirect";
         const options = {
@@ -856,6 +869,13 @@
     }
 
     function pathInput(){
+      if(domainSelect.value == "custom"){
+        // custom domain is being used, therefore no need to validate path
+        pathURLBox.style.border = "1px solid #d1d5de";
+        pathURLBox.style.backgroundColor = "white";
+        saveButton.classList.remove("greyedOut");
+        return;
+      }
       let path = pathURLBox.value;
       let oldPath = savedURL.split("https://jostens.co/")[1];
       shortenedLinkExists(path).then((linkExists) => {
@@ -913,46 +933,24 @@
         }
     }
 
-    async function updateRedirect(redirectID, target){
-      console.log("called updateRedirect");
-      const url =
-          "https://services.leadconnectorhq.com/funnels/lookup/redirect/" + redirectID;
-      const options = {
-          method: "PATCH",
-          headers: {
-              Authorization: "Bearer " + jdlocationAccessKey,
-              Version: "2021-07-28",
-              "Content-Type": "application/json",
-              Accept: "application/json",
-          },
-          body: `{"target":"` + target + `","action":"url","locationId":"owNEzpbrfBjp4weSARXD"}`,
-      };
-
-      //try {
-          const response = await fetch(url, options);
-          const data = await response.json();
-          //console.log(data);
-          processResult(data, response.status)
-          //} catch (error) {
-          //console.error(error);
-          //}
-    }
-
+    let datax = "";
     function processResult(data, status){
       console.log(status);
       console.log(data);
+      datax = data;
       // console.log(data.data._id);
       // console.log(data.id);
       // console.log(data._id);
       // account for all success statuses
       if(status == 200 || status == 201 || status == 204 || status == 202){
         let shortenedLink = "https://" + data.data.domain + data.data.path;
-        outwardMessage("success(" + shortenedLink + ")[" + data._id + "]");
+        outwardMessage("success(" + shortenedLink + ")[" + data.data.id + "]");
         outwardMessage("collapse");
       } else {
         // error
-        console.log("error");
-        outwardMessage("domError(Could not shorten link)");
+        console.log(redirectID);
+        console.log(data);
+        outwardMessage("domError(Could not shorten link:)");
       }
       // remove greyedOut
       saveButton.classList.remove("greyedOut");

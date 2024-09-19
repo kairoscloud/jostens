@@ -820,7 +820,7 @@
         target = "https://app.kairoscloud.io/v2/preview/" + funnel;
       }
       if(prdLink.style.display != "none" && prdLink.innerText != ""){
-        target = prdLink.innerText + "#ghlFunnelID=" + funnelSelect.value;
+        target = prdLink.innerText.replace("↳ ", "") + "#ghlFunnelID=" + funnelSelect.value;
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){

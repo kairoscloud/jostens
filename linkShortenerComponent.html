@@ -981,7 +981,7 @@
         console.log("Domain & path retrieved!");
         let url = message.split("::")[2];
         // remove the "www" from the front
-        url = url.replace("www.", "https://");
+        url = "https://" + url.replace("www.", "");
         prdLink.innerText = url;
         prdLink.href = url;
       }

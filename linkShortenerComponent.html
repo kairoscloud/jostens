@@ -974,10 +974,15 @@
         processInwardMessage(event.data);
     }, false);
 
-    // handle messages from parent
+    // process messages from parent
     function processInwardMessage(message){
-      if(message.split("::")[0] == componentID){
-        console.log(message);
+      // if intended for this component, if going inward (parent -> child), and if not null
+      if(message.split("::")[0] == componentID && message.includes("inwardmsg") && !message.includes("inwardmsg::null")){
+        let url = message.split("::")[2];
+        // remove the "www" from the front
+        url = url.replace("www.", "https://");
+        prdLink.innerText = url;
+        prdLink.href = url;
       }
     }
 

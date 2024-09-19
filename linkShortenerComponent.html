@@ -1043,8 +1043,8 @@
         let url = message.split("::")[2].split(")")[0];
         // remove the "www" from the front
         url = "https://" + url.replace("www.", "");
-        if(message.contains("OPTIONALFUNNEL")){
-          pathURLBox.value = message.split("OPTIONALFUNNEL")[0].split("(")[1];
+        if(message.includes("OPTIONALFUNNEL")){
+          pathURLBox.value = url;
         } else {
           prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
           prdLinkText = url;

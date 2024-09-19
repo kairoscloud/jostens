@@ -988,8 +988,10 @@
         let url = message.split("::")[2];
         // remove the "www" from the front
         url = "https://" + url.replace("www.", "");
-        prdLink.innerText = "↳" + shorten(url, 45); // 45 characters before cutoff
+        prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
         prdLink.href = url;
+      } else {
+        prdLink.innerText = "";
       }
     }
 

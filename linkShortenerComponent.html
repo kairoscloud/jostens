@@ -617,11 +617,12 @@
         if(target == ""){
           return;
         }
+        let funnelID = "";
         if(target.includes("#ghlFunnelID")){
-          let funnelID = target.split("#ghlFunnelID")[1];
+          funnelID = target.split("#ghlFunnelID")[1];
           funnelSelect.value = funnelID;
         } else {
-          let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+          funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
         }
         funnelSelect.value = funnelID;
       }

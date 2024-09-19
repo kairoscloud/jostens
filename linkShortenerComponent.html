@@ -483,7 +483,7 @@
             </span>
         </div>
     </div>
-    <div id="PRDLink" class="clickableLink" style="display: none">
+    <div id="PRDLink" class="clickableLink" style="display: none" onclick="openPRDLink()">
 
     </div>
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
@@ -575,7 +575,7 @@
       if(target.includes("https://app.kairoscloud.io/v2/preview/")){
         return "Funnel";
       }
-      if(target.includes("#ghlFunnelID=")){
+      if(target.includes("#ghlFunnelID")){
         return "Funnel";
       } // come back here, jake!
       if(target.includes("http")){
@@ -617,8 +617,8 @@
         if(target == ""){
           return;
         }
-        if(target.includes("#ghlFunnelID=")){
-          let funnelID = target.split("#ghlFunnelID=")[1];
+        if(target.includes("#ghlFunnelID")){
+          let funnelID = target.split("#ghlFunnelID")[1];
           funnelSelect.value = funnelID;
         } else {
           let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
@@ -821,7 +821,7 @@
         target = "https://app.kairoscloud.io/v2/preview/" + funnel;
       }
       if(prdLink.style.display != "none" && prdLink.innerText != ""){
-        target = prdLinkText + "#ghlFunnelID=" + funnelSelect.value;
+        target = prdLinkText + "#ghlFunnelID" + funnelSelect.value;
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
@@ -999,7 +999,6 @@
         url = "https://" + url.replace("www.", "");
         prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
         prdLinkText = url;
-        prdLink.href = url;
       } else {
         prdLink.innerText = "";
         prdLinkText = "";
@@ -1009,6 +1008,10 @@
     function funnelInput(){
       console.log("sending message to parent...");
       outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function openPRDLink(){
+      window.open(prdLinkText, "_blank");
     }
 
 </script>

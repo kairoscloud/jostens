@@ -575,7 +575,7 @@
       if(target.includes("https://app.kairoscloud.io/v2/preview/")){
         return "Funnel";
       }
-      if(target.includes("#ghlFunnelID")){
+      if(target.includes("?ghlFunnelID")){
         return "Funnel";
       } // come back here, jake!
       if(target.includes("http")){
@@ -618,8 +618,8 @@
           return;
         }
         let funnelID = "";
-        if(target.includes("#ghlFunnelID")){
-          funnelID = target.split("#ghlFunnelID")[1];
+        if(target.includes("?ghlFunnelID")){
+          funnelID = target.split("?ghlFunnelID")[1];
           funnelSelect.value = funnelID;
         } else {
           funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
@@ -822,7 +822,7 @@
         target = "https://app.kairoscloud.io/v2/preview/" + funnel;
       }
       if(prdLink.style.display != "none" && prdLink.innerText != ""){
-        target = prdLinkText + "#ghlFunnelID" + funnelSelect.value;
+        target = prdLinkText + "?ghlFunnelID" + funnelSelect.value;
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){

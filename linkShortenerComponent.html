@@ -323,6 +323,48 @@
             </svg>
         </span>
     </div>
+    <div style="white-space: nowrap; display: none" id="optionalFunnelWrapper">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 25px; margin-bottom: 25px;">
+            Import from funnel (optional)
+        </div>
+        <!-- start 'optional funnel' -->
+        <span style="background-color: white;
+                    display: inline-block;"
+                    class="input-field"
+                    id="funnelSelectWrapperOptional">
+
+                        <span class="dropdown">
+                            <select
+                                id="funnelSelectOptional"
+                                style="
+                                    margin: -10px;
+                                    margin-left: -4px;
+                                    margin-right: -6px;
+                                "
+                                oninput="optionalFunnelInput()"
+                            >
+                            </select>
+                            <svg
+                                class="chevron"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                id="chevronname"
+                            >
+                                <path
+                                    d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                                    stroke="#2c3538"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </span>
+        </span>
+        <!-- end 'optional funnel' -->
+    </div>
     <div style="white-space: nowrap; display: block" id="allOtherWrapper">
         <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px">
             Redirects to...
@@ -384,8 +426,7 @@
                         border-bottom-left-radius: 0;
                         display: inline-block;"
                         class="input-field"
-                        id="funnelSelectWrapper"
-            >
+                        id="funnelSelectWrapper">
 
                             <span class="dropdown">
                                 <select
@@ -416,8 +457,7 @@
                                     />
                                 </svg>
                             </span>
-
-                </span>
+            </span>
                 <!-- display = inline-block when visible -->
             <span id="abcWrapper" style="display:none">
             <input
@@ -510,6 +550,7 @@
     let funnelSelectWrapper = document.getElementById("funnelSelectWrapper");
     let saveButton = document.getElementById("compSaveButton");
     let prdLink = document.getElementById("PRDLink");
+    let funnelSelectOptional = document.getElementById("funnelSelectOptional");
 
     // body components
 
@@ -539,10 +580,12 @@
 
     getFunnelList().then((funnelList) => {
       funnelSelect.innerHTML = funnelList;
+      funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
     });
 
     function configCustomLink(){
       allOtherWrapper.style.display = "none";
+      optionalFunnelWrapper.style.display = "block";
       domainSelect.value = "custom";
       pathURLBox.value = savedURL;
     }
@@ -552,6 +595,7 @@
       pathURLBox.value = savedURL.split("https://jostens.co/")[1];
       domainSelect.value = "jostens.co";
       allOtherWrapper.style.display = "block";
+      optionalFunnelWrapper.style.display = "none";
       let importedType = redirectObj ? getType(target) : "Funnel";
       fillFields(target, importedType);
       subConfig = importedType;
@@ -638,6 +682,7 @@
         subConfig = "Funnel";
         subConfigFunnel();
         allOtherWrapper.style.display = "block";
+        optionalFunnelWrapper.style.display = "none";
         outwardMessage("PRD(" + funnelSelect.value + ")");
       } else { // custom domain
         configCustomLink();
@@ -995,11 +1040,15 @@
       // if intended for this component, if going inward (parent -> child), and if not null
       if(message.split("::")[0] == componentID && message.includes("inwardmsg") && !message.includes("inwardmsg::null")){
         console.log("Domain & path retrieved!");
-        let url = message.split("::")[2];
+        let url = message.split("::")[2].split(")")[0];
         // remove the "www" from the front
         url = "https://" + url.replace("www.", "");
-        prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
-        prdLinkText = url;
+        if(message.contains("OPTIONALFUNNEL")){
+          pathURLBox.value = message.split("OPTIONALFUNNEL")[0].split("(")[1];
+        } else {
+          prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
+          prdLinkText = url;
+        }
       } else {
         prdLink.innerText = "";
         prdLinkText = "";
@@ -1009,6 +1058,11 @@
     function funnelInput(){
       console.log("sending message to parent...");
       outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function optionalFunnelInput(){
+      console.log("sending message to parent...");
+      outwardMessage("PRD(" + funnelSelectOptional.value + ")OPTIONALFUNNEL");
     }
 
     function openPRDLink(){

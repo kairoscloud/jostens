@@ -484,7 +484,7 @@
         </div>
     </div>
     <div id="PRDLink" class="clickableLink" style="display: none">
-        ↳ Heyo!
+        ↳
     </div>
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
 </body>
@@ -648,6 +648,7 @@
     function subConfigSMS(){
       funnelSelectWrapper.style.display = "none"; // Hide funnelselect. inline-block to enable
       abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
+      prdLink.style.display = "none"; // Hide the programmatically domain + path
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -657,6 +658,7 @@
     function subConfigEmail(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. example@mail.com");
       configField(b, "inline", "Subject");
@@ -666,6 +668,7 @@
     function subConfigPhone(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -675,6 +678,7 @@
     function subConfigURL(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
 
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
@@ -683,7 +687,9 @@
 
     function subConfigFunnel(){
       funnelSelectWrapper.style.display = "inline-block";
+      prdLink.style.display = "block";
       abcWrapper.style.display = "none";
+      outwardMessage("PRD(" + funnelSelect.value + ")");
     }
 
     function configField(elem, display, placeholder){
@@ -748,7 +754,7 @@
                     }
                     let stepName = steps[j].name;
 
-                    let displayName = shorten(funnelName) + " | " + shorten(stepName);
+                    let displayName = shorten(funnelName, 14) + " | " + shorten(stepName, 14);
                     funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
             }
@@ -758,9 +764,9 @@
         }
     }
 
-    function shorten(str){
-      if(str.length > 14){
-        return str.substring(0, 14) + "...";
+    function shorten(str, n){
+      if(str.length > n){
+        return str.substring(0, n) + "...";
       } else {
         return str;
       }
@@ -982,7 +988,7 @@
         let url = message.split("::")[2];
         // remove the "www" from the front
         url = "https://" + url.replace("www.", "");
-        prdLink.innerText = url;
+        prdLink.innerText = "↳" + shorten(url, 45); // 45 characters before cutoff
         prdLink.href = url;
       }
     }

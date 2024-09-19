@@ -518,6 +518,7 @@
     let c = document.getElementById("c");
 
     let validPath = false;
+    let prdLinkText = "";
 
     // logic to load jostens or custom link
     if(savedURL.includes("https://jostens.co")){
@@ -820,7 +821,7 @@
         target = "https://app.kairoscloud.io/v2/preview/" + funnel;
       }
       if(prdLink.style.display != "none" && prdLink.innerText != ""){
-        target = prdLink.innerText.replace("↳ ", "") + "#ghlFunnelID=" + funnelSelect.value;
+        target = prdLinkText + "#ghlFunnelID=" + funnelSelect.value;
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
@@ -997,9 +998,11 @@
         // remove the "www" from the front
         url = "https://" + url.replace("www.", "");
         prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
+        prdLinkText = url;
         prdLink.href = url;
       } else {
         prdLink.innerText = "";
+        prdLinkText = "";
       }
     }
 

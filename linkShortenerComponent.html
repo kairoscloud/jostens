@@ -484,7 +484,7 @@
         </div>
     </div>
     <div id="PRDLink" class="clickableLink" style="display: none">
-        ↳
+
     </div>
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
 </body>
@@ -574,9 +574,9 @@
       if(target.includes("https://app.kairoscloud.io/v2/preview/")){
         return "Funnel";
       }
-      if(target.includes("ghlFunnelID")){
+      if(target.includes("#ghlFunnelID=")){
         return "Funnel";
-      }
+      } // come back here, jake!
       if(target.includes("http")){
         return "URL";
       }
@@ -616,7 +616,12 @@
         if(target == ""){
           return;
         }
-        let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+        if(target.includes("#ghlFunnelID=")){
+          let funnelID = target.split("#ghlFunnelID=")[1];
+          funnelSelect.value = funnelID;
+        } else {
+          let funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+        }
         funnelSelect.value = funnelID;
       }
       if(importedType == "URL"){
@@ -813,6 +818,9 @@
       if(subConfig == "Funnel"){
         let funnel = funnelSelect.value;
         target = "https://app.kairoscloud.io/v2/preview/" + funnel;
+      }
+      if(prdLink.style.display != "none" && prdLink.innerText != ""){
+        target = prdLink.innerText + "#ghlFunnelID=" + funnelSelect.value;
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){

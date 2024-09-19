@@ -12,6 +12,10 @@
         margin-top: 10px;
     }
 
+    #PRDLink{
+        margin-left: 10.8em;
+    }
+
     .unclickableLink {
         cursor: not-allowed;
         color: #a0a0a0;
@@ -239,6 +243,7 @@
     .exitX:hover {
         background-color: #e0e0e0;
     }
+
 </style>
 <body class="ghlText">
     <div>
@@ -390,6 +395,7 @@
                                         margin-left: -4px;
                                         margin-right: -6px;
                                     "
+                                    oninput="funnelInput()"
                                 >
                                 </select>
                                 <svg
@@ -477,6 +483,9 @@
             </span>
         </div>
     </div>
+    <div id="PRDLink" class="clickableLink" style="display: none">
+        ↳ Heyo!
+    </div>
     <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
 </body>
 <script>
@@ -487,6 +496,7 @@
     let componentID = urlParams.get("componentID");
     let savedURL = urlParams.get("savedURL");
     let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
+    let redirectID = "";
     // log all variables in one big console.log
     console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
 
@@ -499,7 +509,7 @@
     let funnelSelect = document.getElementById("funnelSelect");
     let funnelSelectWrapper = document.getElementById("funnelSelectWrapper");
     let saveButton = document.getElementById("compSaveButton");
-    let redirectID = "";
+    let prdLink = document.getElementById("PRDLink");
 
     // body components
 
@@ -564,6 +574,9 @@
       if(target.includes("https://app.kairoscloud.io/v2/preview/")){
         return "Funnel";
       }
+      if(target.includes("ghlFunnelID")){
+        return "Funnel";
+      }
       if(target.includes("http")){
         return "URL";
       }
@@ -618,6 +631,7 @@
         subConfig = "Funnel";
         subConfigFunnel();
         allOtherWrapper.style.display = "block";
+        outwardMessage("PRD(" + funnelSelect.value + ")");
       } else { // custom domain
         configCustomLink();
       }
@@ -954,4 +968,22 @@
       // remove greyedOut
       saveButton.classList.remove("greyedOut");
     }
+
+    // handle messages from parent
+    window.addEventListener('message', function(event) {
+        processInwardMessage(event.data);
+    }, false);
+
+    // handle messages from parent
+    function processInwardMessage(message){
+      if(message.split("::")[0] == componentID){
+        console.log(message);
+      }
+    }
+
+    function funnelInput(){
+      console.log("sending message to parent...");
+      outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
 </script>

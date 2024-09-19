@@ -978,6 +978,7 @@
     function processInwardMessage(message){
       // if intended for this component, if going inward (parent -> child), and if not null
       if(message.split("::")[0] == componentID && message.includes("inwardmsg") && !message.includes("inwardmsg::null")){
+        console.log("Domain & path retrieved!");
         let url = message.split("::")[2];
         // remove the "www" from the front
         url = url.replace("www.", "https://");

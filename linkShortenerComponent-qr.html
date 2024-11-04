@@ -1,0 +1,1072 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+/>
+<style>
+    .clickableLink {
+        cursor: pointer;
+        color: #0c3d6d;
+        font-size: 10pt;
+        margin-top: 10px;
+    }
+
+    #PRDLink{
+        margin-left: 10.8em;
+    }
+
+    .unclickableLink {
+        cursor: not-allowed;
+        color: #a0a0a0;
+        font-size: 10pt;
+        margin-top: 10px;
+        margin-bottom: -10px;
+    }
+
+    .fieldLabel {
+        font-size: 11pt !important;
+        font-weight: 500 !important;
+        color: #2c3538;
+        margin-top: 20px;
+        margin-bottom: 7px;
+    }
+
+    #deleteCampaign {
+        font-weight: 500;
+        color: red !important;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid red;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    #save {
+        float: right;
+        font-weight: 500;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    .greyedOut {
+        background-color: #f0f0f0 !important; /* Light grey background */
+        border: 1px solid #d1d5de !important;
+        color: #a0a0a0 !important; /* Light grey text */
+        cursor: not-allowed !important; /* Change cursor to indicate disabled state */
+    }
+
+    .ghlText {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #2c3538;
+        font-size: 12pt;
+    }
+
+    .input-field {
+        padding: 12px 10px; /* Adjust padding to match button styles */
+        font-size: 14px; /* Match font size with button styles */
+        border: 1px solid #d1d5de; /* Match border style with button styles */
+        border-radius: 5px; /* Match border radius with button styles */
+        color: #2c3538; /* Match text color with button styles */
+        width: auto;
+        margin: -5px;
+        margin-top: -15px;
+    }
+
+    .input-field:focus {
+        border: 1px solid #d1d5de;
+    }
+
+    .dropdown {
+        margin-top: 3px;
+        margin-bottom: 8px;
+        margin: 3px;
+        margin-right: -6px;
+    }
+
+    .dropdown select {
+        padding: 5px 5px;
+        font-size: 14px;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        color: #2c3538;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        cursor: pointer;
+        appearance: none; /* Remove default arrow on some browsers */
+    }
+
+    .dropdown select:focus {
+        outline: none;
+        border-color: #165ef0;
+    }
+
+    .dropdown .chevron {
+        transform: translateX(-25px);
+    }
+
+    .manageButton {
+        float: right;
+        right: 10px;
+        font-weight: 500;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: transparent;
+        border: 1px solid #d1d5de;
+        border-radius: 5px;
+        margin: 8px;
+        color: #2c3538;
+        cursor: pointer;
+    }
+
+    .manageButton:hover {
+        background-color: #f0f0f0;
+    }
+
+    .saveNew {
+        float: right;
+        color: #31324a;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: #165ef0;
+        border-radius: 5px;
+        margin: 8px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid #165eff;
+    }
+
+    .delete {
+        float: right;
+        color: white;
+        text-align: center;
+        padding: 9px 11px;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: #f03434; /* Red color for delete action */
+        border-radius: 5px;
+        margin: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid #f03434; /* Matching border color */
+    }
+
+    #domError {
+        /* error in the bottom right */
+        position: absolute;
+        bottom: 1.5em;
+        right: 1em;
+        /* put text in center */
+        display: flex;
+        align-items: center;
+        background-color: #fcf0f0;
+        color: lightcoral;
+        padding: 5px;
+        border: 1px solid lightcoral;
+        border-radius: 3px;
+        /* glowing red shadow for box*/
+        box-shadow: 0 0 1px #f03434;
+        height: 3em;
+        padding-left: 4em;
+        padding-right: 1em;
+        max-width: 33em;
+    }
+
+    #warningTriangle {
+        position: absolute;
+        left: 0.3em;
+        font-size: 2.5em;
+        margin-right: 0.5em;
+    }
+
+    .swipeIn {
+        display: flex !important;
+        animation:
+            swipeInEffect 0.3s ease-in-out,
+            fadeOut 1s ease-in-out 6s forwards;
+    }
+
+    @keyframes swipeInEffect {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeOut {
+        to {
+            opacity: 0;
+        }
+    }
+
+    .exitX {
+        height: 1em;
+        width: 1em;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        padding: 0.2em;
+        border-radius: 0.2em;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5em;
+    }
+
+    .exitX:hover {
+        background-color: #e0e0e0;
+    }
+
+</style>
+<body class="ghlText">
+    <div>
+        <span
+            type="text"
+            class="input-field ghlText"
+            style="width: 15%; border-right: none; margin-right: -5px"
+        >
+            <span class="dropdown">
+                <select id="domainSelect" oninput="domainInput()">
+                    <option value="custom">
+                        Custom link &nbsp; &nbsp; &nbsp; &nbsp;
+                    </option>
+                    <option value="jostens.co">
+                        Jostens.co/ &nbsp; &nbsp; &nbsp; &nbsp;
+                    </option>
+                </select>
+                <svg
+                    class="chevron"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="chevronname"
+                >
+                    <path
+                        d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                        stroke="#2c3538"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </span>
+        </span>
+        <input
+            id="pathURLBox"
+            placeholder="path-to-my-page"
+            oninput="pathInput()"
+            value=""
+            style="
+                width: 48%;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                margin-right: 5%;
+                outline: none !important;
+            "
+            class="input-field"
+            type="text"
+        />
+        <span class="exitX" onclick="outwardMessage('collapse')">
+            <svg
+                width="100"
+                height="100"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <line
+                    x1="20"
+                    y1="60"
+                    x2="50"
+                    y2="30"
+                    stroke="white"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+                <line
+                    x1="50"
+                    y1="30"
+                    x2="80"
+                    y2="60"
+                    stroke="white"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+            </svg>
+        </span>
+    </div>
+    <div style="white-space: nowrap; display: none" id="optionalFunnelWrapper">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 25px; margin-bottom: 25px;">
+            Import from funnel (optional)
+        </div>
+        <!-- start 'optional funnel' -->
+        <span style="background-color: white;
+                    display: inline-block;"
+                    class="input-field"
+                    id="funnelSelectWrapperOptional">
+
+                        <span class="dropdown">
+                            <select
+                                id="funnelSelectOptional"
+                                style="
+                                    margin: -10px;
+                                    margin-left: -4px;
+                                    margin-right: -6px;
+                                "
+                                oninput="optionalFunnelInput()"
+                            >
+                            </select>
+                            <svg
+                                class="chevron"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                id="chevronname"
+                            >
+                                <path
+                                    d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                                    stroke="#2c3538"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </span>
+        </span>
+        <!-- end 'optional funnel' -->
+    </div>
+    <div style="white-space: nowrap; display: block" id="allOtherWrapper">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px">
+            Redirects to...
+        </div>
+        <br />
+
+        <div>
+            <span
+                class="input-field ghlText"
+                id="typeContaner"
+                style="
+                    width: 9em !important;
+                    border-right: none;
+                    margin-right: -5px;
+                    display: inline-block;
+                    padding: 12px 10px;
+                "
+            >
+                <span class="dropdown">
+                    <select
+                        id="typeSelect"
+                        oninput="typeInput()"
+                        style="
+                            margin: -10px;
+                            margin-left: -4px;
+                            margin-right: 0;
+                        "
+                    >
+                        <option value="Funnel">Funnel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
+                        <option value="SMS">SMS</option>
+                        <option value="Phone">Phone</option>
+                        <option value="Email">Email</option>
+                        <option value="URL">URL</option>
+                    </select>
+                    <svg
+                        class="chevron"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="chevronname"
+                    >
+                        <path
+                            d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                            stroke="#2c3538"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </span>
+            </span>
+            <span style="background-color: white;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        display: inline-block;"
+                        class="input-field"
+                        id="funnelSelectWrapper">
+
+                            <span class="dropdown">
+                                <select
+                                    id="funnelSelect"
+                                    style="
+                                        margin: -10px;
+                                        margin-left: -4px;
+                                        margin-right: -6px;
+                                    "
+                                    oninput="funnelInput()"
+                                >
+                                </select>
+                                <svg
+                                    class="chevron"
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    id="chevronname"
+                                >
+                                    <path
+                                        d="M4.5 5.5L7.5 8.5L10.5 5.5"
+                                        stroke="#2c3538"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </span>
+            </span>
+                <!-- display = inline-block when visible -->
+            <span id="abcWrapper" style="display:none">
+            <input
+                id="a"
+                placeholder="recipient"
+                oninput=""
+                value=""
+                style="
+                    width: 48%;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    margin-right: 5%;
+                    outline: none !important;
+                "
+                class="input-field"
+                type="text"
+            />
+            <div>
+                <input
+                    id="b"
+                    placeholder="subject"
+                    oninput=""
+                    value=""
+                    style="
+                        width: 48%;
+                        border-radius: 0;
+                        margin-right: 5%;
+                        outline: none !important;
+                        margin-top: 4px !important;
+                        position: relative;
+                        left: 9em;
+                        margin-left: 10px;
+                    "
+                    class="input-field"
+                    type="text"
+                />
+            </div>
+            <div>
+                <textarea
+                    id="c"
+                    placeholder="body"
+                    oninput=""
+                    value=""
+                    style="
+                        width: 48%;
+                        height: 7em;
+                        border-radius: 0;
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                        margin-right: 5%;
+                        outline: none !important;
+                        margin-top: 4px !important;
+                        position: relative;
+                        left: 9em;
+                        margin-left: 10px;
+                        resize: none;
+                    "
+                    class="input-field ghlText"
+                    type="text"
+                /></textarea>
+            </div>
+            </span>
+        </div>
+    </div>
+    <div id="PRDLink" class="clickableLink" style="display: none" onclick="openPRDLink()">
+
+    </div>
+    <button class="saveNew" id="compSaveButton" style="position: absolute; right: 0; bottom: 0;" onclick="save()">Save</button>
+</body>
+<script>
+    // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
+    let urlParams = new URLSearchParams(window.location.search);
+    let locationID = urlParams.get("locationID");
+    let locationAccessKey = urlParams.get("locationAccessKey");
+    let componentID = urlParams.get("componentID");
+    let savedURL = urlParams.get("savedURL");
+    let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
+    let redirectID = "";
+    // log all variables in one big console.log
+    console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
+
+    // all elements
+    let allOtherWrapper = document.getElementById("allOtherWrapper");
+    let pathURLBox = document.getElementById("pathURLBox");
+    let domainSelect = document.getElementById("domainSelect");
+    let typeSelect = document.getElementById("typeSelect");
+    let abcWrapper = document.getElementById("abcWrapper");
+    let funnelSelect = document.getElementById("funnelSelect");
+    let funnelSelectWrapper = document.getElementById("funnelSelectWrapper");
+    let saveButton = document.getElementById("compSaveButton");
+    let prdLink = document.getElementById("PRDLink");
+    let funnelSelectOptional = document.getElementById("funnelSelectOptional");
+
+    // body components
+
+    let a = document.getElementById("a");
+    let b = document.getElementById("b");
+    let c = document.getElementById("c");
+
+    let validPath = false;
+    let prdLinkText = "";
+
+    // logic to load jostens or custom link
+    if(savedURL.includes("https://jostens.co")){
+      let importedPath = savedURL.split("https://jostens.co/")[1];
+      getLink(importedPath).then((redirectObj) => {
+        if(redirectObj){
+          redirectID = redirectObj._id;
+          console.log("Found redirect for '" + importedPath + "'! RedirectID: " + redirectID);
+          configJostensLink(redirectObj);
+        } else {
+          console.log("No redirect found for '" + importedPath + "'");
+          configJostensLink(redirectObj);
+        }
+      });
+    } else {
+      configCustomLink();
+    }
+
+    getFunnelList().then((funnelList) => {
+      funnelSelect.innerHTML = funnelList;
+      funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+    });
+
+    function configCustomLink(){
+      allOtherWrapper.style.display = "none";
+      optionalFunnelWrapper.style.display = "block";
+      prdLink.style.display = "none";
+      domainSelect.value = "custom";
+      pathURLBox.value = savedURL;
+      pathURLBox.placeholder = "https://my-website.com";
+    }
+
+    function configJostensLink(redirectObj){
+      let target = redirectObj ? redirectObj.target : "";
+      pathURLBox.value = savedURL.split("https://jostens.co/")[1];
+      domainSelect.value = "jostens.co";
+      allOtherWrapper.style.display = "block";
+      optionalFunnelWrapper.style.display = "none";
+      let importedType = redirectObj ? getType(target) : "Funnel";
+      fillFields(target, importedType);
+      subConfig = importedType;
+      typeSelect.value = importedType;
+      eval("subConfig" + importedType + "()");
+      if(redirectObj){
+        pathInput();
+      }
+    }
+
+    function getType(target){
+      if(target.includes("params=sms")){
+        return "SMS";
+      }
+      if(target.includes("params=mailto")){
+        return "Email";
+      }
+      if(target.includes("params=tel")){
+        return "Phone";
+      }
+      if(target.includes("https://app.kairoscloud.io/v2/preview/")){
+        return "Funnel";
+      }
+      if(target.includes("?ghlFunnelID")){
+        return "Funnel";
+      } // come back here, jake!
+      if(target.includes("http")){
+        return "URL";
+      }
+    }
+
+    function fillFields(target, importedType){
+      console.log(target);
+      // the fields are as follows:
+      // a = recipient
+      // b = subject
+      // c = body
+      // And the target can be any of the following:
+      // sms, mailto, tel, funnel, url
+      // we need to autofill the fields based on the target
+      // important detail: &params= is URI encoded, so we need to decode it
+      let params = decodeURIComponent(target.split("&params=")[1]);
+      //console.log("Params: " + params);
+      if(importedType == "SMS"){
+        let recipient = params.split("sms:")[1].split("?")[0];
+        let message = params.split("body=")[1];
+        a.value = recipient;
+        c.value = message;
+      }
+      if(importedType == "Email"){
+        let recipient = params.split("mailto:")[1].split("?")[0];
+        let subject = params.split("subject=")[1].split("&")[0];
+        let body = params.split("body=")[1];
+        a.value = recipient;
+        b.value = subject;
+        c.value = body;
+      }
+      if(importedType == "Phone"){
+        let recipient = params.split("tel:")[1];
+        a.value = recipient;
+      }
+      if(importedType == "Funnel"){
+        if(target == ""){
+          return;
+        }
+        let funnelID = "";
+        if(target.includes("?ghlFunnelID")){
+          funnelID = target.split("?ghlFunnelID")[1];
+          funnelSelect.value = funnelID;
+        } else {
+          funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+        }
+        funnelSelect.value = funnelID;
+      }
+      if(importedType == "URL"){
+        a.value = target;
+      }
+    }
+
+    function domainInput(){
+      // subconfig to default: funnel
+      // + any other variables
+      if(domainSelect.value == "jostens.co"){
+        subConfig = "Funnel";
+        subConfigFunnel();
+        allOtherWrapper.style.display = "block";
+        optionalFunnelWrapper.style.display = "none";
+        outwardMessage("PRD(" + funnelSelect.value + ")");
+        pathURLBox.placeholder = "path-to-my-page";
+      } else { // custom domain
+        configCustomLink();
+      }
+      pathURLBox.value = "";
+    }
+
+    let subConfig = "";
+    function typeInput(){
+        let type = typeSelect.value;
+        eval("subConfig" + type + "()");
+        subConfig = type;
+    }
+
+    function subConfigSMS(){
+      funnelSelectWrapper.style.display = "none"; // Hide funnelselect. inline-block to enable
+      abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
+      prdLink.style.display = "none"; // Hide the programmatically domain + path
+
+      configField(a, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
+      configField(c, "inline", "Message");
+    }
+
+    function subConfigEmail(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
+
+      configField(a, "inline", "Recipient, ex. example@mail.com");
+      configField(b, "inline", "Subject");
+      configField(c, "inline", "Body");
+      }
+
+    function subConfigPhone(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
+
+      configField(a, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
+      configField(c, "none", "");
+    }
+
+    function subConfigURL(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
+
+      configField(a, "inline", "URL, ex. https://example.com");
+      configField(b, "none", "");
+      configField(c, "none", "");
+    }
+
+    function subConfigFunnel(){
+      funnelSelectWrapper.style.display = "inline-block";
+      prdLink.style.display = "block";
+      abcWrapper.style.display = "none";
+      outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function configField(elem, display, placeholder){
+      elem.style.display = display;
+      elem.placeholder = placeholder;
+    }
+
+
+    async function getLink(path) {
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
+            path +
+            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            return await response.json().then((data) => {
+                console.log(data.data[0]);
+                return data.data[0];
+            });
+        } catch (error) {
+        }
+    }
+
+    async function getFunnelList() {
+      let funnelList = "";
+        const url =
+            "https://services.leadconnectorhq.com/funnels/funnel/list?locationId=" +
+            locationID;
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + locationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            let funnels = data.funnels;
+            //datax = data;
+            for (let i = 0; i < funnels.length; i++) {
+                // for each step
+                let steps = funnels[i].steps;
+                for (let j = 0; j < steps.length; j++) {
+                    let funnelName = funnels[i].name;
+                    let siteID = steps[j].pages[0];
+                    if (funnels[i].deleted == true) {
+                        funnelName = "[Deleted funnel]";
+                        siteID = "invalid";
+                    }
+                    let stepName = steps[j].name;
+
+                    let displayName = shorten(funnelName, 14) + " | " + shorten(stepName, 14);
+                    funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
+                }
+            }
+            return funnelList;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function shorten(str, n){
+      if(str.length > n){
+        return str.substring(0, n) + "...";
+      } else {
+        return str;
+      }
+    }
+
+    function outwardMessage(message) {
+        window.parent.postMessage(componentID + "::" + message, "*");
+    }
+
+    async function save(){
+      let path = pathURLBox.value;
+      let oldPath = savedURL.split("https://jostens.co/")[1];
+      if(saveButton.classList.contains("greyedOut")){
+        return;
+      }
+      saveButton.innerHTML = "Saving...";
+      saveButton.classList.add("greyedOut");
+      if(domainSelect.value == "custom"){
+        deleteRedirect(redirectID);
+        outwardMessage("success(" + path + ")['']");
+        outwardMessage("collapse");
+        return;
+      }
+      let target = "";
+      if(subConfig == "SMS"){
+        let recipient = a.value;
+        let message = c.value;
+        target = "sms:" + recipient + "?body=" + message;
+      }
+      if(subConfig == "Email"){
+        let recipient = a.value;
+        let subject = b.value;
+        let body = c.value;
+        target = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
+      }
+      if(subConfig == "Phone"){
+        let recipient = a.value;
+        target = "tel:" + recipient;
+      }
+      if(subConfig == "URL"){
+        let url = a.value;
+        target = url;
+      }
+      if(subConfig == "Funnel"){
+        let funnel = funnelSelect.value;
+        target = "https://app.kairoscloud.io/v2/preview/" + funnel;
+      }
+      if(prdLink.style.display != "none" && prdLink.innerText != ""){
+        target = prdLinkText + "?ghlFunnelID" + funnelSelect.value;
+      }
+
+      if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
+        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + encodeURIComponent(target);
+      }
+      console.log(target);
+
+      await deleteRedirect(redirectID);
+      createRedirect(path, target);
+
+    }
+
+    async function deleteRedirect(id){
+      if(id == ""){
+        console.log("No previous redirect to delete: skipping");
+        return;
+      }
+      console.log("Deleting redirect '" + id + "'");
+      const url = 'https://services.leadconnectorhq.com/funnels/lookup/redirect/' + id + '?locationId=owNEzpbrfBjp4weSARXD';
+      const options = {
+          method: "DELETE",
+          headers: {
+              Authorization: "Bearer " + jdlocationAccessKey,
+              Version: "2021-07-28",
+              Accept: "application/json",
+          },
+      };
+
+      try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+          console.log(data);
+      } catch (error) {
+          console.error(error);
+      }
+    }
+
+    async function createRedirect(path, target) {
+      console.log("Creating redirect...");
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect";
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body:
+                `
+            {
+              "locationId": "` +
+                "owNEzpbrfBjp4weSARXD" +
+                `",
+              "domain": "jostens.co",
+              "path": "/` +
+                path +
+                `",
+                "target": "` + target + `",
+              "action": "url"
+            }`,
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            processResult(data, response.status)
+            } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function pathInput(){
+      if(domainSelect.value == "custom"){
+        // custom domain is being used, therefore no need to validate path
+        pathURLBox.style.border = "1px solid #d1d5de";
+        pathURLBox.style.backgroundColor = "white";
+        saveButton.classList.remove("greyedOut");
+        return;
+      }
+      let path = pathURLBox.value;
+      let oldPath = savedURL.split("https://jostens.co/")[1];
+      shortenedLinkExists(path).then((linkExists) => {
+          if (path == oldPath) {
+              // matches old path
+              pathURLBox.style.border = "1px solid #d1d5de";
+              pathURLBox.style.backgroundColor = "white";
+              saveButton.classList.remove("greyedOut");
+              validPath = true;
+          } else if (!linkExists && isValidPath(path)) {
+            // valid
+              pathURLBox.style.border = "1px solid green";
+              pathURLBox.style.backgroundColor = "#D7EBC0";
+              saveButton.classList.remove("greyedOut");
+              validPath = true;
+          } else {
+            // invalid
+              pathURLBox.style.border = "1px solid lightcoral";
+              pathURLBox.style.backgroundColor = "#EAD3D3";
+              saveButton.classList.add("greyedOut");
+              validPath = false;
+          }
+      });
+    }
+
+    function isValidPath(path) {
+      const urlSafeRegex = /^[a-zA-Z0-9\-_.~]+$/;
+      return urlSafeRegex.test(path);
+    }
+
+    async function shortenedLinkExists(path) {
+      if(path == ""){
+        return true;
+      }
+        const url =
+            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
+            path +
+            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + jdlocationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            return await response.json().then((data) => {
+                return data.count == 1; // if the count is 1, the URL exists; if not, it doesn't
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    let datax = "";
+    function processResult(data, status){
+      console.log(status);
+      console.log(data);
+      datax = data;
+      // console.log(data.data._id);
+      // console.log(data.id);
+      // console.log(data._id);
+      // account for all success statuses
+      if(status == 200 || status == 201 || status == 204 || status == 202){
+        let shortenedLink = "https://" + data.data.domain + data.data.path;
+        outwardMessage("success(" + shortenedLink + ")[" + data.data.id + "]");
+        outwardMessage("collapse");
+      } else {
+        // error
+        console.log(redirectID);
+        console.log(data);
+        outwardMessage("domError(Could not shorten link:)");
+      }
+      // remove greyedOut
+      saveButton.classList.remove("greyedOut");
+    }
+
+    // handle messages from parent
+    window.addEventListener('message', function(event) {
+        processInwardMessage(event.data);
+    }, false);
+
+    // process messages from parent
+    function processInwardMessage(message){
+      // if intended for this component, if going inward (parent -> child), and if not null
+      if(message.split("::")[0] == componentID && message.includes("inwardmsg") && !message.includes("inwardmsg::null")){
+        console.log("Domain & path retrieved!");
+        let url = message.split("::")[2].split(")")[0];
+        // remove the "www" from the front
+        url = "https://" + url.replace("www.", "");
+        if(message.includes("OPTIONALFUNNEL")){
+          pathURLBox.value = url;
+        } else {
+          prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
+          prdLinkText = url;
+        }
+      } else {
+        prdLink.innerText = "";
+        prdLinkText = "";
+      }
+    }
+
+    function funnelInput(){
+      console.log("sending message to parent...");
+      outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function optionalFunnelInput(){
+      console.log("sending message to parent...");
+      outwardMessage("PRD(" + funnelSelectOptional.value + ")OPTIONALFUNNEL");
+    }
+
+    function openPRDLink(){
+      window.open(prdLinkText, "_blank");
+    }
+
+</script>

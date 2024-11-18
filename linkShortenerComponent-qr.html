@@ -846,7 +846,7 @@
       if(subConfig == "SMS"){
         let recipient = a.value;
         let message = c.value;
-        target = "sms:" + recipient + "?body=" + message;
+        target = "sms:" + recipient + "?body=" + message.replace(/!/g, ".");
       }
       if(subConfig == "Email"){
         let recipient = a.value;

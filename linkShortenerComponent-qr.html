@@ -394,10 +394,11 @@
                         "
                     >
                         <option value="Funnel">Funnel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
-                        <option value="SMS">SMS</option>
                         <option value="Phone">Phone</option>
                         <option value="Email">Email</option>
                         <option value="URL">URL</option>
+                        <option value="SMS">SMS</option>
+                        <option value="FormSMS">Form + SMS</option>
                     </select>
                     <svg
                         class="chevron"
@@ -473,6 +474,16 @@
                 class="input-field"
                 type="text"
             />
+            <span class="dropdown" style="margin-left: -52%;" id="textHomeBox">
+                                            <select id="formSelect" oninput="" style="width: 44%">
+                                                <option value="valuegoeshereeventually">Contact Form & Text H...&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </option>
+                                            </select>
+                                            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" id="chevronname">
+                                                <path d="M4.5 5.5L7.5 8.5L10.5 5.5" stroke="#2c3538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </span>
+                                        </input>
             <div>
                 <input
                     id="b"
@@ -548,6 +559,7 @@
     let saveButton = document.getElementById("compSaveButton");
     let prdLink = document.getElementById("PRDLink");
     let funnelSelectOptional = document.getElementById("funnelSelectOptional");
+    let textHomeBox = document.getElementById("textHomeBox");
 
     // body components
 
@@ -695,22 +707,37 @@
         let type = typeSelect.value;
         eval("subConfig" + type + "()");
         subConfig = type;
+        console.log(subConfig);
+    }
+
+    function subConfigFormSMS(){
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
+
+      configField(a, "inline", "");
+      configField(b, "inline", "Recipient, ex. (123) 456-789");
+      configField(c, "inline", "Message");
+      textHomeBox.style.display = "";
     }
 
     function subConfigSMS(){
       funnelSelectWrapper.style.display = "none"; // Hide funnelselect. inline-block to enable
       abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
       prdLink.style.display = "none"; // Hide the programmatically domain + path
+      textHomeBox.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
       configField(c, "inline", "Message");
+
     }
 
     function subConfigEmail(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
+      textHomeBox.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. example@mail.com");
       configField(b, "inline", "Subject");
@@ -721,6 +748,7 @@
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
+      textHomeBox.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -731,6 +759,7 @@
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
+      textHomeBox.style.display = "none";
 
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
@@ -741,6 +770,7 @@
       funnelSelectWrapper.style.display = "inline-block";
       prdLink.style.display = "block";
       abcWrapper.style.display = "none";
+      textHomeBox.style.display = "none";
       outwardMessage("PRD(" + funnelSelect.value + ")");
     }
 
@@ -846,7 +876,7 @@
       if(subConfig == "SMS"){
         let recipient = a.value;
         let message = c.value;
-        target = "sms:" + recipient + "?body=" + message.replace(/!/g, ".");
+        target = "sms:" + recipient + "?&body=" + message;
       }
       if(subConfig == "Email"){
         let recipient = a.value;
@@ -871,8 +901,13 @@
       }
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
-        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + encodeURIComponent(target);
+        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + customEncodeURIComponent(target);
       }
+
+      if(subConfig == "FormSMS"){
+        target = "https://cdn.kairoscloud.io/widget/form/q2K7oA4Dyr7qyILAfAUy?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value);
+      }
+
       console.log(target);
 
       await deleteRedirect(redirectID);
@@ -1067,6 +1102,15 @@
 
     function openPRDLink(){
       window.open(prdLinkText, "_blank");
+    }
+
+    function customEncodeURIComponent(str){
+      return encodeURIComponent(str)
+          .replace(/!/g, '%21')
+          .replace(/'/g, '%27')
+          .replace(/\(/g, '%28')
+          .replace(/\)/g, '%29')
+          .replace(/\*/g, '%2A');
     }
 
 </script>

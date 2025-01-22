@@ -533,6 +533,7 @@
     let componentID = urlParams.get("componentID");
     let savedURL = urlParams.get("savedURL");
     let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
+    let docID = urlParams.get("docID");
     let redirectID = "";
     // log all variables in one big console.log
     console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
@@ -586,6 +587,7 @@
       prdLink.style.display = "none";
       domainSelect.value = "custom";
       pathURLBox.value = savedURL;
+      pathURLBox.placeholder = "https://example.com";
     }
 
     function configJostensLink(redirectObj){
@@ -681,6 +683,7 @@
         subConfigFunnel();
         allOtherWrapper.style.display = "block";
         optionalFunnelWrapper.style.display = "none";
+        pathURLBox.placeholder = "path-to-my-page";
         outwardMessage("PRD(" + funnelSelect.value + ")");
       } else { // custom domain
         configCustomLink();
@@ -862,7 +865,8 @@
       }
       if(subConfig == "Funnel"){
         let funnel = funnelSelect.value;
-        target = "https://app.kairoscloud.io/v2/preview/" + funnel;
+        // target = "https://app.kairoscloud.io/v2/preview/" + funnel;
+        target = "https://sites.kairoscloud.io/" + funnel + "?&locationID=" + locationID + "&campaignID=" + docID;
       }
       if(prdLink.style.display != "none" && prdLink.innerText != ""){
         target = prdLinkText + "?ghlFunnelID" + funnelSelect.value;

@@ -246,7 +246,7 @@
 
 </style>
 <body class="ghlText">
-    <div>
+    <div style="display:none">
         <span
             type="text"
             class="input-field ghlText"
@@ -295,34 +295,35 @@
             class="input-field"
             type="text"
         />
-        <span class="exitX" onclick="outwardMessage('collapse')">
-            <svg
-                width="100"
-                height="100"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <line
-                    x1="20"
-                    y1="60"
-                    x2="50"
-                    y2="30"
-                    stroke="white"
-                    stroke-width="10"
-                    stroke-linecap="round"
-                />
-                <line
-                    x1="50"
-                    y1="30"
-                    x2="80"
-                    y2="60"
-                    stroke="white"
-                    stroke-width="10"
-                    stroke-linecap="round"
-                />
-            </svg>
-        </span>
+
     </div>
+    <span class="exitX" onclick="outwardMessage('collapse')">
+        <svg
+            width="100"
+            height="100"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <line
+                x1="20"
+                y1="60"
+                x2="50"
+                y2="30"
+                stroke="white"
+                stroke-width="10"
+                stroke-linecap="round"
+            />
+            <line
+                x1="50"
+                y1="30"
+                x2="80"
+                y2="60"
+                stroke="white"
+                stroke-width="10"
+                stroke-linecap="round"
+            />
+        </svg>
+    </span>
     <div style="white-space: nowrap; display: none" id="optionalFunnelWrapper">
         <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 25px; margin-bottom: 25px;">
             Import from funnel (optional)
@@ -366,7 +367,7 @@
         <!-- end 'optional funnel' -->
     </div>
     <div style="white-space: nowrap; display: block" id="allOtherWrapper">
-        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px; display: none">
             Redirects to...
         </div>
         <br />
@@ -393,11 +394,9 @@
                             margin-right: 0;
                         "
                     >
-                        <option value="Funnel">Funnel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
-                        <option value="Phone">Phone</option>
-                        <option value="Email">Email</option>
-                        <option value="URL">URL</option>
-                        <option value="SMS">SMS</option>
+                        <option value="URL">Custom URL</option>
+                        <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+                        <option value="Clicktolink">Click-to Link</option>
                         <option value="FormSMS">Form + SMS</option>
                     </select>
                     <svg
@@ -505,6 +504,19 @@
                 />
             </div>
             <div>
+                <svg id="importTemplateButton" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="
+                        position: absolute;
+                        margin-left: 341px;
+                        z-index: 100;
+                        margin-top: 78px;
+                        cursor: pointer;
+                    "
+                    onclick="importSMSTemplates()"
+                >
+                  <g transform="rotate(-315, 12, 12)">
+                    <path d="M5 12L12 19M5 12L12 5M5 12H19" stroke="#285aa4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                </svg>
                 <textarea
                     id="c"
                     placeholder="body"
@@ -560,6 +572,7 @@
     let prdLink = document.getElementById("PRDLink");
     let funnelSelectOptional = document.getElementById("funnelSelectOptional");
     let textHomeBox = document.getElementById("textHomeBox");
+    let importTemplateButton = document.getElementById("importTemplateButton");
 
     // body components
 
@@ -590,6 +603,7 @@
     getFunnelList().then((funnelList) => {
       funnelSelect.innerHTML = funnelList;
       funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+      initialConfig();
     });
 
     function configCustomLink(){
@@ -686,9 +700,16 @@
       }
     }
 
+    function initialConfig(){
+        subConfig = "Funnel";
+        subConfigURL();
+        allOtherWrapper.style.display = "block";
+        optionalFunnelWrapper.style.display = "none";
+        outwardMessage("PRD(" + funnelSelect.value + ")");
+        pathURLBox.placeholder = "path-to-my-page";
+    }
+
     function domainInput(){
-      // subconfig to default: funnel
-      // + any other variables
       if(domainSelect.value == "jostens.co"){
         subConfig = "Funnel";
         subConfigFunnel();
@@ -716,8 +737,10 @@
       prdLink.style.display = "none";
 
       configField(a, "inline", "");
-      configField(b, "inline", "Recipient, ex. (123) 456-789");
+      // configField(b, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
       configField(c, "inline", "Message");
+      importTemplateButton.style.display = "block";
       textHomeBox.style.display = "";
     }
 
@@ -726,6 +749,7 @@
       abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
       prdLink.style.display = "none"; // Hide the programmatically domain + path
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none"; // maybe change this in the future
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -738,6 +762,7 @@
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. example@mail.com");
       configField(b, "inline", "Subject");
@@ -749,6 +774,7 @@
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -760,6 +786,9 @@
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
+
+      // a.style.borderRadiusBottomRight = "5px";
 
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
@@ -771,7 +800,18 @@
       prdLink.style.display = "block";
       abcWrapper.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
       outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function subConfigClicktolink(){
+      subConfigSMS();
+      // fill options with sms, email, phone
+      typeSelect.innerHTML = `
+        <option value="SMS">SMS </option>
+        <option value="Phone">Phone</option>
+        <option value="Email">Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
+        `;
     }
 
     function configField(elem, display, placeholder){
@@ -836,7 +876,7 @@
                     }
                     let stepName = steps[j].name;
 
-                    let displayName = shorten(funnelName, 14) + " | " + shorten(stepName, 14);
+                    let displayName = shorten(funnelName, 10) + " | " + shorten(stepName, 10);
                     funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
             }

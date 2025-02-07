@@ -372,7 +372,33 @@
         </div>
         <br />
 
-        <div style="margin-top: -9px;">
+        <div style="margin-top: -9px;" id="9pxDiv">
+
+            <div class="input-field ghlText" id="typeContainer2" style="
+                                width: calc(48% + 118px);
+                                display: inline-block;
+                                padding: 12px 10px;
+                            ">
+                            <span class="dropdown">
+                                <select id="typeSelect2" oninput="typeInput()" style="
+                                        margin: -10px;
+                                        margin-left: -4px;
+                                        margin-right: 0;
+                                        width: 100%;
+                                    ">
+                                        <option value="URL">Custom URL</option>
+                                        <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+                                        <option value="Clicktolink">Click-to Link</option>
+                                        <option value="FormSMS">Form + SMS</option>
+                                    </select>
+                                <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" id="chevronname2">
+                                    <path d="M4.5 5.5L7.5 8.5L10.5 5.5" stroke="#2c3538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <span id="3brs">
+                            <br><br>
+                        </span>
             <span
                 class="input-field ghlText"
                 id="typeContaner"
@@ -573,6 +599,10 @@
     let funnelSelectOptional = document.getElementById("funnelSelectOptional");
     let textHomeBox = document.getElementById("textHomeBox");
     let importTemplateButton = document.getElementById("importTemplateButton");
+    let allDiv = document.getElementById("9pxDiv");
+    let typeSelect2 = document.getElementById("typeSelect2");
+    let typeContainer2 = document.getElementById("typeContainer2");
+    let brs3 = document.getElementById("3brs");
 
     // body components
 
@@ -725,13 +755,75 @@
 
     let subConfig = "";
     function typeInput(){
-        let type = typeSelect.value;
+      // de-focus typeselect here
+      typeSelect.blur();
+        // if triggerer is typeselect2, then change typeselect
+        let type = "";
+
+        if(event.target.id == "typeSelect2"){
+          type = typeSelect2.value;
+        } else {
+          type = typeSelect.value;
+          if (type != "SMS" && type != "Email" && type != "Phone"){
+            typeSelect2.value = type;
+          }
+        }
+
         eval("subConfig" + type + "()");
+
+        if(type == "FormSMS" || type == "Clicktolink"){
+          allDiv.style.marginTop = "-20px";
+        } else {
+         allDiv.style.marginTop = "-9px";
+        }
+
+        if(type == "FormSMS"){
+          typeContaner.style.display = "none";
+          a.style.borderTopLeftRadius = "5px";
+          a.style.width = "calc(48% + 140px)";
+          c.style.width = "calc(48% + 140px)";
+          c.style.marginLeft = "-131px";
+          let formSelect = document.getElementById("formSelect")
+          formSelect.style.width = "calc(48% + 120px)";
+          formSelect.style.marginLeft = "-139px";
+        } else { // undo all of the previous things
+          typeContaner.style.display = "inline-block";
+          a.style.borderTopLeftRadius = "0";
+          a.style.width = "48%";
+          c.style.width = "48%";
+          c.style.marginLeft = "10px";
+          let formSelect = document.getElementById("formSelect")
+          formSelect.style.width = "48%";
+          formSelect.style.marginLeft = "0";
+        }
+
         subConfig = type;
         console.log(subConfig);
+        if((subConfig == "Funnel" || subConfig == "FormSMS") && event.target.id == "typeSelect2"){
+          typeSelect.innerHTML = `
+            <option value="URL">Custom URL</option>
+            <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+            <option value="Clicktolink">Click-to Link</option>
+            <option value="FormSMS">Form + SMS</option>
+            `;
+          typeSelect.value = subConfig;
+        }
+
+        if(subConfig == "Clicktolink"){
+          typeSelect2.innerHTML = `
+            <option value="URL">Custom URL</option>
+            <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+            <option value="Clicktolink">Click-to Link</option>
+            <option value="FormSMS">Form + SMS</option>
+            `;
+          typeSelect2.value = subConfig;
+        }
     }
 
     function subConfigFormSMS(){
+
+      typeContainer2.style.display = "block";
+      brs3.style.display = "block";
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
@@ -782,6 +874,8 @@
     }
 
     function subConfigURL(){
+      typeContainer2.style.display = "none";
+      brs3.style.display = "none";
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
@@ -796,6 +890,8 @@
     }
 
     function subConfigFunnel(){
+      typeContainer2.style.display = "none";
+      brs3.style.display = "none";
       funnelSelectWrapper.style.display = "inline-block";
       prdLink.style.display = "block";
       abcWrapper.style.display = "none";
@@ -805,9 +901,12 @@
     }
 
     function subConfigClicktolink(){
+      typeContainer2.style.display = "block";
+      brs3.style.display = "block";
       subConfigSMS();
       // fill options with sms, email, phone
-      typeSelect.innerHTML = `
+      //console.log(subConfig);
+        typeSelect.innerHTML = `
         <option value="SMS">SMS </option>
         <option value="Phone">Phone</option>
         <option value="Email">Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>

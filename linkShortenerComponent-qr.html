@@ -246,7 +246,7 @@
 
 </style>
 <body class="ghlText">
-    <div>
+    <div style="display:none">
         <span
             type="text"
             class="input-field ghlText"
@@ -295,34 +295,35 @@
             class="input-field"
             type="text"
         />
-        <span class="exitX" onclick="outwardMessage('collapse')">
-            <svg
-                width="100"
-                height="100"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <line
-                    x1="20"
-                    y1="60"
-                    x2="50"
-                    y2="30"
-                    stroke="white"
-                    stroke-width="10"
-                    stroke-linecap="round"
-                />
-                <line
-                    x1="50"
-                    y1="30"
-                    x2="80"
-                    y2="60"
-                    stroke="white"
-                    stroke-width="10"
-                    stroke-linecap="round"
-                />
-            </svg>
-        </span>
+
     </div>
+    <span class="exitX" onclick="outwardMessage('collapse')">
+        <svg
+            width="100"
+            height="100"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <line
+                x1="20"
+                y1="60"
+                x2="50"
+                y2="30"
+                stroke="white"
+                stroke-width="10"
+                stroke-linecap="round"
+            />
+            <line
+                x1="50"
+                y1="30"
+                x2="80"
+                y2="60"
+                stroke="white"
+                stroke-width="10"
+                stroke-linecap="round"
+            />
+        </svg>
+    </span>
     <div style="white-space: nowrap; display: none" id="optionalFunnelWrapper">
         <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 25px; margin-bottom: 25px;">
             Import from funnel (optional)
@@ -366,12 +367,38 @@
         <!-- end 'optional funnel' -->
     </div>
     <div style="white-space: nowrap; display: block" id="allOtherWrapper">
-        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px">
+        <div style="margin-bottom: 1px; font-size: 11pt; margin-top: 22px; display: none">
             Redirects to...
         </div>
         <br />
 
-        <div>
+        <div style="margin-top: -9px;" id="9pxDiv">
+
+            <div class="input-field ghlText" id="typeContainer2" style="
+                                width: calc(48% + 118px);
+                                display: inline-block;
+                                padding: 12px 10px;
+                            ">
+                            <span class="dropdown">
+                                <select id="typeSelect2" oninput="typeInput()" style="
+                                        margin: -10px;
+                                        margin-left: -4px;
+                                        margin-right: 0;
+                                        width: 100%;
+                                    ">
+                                        <option value="URL">Custom URL</option>
+                                        <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+                                        <option value="Clicktolink">Click-to Link</option>
+                                        <option value="FormSMS">Form + SMS</option>
+                                    </select>
+                                <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" id="chevronname2">
+                                    <path d="M4.5 5.5L7.5 8.5L10.5 5.5" stroke="#2c3538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <span id="3brs">
+                            <br><br>
+                        </span>
             <span
                 class="input-field ghlText"
                 id="typeContaner"
@@ -393,11 +420,9 @@
                             margin-right: 0;
                         "
                     >
-                        <option value="Funnel">Funnel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
-                        <option value="Phone">Phone</option>
-                        <option value="Email">Email</option>
-                        <option value="URL">URL</option>
-                        <option value="SMS">SMS</option>
+                        <option value="URL">Custom URL</option>
+                        <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+                        <option value="Clicktolink">Click-to Link</option>
                         <option value="FormSMS">Form + SMS</option>
                     </select>
                     <svg
@@ -505,6 +530,19 @@
                 />
             </div>
             <div>
+                <svg id="importTemplateButton" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="
+                        position: absolute;
+                        margin-left: calc(48% + 103px);
+                        z-index: 100;
+                        margin-top: 78px;
+                        cursor: pointer;
+                    "
+                    onclick="nextTemplate()"
+                >
+                  <g transform="rotate(-180, 12, 12)">
+                    <path d="M5 12L12 19M5 12L12 5M5 12H19" stroke="#285aa4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                </svg>
                 <textarea
                     id="c"
                     placeholder="body"
@@ -560,6 +598,12 @@
     let prdLink = document.getElementById("PRDLink");
     let funnelSelectOptional = document.getElementById("funnelSelectOptional");
     let textHomeBox = document.getElementById("textHomeBox");
+    let importTemplateButton = document.getElementById("importTemplateButton");
+    let allDiv = document.getElementById("9pxDiv");
+    let typeSelect2 = document.getElementById("typeSelect2");
+    let typeContainer2 = document.getElementById("typeContainer2");
+    let brs3 = document.getElementById("3brs");
+    let formSelect = document.getElementById("formSelect");
 
     // body components
 
@@ -569,6 +613,11 @@
 
     let validPath = false;
     let prdLinkText = "";
+
+    // template stuff
+
+    let templateList;
+    let templateIndex = 0;
 
     // logic to load jostens or custom link
     if(savedURL.includes("https://jostens.co")){
@@ -590,11 +639,19 @@
     getFunnelList().then((funnelList) => {
       funnelSelect.innerHTML = funnelList;
       funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+      initialConfig();
     });
+
+    getFormList().then((formList) => {
+      formSelect.innerHTML = formList;
+      console.log(formList);
+    });
+
+    getTemplateList();
 
     function configCustomLink(){
       allOtherWrapper.style.display = "none";
-      optionalFunnelWrapper.style.display = "block";
+     // optionalFunnelWrapper.style.display = "block";
       prdLink.style.display = "none";
       domainSelect.value = "custom";
       pathURLBox.value = savedURL;
@@ -686,9 +743,16 @@
       }
     }
 
+    function initialConfig(){
+        subConfig = "Funnel";
+        subConfigURL();
+        allOtherWrapper.style.display = "block";
+        optionalFunnelWrapper.style.display = "none";
+        outwardMessage("PRD(" + funnelSelect.value + ")");
+        pathURLBox.placeholder = "path-to-my-page";
+    }
+
     function domainInput(){
-      // subconfig to default: funnel
-      // + any other variables
       if(domainSelect.value == "jostens.co"){
         subConfig = "Funnel";
         subConfigFunnel();
@@ -704,20 +768,82 @@
 
     let subConfig = "";
     function typeInput(){
-        let type = typeSelect.value;
+      // de-focus typeselect here
+      typeSelect.blur();
+        // if triggerer is typeselect2, then change typeselect
+        let type = "";
+
+        if(event.target.id == "typeSelect2"){
+          type = typeSelect2.value;
+        } else {
+          type = typeSelect.value;
+          if (type != "SMS" && type != "Email" && type != "Phone"){
+            typeSelect2.value = type;
+          }
+        }
+
         eval("subConfig" + type + "()");
+
+        if(type == "FormSMS" || type == "Clicktolink"){
+          allDiv.style.marginTop = "-18px";
+        } else {
+         allDiv.style.marginTop = "-9px";
+        }
+
+        if(type == "FormSMS"){
+          typeContaner.style.display = "none";
+          a.style.borderTopLeftRadius = "5px";
+          a.style.width = "calc(48% + 140px)";
+          c.style.width = "calc(48% + 140px)";
+          c.style.marginLeft = "-131px";
+          formSelect.style.width = "calc(48% + 120px)";
+          formSelect.style.marginLeft = "-139px";
+        } else { // undo all of the previous things
+          typeContaner.style.display = "inline-block";
+          a.style.borderTopLeftRadius = "0";
+          a.style.width = "48%";
+          c.style.width = "48%";
+          c.style.marginLeft = "10px";
+          formSelect.style.width = "48%";
+          formSelect.style.marginLeft = "0";
+        }
+
         subConfig = type;
         console.log(subConfig);
+        if((subConfig == "Funnel" || subConfig == "FormSMS") && event.target.id == "typeSelect2"){
+          typeSelect.innerHTML = `
+            <option value="URL">Custom URL</option>
+            <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+            <option value="Clicktolink">Click-to Link</option>
+            <option value="FormSMS">Form + SMS</option>
+            `;
+          typeSelect.value = subConfig;
+        }
+
+        if(subConfig == "Clicktolink"){
+          typeSelect2.innerHTML = `
+            <option value="URL">Custom URL</option>
+            <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
+            <option value="Clicktolink">Click-to Link</option>
+            <option value="FormSMS">Form + SMS</option>
+            `;
+          typeSelect2.value = subConfig;
+        }
     }
 
     function subConfigFormSMS(){
+
+      typeContainer2.style.display = "block";
+      brs3.style.display = "block";
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
 
       configField(a, "inline", "");
-      configField(b, "inline", "Recipient, ex. (123) 456-789");
+      // configField(b, "inline", "Recipient, ex. (123) 456-789");
+      configField(b, "none", "");
       configField(c, "inline", "Message");
+      importTemplateButton.style.display = "block";
       textHomeBox.style.display = "";
     }
 
@@ -726,6 +852,7 @@
       abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
       prdLink.style.display = "none"; // Hide the programmatically domain + path
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none"; // maybe change this in the future
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -738,6 +865,7 @@
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. example@mail.com");
       configField(b, "inline", "Subject");
@@ -749,6 +877,7 @@
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
@@ -756,10 +885,15 @@
     }
 
     function subConfigURL(){
+      typeContainer2.style.display = "none";
+      brs3.style.display = "none";
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
+
+      // a.style.borderRadiusBottomRight = "5px";
 
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
@@ -767,11 +901,27 @@
     }
 
     function subConfigFunnel(){
+      typeContainer2.style.display = "none";
+      brs3.style.display = "none";
       funnelSelectWrapper.style.display = "inline-block";
       prdLink.style.display = "block";
       abcWrapper.style.display = "none";
       textHomeBox.style.display = "none";
+      importTemplateButton.style.display = "none";
       outwardMessage("PRD(" + funnelSelect.value + ")");
+    }
+
+    function subConfigClicktolink(){
+      typeContainer2.style.display = "block";
+      brs3.style.display = "block";
+      subConfigSMS();
+      // fill options with sms, email, phone
+      //console.log(subConfig);
+        typeSelect.innerHTML = `
+        <option value="SMS">SMS </option>
+        <option value="Phone">Phone</option>
+        <option value="Email">Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
+        `;
     }
 
     function configField(elem, display, placeholder){
@@ -836,11 +986,50 @@
                     }
                     let stepName = steps[j].name;
 
-                    let displayName = shorten(funnelName, 14) + " | " + shorten(stepName, 14);
+                    let displayName = shorten(funnelName, 10) + " | " + shorten(stepName, 10);
                     funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
             }
             return funnelList;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // now do the same thing, but for forms
+
+    async function getFormList() {
+      let formList = "";
+        const url =
+            "https://services.leadconnectorhq.com/forms/?locationId=" +
+            locationID;
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + locationAccessKey,
+                Version: "2021-07-28",
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            console.log(data);
+            let forms = data.forms;
+            //datax = data;
+            for (let i = 0; i < forms.length; i++) {
+                // for each step
+                let formName = forms[i].name;
+                let formID = forms[i].id;
+                if (forms[i].deleted == true) {
+                    formName = "[Deleted form]";
+                    formID = "invalid";
+                }
+                let displayName = shorten(formName, 35);
+                formList += `<option value="${formID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
+            }
+            return formList;
         } catch (error) {
             console.error(error);
         }
@@ -859,20 +1048,26 @@
     }
 
     async function save(){
-      let path = pathURLBox.value;
+      console.log("Subconfig: " + subConfig);
+      let rand = Math.random().toString(36);
+      let path = rand.substring(rand.length - 7);
+
       let oldPath = savedURL.split("https://jostens.co/")[1];
       if(saveButton.classList.contains("greyedOut")){
         return;
       }
       saveButton.innerHTML = "Saving...";
       saveButton.classList.add("greyedOut");
-      if(domainSelect.value == "custom"){
-        deleteRedirect(redirectID);
-        outwardMessage("success(" + path + ")['']");
-        outwardMessage("collapse");
-        return;
-      }
+      // if(domainSelect.value == "custom"){
+      //   deleteRedirect(redirectID);
+      //   outwardMessage("success(" + path + ")['']");
+      //   outwardMessage("collapse");
+      //   return;
+      // }
       let target = "";
+      if(subConfig == "Clicktolink"){
+        subConfig = typeSelect.value;
+      }
       if(subConfig == "SMS"){
         let recipient = a.value;
         let message = c.value;
@@ -1111,6 +1306,34 @@
           .replace(/\(/g, '%28')
           .replace(/\)/g, '%29')
           .replace(/\*/g, '%2A');
+    }
+
+    async function getTemplateList(){
+      const url = 'https://services.leadconnectorhq.com/locations/' + locationID + '/templates';
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + locationAccessKey,
+          Version: '2021-07-28',
+          Accept: 'application/json'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        // to-do: filter out email templates
+        templateList = data.templates;
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function nextTemplate(){
+      console.log(templateIndex);
+      c.value = templateList[templateIndex % templateList.length].template.body;
+      templateIndex++;
     }
 
 </script>

@@ -1,5 +1,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://kairoscloud.github.io/main/globalFirebase.js"></script>
 <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet"
@@ -528,6 +531,24 @@
                     class="input-field"
                     type="text"
                 />
+                <span class="dropdown" style="
+                    display: block;
+                        position: absolute;
+                        z-index: 1;
+                        margin-top: -30px;
+                        width: 100%;
+                        display: none;
+                        " id="b2">
+                                                <select id="campaignSelect" oninput="" style="
+                                                    width: calc(46.5% + 120px)">
+                                                    <!-- list of campaigns goes here -->
+                                                </select>
+                                                <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" id="chevronname">
+                                                    <path d="M4.5 5.5L7.5 8.5L10.5 5.5" stroke="#2c3538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </span>
+
+
             </div>
             <div>
                 <svg id="importTemplateButton" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="
@@ -611,6 +632,8 @@
     let b = document.getElementById("b");
     let c = document.getElementById("c");
 
+    let b2 = document.getElementById("b2");
+
     let validPath = false;
     let prdLinkText = "";
 
@@ -618,6 +641,9 @@
 
     let templateList;
     let templateIndex = 0;
+
+    // campaign stuff
+    let campaignList = [];
 
     // logic to load jostens or custom link
     if(savedURL.includes("https://jostens.co")){
@@ -648,6 +674,8 @@
     });
 
     getTemplateList();
+
+    getCampaignList();
 
     function configCustomLink(){
       allOtherWrapper.style.display = "none";
@@ -689,7 +717,7 @@
       }
       if(target.includes("?ghlFunnelID")){
         return "Funnel";
-      } // come back here, jake!
+      }
       if(target.includes("http")){
         return "URL";
       }
@@ -798,6 +826,13 @@
           c.style.marginLeft = "-131px";
           formSelect.style.width = "calc(48% + 120px)";
           formSelect.style.marginLeft = "-139px";
+
+          b.style.width = "calc(48% + 140px)";
+          b.style.marginLeft = "-131px";
+          configField(b, "block", "");
+
+          b2.style.display = "block";
+
         } else { // undo all of the previous things
           typeContaner.style.display = "inline-block";
           a.style.borderTopLeftRadius = "0";
@@ -806,6 +841,10 @@
           c.style.marginLeft = "10px";
           formSelect.style.width = "48%";
           formSelect.style.marginLeft = "0";
+          b.style.width = "48%";
+          b.style.marginLeft = "0";
+          configField(b, "none", "");
+          b2.style.display = "none";
         }
 
         subConfig = type;
@@ -1100,7 +1139,7 @@
       }
 
       if(subConfig == "FormSMS"){
-        target = "https://cdn.kairoscloud.io/widget/form/hn1vNmCF1fd7aV3BvRvd?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value);
+        target = "https://cdn.kairoscloud.io/widget/form/hn1vNmCF1fd7aV3BvRvd?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value) + "&campaign=" + campaignSelect.value;
       }
 
       console.log(target);
@@ -1331,9 +1370,44 @@
     }
 
     function nextTemplate(){
-      console.log(templateIndex);
-      c.value = templateList[templateIndex % templateList.length].template.body;
+      let selectedCampaign = campaignSelect.value;
+      c.value = replaceFields(templateList[templateIndex % templateList.length].template.body, selectedCampaign);
       templateIndex++;
+    }
+
+    function replaceFields(template, campaign){
+      let campaignData = campaignList.find(c => c.id == campaign).data;
+      return template.replaceAll("{{contact.school_name}}", campaignData.schoolName || "")
+      .replaceAll("{{contact.school_location}}", campaignData.schoolLocation || "")
+      .replaceAll("{{contact.order_due_date}}", campaignData.orderDueDate || "")
+      .replaceAll("{{contact.last_updated}}", campaignData.lastUpdated || "")
+      .replaceAll("{{contact.landing_page_1}}", campaignData.landingPage1 || "")
+      .replaceAll("{{contact.landing_page_2}}", campaignData.landingPage2 || "")
+      .replaceAll("{{contact.jostens_website_link}}", campaignData.jostensWebsiteLink || "")
+      .replaceAll("{{contact.campaign_name}}", campaignData.name || "")
+      .replaceAll("{{contact.school_logo_link}}", campaignData.schoolLogo || "")
+      // replace anything else contained within {{}}
+      .replace(/{{.*?}}/g, "");
+    }
+
+    async function getCampaignList(){
+
+          const campaignsRef = firestore
+              .collection("campaigns_restructured")
+              .doc(locationID)
+              .collection("campaigns");
+          const snapshot = await campaignsRef.get();
+          snapshot.forEach((doc) => {
+            campaignList.push(
+              {
+                id: doc.id,
+                data: doc.data()
+              }
+            );
+            // add it to the dropdown
+            campaignSelect.innerHTML += `<option value="${doc.id}">${doc.data().name} &nbsp; &nbsp; &nbsp;</option>`;
+          });
+          console.log(campaignList);
     }
 
 </script>

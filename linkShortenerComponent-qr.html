@@ -1139,7 +1139,7 @@
       }
 
       if(subConfig == "FormSMS"){
-        target = "https://cdn.kairoscloud.io/widget/form/hn1vNmCF1fd7aV3BvRvd?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value) + "&campaign=" + campaignSelect.value;
+        target = "https://cdn.kairoscloud.io/widget/form/hn1vNmCF1fd7aV3BvRvd?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value) + "&campaign_name=CAMPAIGNID_" + campaignSelect.value;
       }
 
       console.log(target);

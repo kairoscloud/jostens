@@ -1338,13 +1338,15 @@
       window.open(prdLinkText, "_blank");
     }
 
-    function customEncodeURIComponent(str){
-      return encodeURIComponent(str)
-          .replace(/!/g, '%21')
-          .replace(/'/g, '%27')
-          .replace(/\(/g, '%28')
-          .replace(/\)/g, '%29')
-          .replace(/\*/g, '%2A');
+    function customEncodeURIComponent(str) {
+        return encodeURIComponent(str)
+            .replace(/!/g, '%21')
+            .replace(/'/g, '%27')
+            .replace(/\(/g, '%28')
+            .replace(/\)/g, '%29')
+            .replace(/\*/g, '%2A')
+            .replace(/\r/g, '%0D')
+            .replace(/\n/g, '%0A');
     }
 
     async function getTemplateList(){

@@ -407,7 +407,6 @@
                 id="typeContaner"
                 style="
                     width: 9em !important;
-                    border-right: none;
                     margin-right: -5px;
                     display: inline-block;
                     padding: 12px 10px;
@@ -421,6 +420,7 @@
                             margin: -10px;
                             margin-left: -4px;
                             margin-right: 0;
+                            width: 100%;
                         "
                     >
                         <option value="URL">Custom URL</option>
@@ -447,10 +447,15 @@
                     </svg>
                 </span>
             </span>
+            <br id="br2">
             <span style="background-color: white;
                         border-top-left-radius: 0;
                         border-bottom-left-radius: 0;
-                        display: inline-block;"
+                        display: inline-block;
+                        border-radius: 5px;
+                        margin-top: 25px;
+                        width: calc(48% + 118px);
+                        "
                         class="input-field"
                         id="funnelSelectWrapper">
 
@@ -460,7 +465,8 @@
                                     style="
                                         margin: -10px;
                                         margin-left: -4px;
-                                        margin-right: -6px;
+                                        margin-right: 0;
+                                        width: 100%;
                                     "
                                     oninput="funnelInput()"
                                 >
@@ -484,6 +490,7 @@
                                 </svg>
                             </span>
             </span>
+            <br id="br1">
                 <!-- display = inline-block when visible -->
             <span id="abcWrapper" style="display:none">
             <input
@@ -492,12 +499,13 @@
                 oninput=""
                 value=""
                 style="
-                    width: 48%;
+                    width: calc(48% + 140px);
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
                     border-bottom-right-radius: 0;
                     margin-right: 5%;
                     outline: none !important;
+                    margin-top: 7px;
                 "
                 class="input-field"
                 type="text"
@@ -579,8 +587,6 @@
                         outline: none !important;
                         margin-top: 4px !important;
                         position: relative;
-                        left: 9em;
-                        margin-left: 10px;
                         resize: none;
                     "
                     class="input-field ghlText"
@@ -624,6 +630,8 @@
     let typeSelect2 = document.getElementById("typeSelect2");
     let typeContainer2 = document.getElementById("typeContainer2");
     let brs3 = document.getElementById("3brs");
+    let br1 = document.getElementById("br1");
+    let br2 = document.getElementById("br2");
     let formSelect = document.getElementById("formSelect");
 
     // body components
@@ -813,7 +821,7 @@
         eval("subConfig" + type + "()");
 
         if(type == "FormSMS" || type == "Clicktolink"){
-          allDiv.style.marginTop = "-18px";
+          allDiv.style.marginTop = "-24px";
         } else {
          allDiv.style.marginTop = "-9px";
         }
@@ -823,7 +831,6 @@
           a.style.borderTopLeftRadius = "5px";
           a.style.width = "calc(48% + 140px)";
           c.style.width = "calc(48% + 140px)";
-          c.style.marginLeft = "-131px";
           formSelect.style.width = "calc(48% + 120px)";
           formSelect.style.marginLeft = "-139px";
 
@@ -833,23 +840,65 @@
 
           b2.style.display = "block";
 
+          brs3.style.display = "none";
+          br1.style.display = "none";
+          br2.style.display = "none";
+
         } else { // undo all of the previous things
           typeContaner.style.display = "inline-block";
           a.style.borderTopLeftRadius = "0";
-          a.style.width = "48%";
-          c.style.width = "48%";
-          c.style.marginLeft = "10px";
+          a.style.width = "calc(48% + 140px)";
+          c.style.width = "calc(48% + 140px)"
           formSelect.style.width = "48%";
           formSelect.style.marginLeft = "0";
           b.style.width = "48%";
           b.style.marginLeft = "0";
           configField(b, "none", "");
           b2.style.display = "none";
+
+          brs3.style.display = "block";
+          br1.style.display = "block";
+          br2.style.display = "block";
+        }
+
+        if(type == "Clicktolink"){
+          a.style.marginTop = "-15px";
+          a.style.borderRadius = "0px";
+          typeContaner.style.borderBottomRightRadius = "0px";
+          typeContaner.style.borderBottomLeftRadius = "0px";
+        } else {
+         //  undo all of that
+          if(type != "FormSMS"){
+             a.style.borderRadius = "5px";
+             a.style.marginTop = "7px";
+          } else {
+            a.style.borderRadius = "0px";
+            a.style.marginTop = "20px";
+          }
+          typeContaner.borderBottomRightRadius = "5px";
+          typeContaner.borderBottomLeftRadius = "5px";
+        }
+
+        if(type == "Funnel"){
+          brs3.style.display = "none";
+        }
+
+        if(type == "URL"){
+          brs3.style.display = "none";
+        }
+
+        if(type == "Phone" || type == "Email" || type == "SMS"){
+          a.style.marginTop = "-15px";
+          a.style.borderRadius = "0px";
+          typeContaner.style.borderBottomRightRadius = "0px";
+          typeContaner.style.borderBottomLeftRadius = "0px";
+          allDiv.style.marginTop = "-24px";
+         // allDiv.style.marginTop = "-9px";
         }
 
         subConfig = type;
         console.log(subConfig);
-        if((subConfig == "Funnel" || subConfig == "FormSMS") && event.target.id == "typeSelect2"){
+        if((subConfig == "Funnel" ||subConfig == "URL" || subConfig == "FormSMS") && event.target.id == "typeSelect2"){
           typeSelect.innerHTML = `
             <option value="URL">Custom URL</option>
             <option value="Funnel">Landing Page &nbsp; &nbsp; &nbsp;</option>
@@ -931,8 +980,9 @@
       prdLink.style.display = "none";
       textHomeBox.style.display = "none";
       importTemplateButton.style.display = "none";
+      typeContaner.style.width = "calc(48% + 118px)";
 
-      // a.style.borderRadiusBottomRight = "5px";
+      a.style.borderRadius = "5px";
 
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
@@ -947,6 +997,9 @@
       abcWrapper.style.display = "none";
       textHomeBox.style.display = "none";
       importTemplateButton.style.display = "none";
+
+      typeContaner.style.borderRadius = "5px";
+
       outwardMessage("PRD(" + funnelSelect.value + ")");
     }
 

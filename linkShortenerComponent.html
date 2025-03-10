@@ -1,5 +1,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://kairoscloud.github.io/main/globalFirebase.js"></script>
 <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet"
@@ -531,10 +534,10 @@
     // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
     let urlParams = new URLSearchParams(window.location.search);
     let locationID = urlParams.get("locationID");
-    let locationAccessKey = urlParams.get("locationAccessKey");
+    let locationAccessKey = "";
     let componentID = urlParams.get("componentID");
     let savedURL = urlParams.get("savedURL");
-    let jdlocationAccessKey = urlParams.get("jdlocationAccessKey");
+    let jdlocationAccessKey = "";
     let docID = urlParams.get("docID");
     let redirectID = "";
     // log all variables in one big console.log
@@ -578,10 +581,36 @@
       configCustomLink();
     }
 
-    getFunnelList().then((funnelList) => {
-      funnelSelect.innerHTML = funnelList;
-      funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+
+    getBothTokens().then(() => {
+      // console.log({ jdlocationAccessKey, locationAccessKey });
+      getFunnelList().then((funnelList) => {
+        funnelSelect.innerHTML = funnelList;
+        funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+      });
     });
+
+    async function getBothTokens() {
+        await firestore // grab the location access key from Firebase
+            .collection("tokens")
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    if (doc.id == "owNEzpbrfBjp4weSARXD") {
+                        jdlocationAccessKey =
+                            doc.data().locationAccessToken;
+                    }
+                    if (doc.id == locationID) {
+                        locationAccessKey = doc.data().locationAccessToken;
+                    }
+
+                    if (jdlocationAccessKey != "" && locationAccessKey != "") {
+                      return;
+                    }
+                });
+            });
+        return;
+    }
 
     function configCustomLink(){
       allOtherWrapper.style.display = "none";

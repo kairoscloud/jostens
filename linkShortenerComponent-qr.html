@@ -967,7 +967,7 @@ async function getBothTokens() {
       textHomeBox.style.display = "none";
       importTemplateButton.style.display = "none"; // maybe change this in the future
 
-      configField(a, "inline", "Recipient, ex. (123) 456-789");
+      configField(a, "inline", "Recipient, ex. (123) 456-789 (optional)");
       configField(b, "none", "");
       configField(c, "inline", "Message");
 
@@ -980,7 +980,7 @@ async function getBothTokens() {
       textHomeBox.style.display = "none";
       importTemplateButton.style.display = "none";
 
-      configField(a, "inline", "Recipient, ex. example@mail.com");
+      configField(a, "inline", "Recipient, ex. example@mail.com (optional)");
       configField(b, "inline", "Subject");
       configField(c, "inline", "Body");
       }
@@ -1103,7 +1103,7 @@ async function getBothTokens() {
                     }
                     let stepName = steps[j].name;
 
-                    let displayName = shorten(funnelName, 10) + " | " + shorten(stepName, 10);
+                    let displayName = shorten(funnelName, 17) + " | " + shorten(stepName, 19);
                     funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
             }

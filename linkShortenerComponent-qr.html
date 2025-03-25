@@ -703,6 +703,7 @@
 
     // campaign stuff
     let campaignList = [];
+    let customValuesList = [];
 
     validSave(false);
 
@@ -779,6 +780,8 @@ getBothTokens().then(() => {
     getTemplateList();
 
     getCampaignList();
+
+    getCustomValuesList();
 
 });
 
@@ -1550,15 +1553,15 @@ async function getBothTokens() {
 
     function replaceFields(template, campaign){
       let campaignData = campaignList.find(c => c.id == campaign).data;
-      return template.replaceAll("{{contact.school_name}}", campaignData.schoolName || "")
+      return replaceCustomValues(template.replaceAll("{{contact.school_name}}", campaignData.schoolName || "")
       .replaceAll("{{contact.school_location}}", campaignData.schoolLocation || "")
-      .replaceAll("{{contact.order_due_date}}", campaignData.orderDueDate || "")
+      .replaceAll("{{contact.order_due_date}}", formatODD(campaignData.orderDueDate) || "")
       .replaceAll("{{contact.last_updated}}", campaignData.lastUpdated || "")
       .replaceAll("{{contact.landing_page_1}}", campaignData.landingPage1 || "")
       .replaceAll("{{contact.landing_page_2}}", campaignData.landingPage2 || "")
       .replaceAll("{{contact.jostens_website_link}}", campaignData.jostensWebsiteLink || "")
       .replaceAll("{{contact.campaign_name}}", campaignData.name || "")
-      .replaceAll("{{contact.school_logo_link}}", campaignData.schoolLogo || "")
+      .replaceAll("{{contact.school_logo_link}}", campaignData.schoolLogo || ""))
       // replace anything else contained within {{}}
       .replace(/{{.*?}}/g, "");
     }
@@ -1582,6 +1585,51 @@ async function getBothTokens() {
             campaignSelect.innerHTML += `<option value="${doc.id}">${doc.data().name} &nbsp; &nbsp; &nbsp;</option>`;
           });
           console.log(campaignList);
+    }
+
+    async function getCustomValuesList(){
+      const url = 'https://services.leadconnectorhq.com/locations/' + locationID + '/customValues';
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + locationAccessKey,
+          Version: '2021-07-28',
+          Accept: 'application/json'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        customValuesList = data.customValues;
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function replaceCustomValues(template){
+      console.log(customValuesList);
+      let replacedTemplate = template;
+      for(let i = 0; i < customValuesList.length; i++){
+        let customValue = customValuesList[i];
+        let rep = customValue.fieldKey.replaceAll("{{ ", "{{").replaceAll(" }}", "}}");
+        replacedTemplate = replacedTemplate.replaceAll(rep, customValue.value);
+      }
+      return replacedTemplate;
+    }
+
+    function formatODD(input) {
+      if(input == ""){
+        return "";
+      }
+      const [year, month, day] = input.split("-").map(Number);
+      const date = new Date(year, month - 1, day); // Month is 0-based
+      return date.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      });
     }
 
 </script>

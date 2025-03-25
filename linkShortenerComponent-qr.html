@@ -560,18 +560,68 @@
             </div>
             <div>
                 <svg id="importTemplateButton" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="
-                        position: absolute;
-                        margin-left: calc(48% + 103px);
-                        z-index: 100;
-                        margin-top: 78px;
-                        cursor: pointer;
-                    "
-                    onclick="nextTemplate()"
+                    position: absolute;
+                    margin-left: calc(48% + 103px);
+                    z-index: 100;
+                    margin-top: 78px;
+                    cursor: pointer;
+                "
+                onclick="nextTemplate()"
+                onmouseover="showTooltip(event)"
+                onmousemove="positionTooltip(event)"
+                onmouseout="hideTooltip()"
                 >
                   <g transform="rotate(-180, 12, 12)">
                     <path d="M5 12L12 19M5 12L12 5M5 12H19" stroke="#285aa4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </g>
+                  <script>
+                    (function() {
+                        let tooltip;
+
+                        function createTooltip() {
+                            tooltip = document.createElement("div");
+                            tooltip.textContent = "Next SMS Template";
+                            Object.assign(tooltip.style, {
+                                position: "fixed",
+                                background: "rgba(50, 50, 50, 0.9)",
+                                color: "#fff",
+                                padding: "6px 10px",
+                                borderRadius: "6px",
+                                fontSize: "14px",
+                                pointerEvents: "none",
+                                whiteSpace: "nowrap",
+                                transform: "translate(-50%, -120%)",
+                                transition: "opacity 0.15s ease",
+                                opacity: "0",
+                                zIndex: "999"
+                            });
+                            document.body.appendChild(tooltip);
+                        }
+
+                        function showTooltip(event) {
+                            if (!tooltip) createTooltip();
+                            tooltip.style.opacity = "1";
+                            positionTooltip(event);
+                        }
+
+                        function positionTooltip(event) {
+                            if (!tooltip) return;
+                            tooltip.style.left = event.clientX + "px";
+                            tooltip.style.top = (event.clientY - 10) + "px";
+                        }
+
+                        function hideTooltip() {
+                            if (tooltip) tooltip.style.opacity = "0";
+                        }
+
+                        window.showTooltip = showTooltip;
+                        window.positionTooltip = positionTooltip;
+                        window.hideTooltip = hideTooltip;
+                    })();
+                  </script>
                 </svg>
+
+
                 <textarea
                     id="c"
                     placeholder="body"
@@ -644,6 +694,7 @@
 
     let validPath = false;
     let prdLinkText = "";
+    let subConfig = "";
 
     // template stuff
 
@@ -652,6 +703,48 @@
 
     // campaign stuff
     let campaignList = [];
+
+    validSave(false);
+
+    // create an eventListener for any click. Determine if save button should be greyedOut or not
+    document.addEventListener("click", checkValid);
+    document.addEventListener("keydown", checkValid);
+    document.addEventListener("input", checkValid);
+
+    function checkValid(){
+      console.log("Checking: " + subConfig);
+      switch(subConfig){
+        case "URL":
+          validSave(a.value != "");
+          break;
+        case "Funnel":
+          validSave(funnelSelect.value != "null");
+          break;
+        case "Clicktolink":
+          validSave(c.value != "");
+          break;
+        case "Phone":
+          validSave(a.value != "");
+          break;
+        case "Email":
+          validSave(c.value != "");
+          break;
+        case "SMS":
+          validSave(c.value != "");
+          break;
+        case "FormSMS":
+          validSave(campaignSelect.value != "null" && formSelect.value != "null" && c.value != "");
+          break;
+      }
+    }
+
+    function validSave(isValid){
+      if(isValid){
+        saveButton.classList.remove("greyedOut");
+      } else {
+        saveButton.classList.add("greyedOut");
+      }
+    }
 
     // logic to load jostens or custom link
     if(savedURL.includes("https://jostens.co")){
@@ -805,7 +898,7 @@ async function getBothTokens() {
     }
 
     function initialConfig(){
-        subConfig = "Funnel";
+        subConfig = "URL";
         subConfigURL();
         allOtherWrapper.style.display = "block";
         optionalFunnelWrapper.style.display = "none";
@@ -827,7 +920,6 @@ async function getBothTokens() {
       pathURLBox.value = "";
     }
 
-    let subConfig = "";
     function typeInput(){
       // de-focus typeselect here
       typeSelect.blur();
@@ -857,7 +949,7 @@ async function getBothTokens() {
           a.style.width = "calc(48% + 140px)";
           c.style.width = "calc(48% + 140px)";
           formSelect.style.width = "calc(48% + 120px)";
-          formSelect.style.marginLeft = "-139px";
+          formSelect.style.marginLeft = "-141px";
 
           b.style.width = "calc(48% + 140px)";
           b.style.marginLeft = "-131px";
@@ -1036,7 +1128,7 @@ async function getBothTokens() {
       //console.log(subConfig);
         typeSelect.innerHTML = `
         <option value="SMS">SMS </option>
-        <option value="Phone">Phone</option>
+        <option value="Phone">Call</option>
         <option value="Email">Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
         `;
     }
@@ -1116,7 +1208,7 @@ async function getBothTokens() {
     // now do the same thing, but for forms
 
     async function getFormList() {
-      let formList = "";
+      let formList = `<option value="null">Select Form...</option>`;
         const url =
             "https://services.leadconnectorhq.com/forms/?locationId=" +
             locationID;
@@ -1472,6 +1564,7 @@ async function getBothTokens() {
     }
 
     async function getCampaignList(){
+      campaignSelect.innerHTML = `<option value="null">Select Campaign...</option>`;
 
           const campaignsRef = firestore
               .collection("campaigns_restructured")

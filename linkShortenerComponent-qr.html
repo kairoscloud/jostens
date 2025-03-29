@@ -539,6 +539,25 @@
                     class="input-field"
                     type="text"
                 />
+                <input
+                    id="pseudoB"
+                    placeholder="Subject (optional)"
+                    oninput=""
+                    value=""
+                    style="
+                        width: calc(48% + 140px);
+                        border-radius: 0px;
+                        margin-right: 5%;
+                        position: relative;
+                        left: 9em;
+                        margin-left: -131px;
+                        display: none;
+                        outline: none !important;
+                        margin-top: 4px !important;
+                    "
+                    class="input-field"
+                    type="text"
+                />
                 <span class="dropdown" style="
                     display: block;
                         position: absolute;
@@ -683,6 +702,7 @@
     let br1 = document.getElementById("br1");
     let br2 = document.getElementById("br2");
     let formSelect = document.getElementById("formSelect");
+    let pseudoB = document.getElementById("pseudoB");
 
     // body components
 
@@ -946,6 +966,12 @@ async function getBothTokens() {
          allDiv.style.marginTop = "-9px";
         }
 
+        if(type == "Email"){
+          pseudoB.style.display = "block";
+        } else {
+          pseudoB.style.display = "none";
+        }
+
         if(type == "FormSMS"){
           typeContaner.style.display = "none";
           a.style.borderTopLeftRadius = "5px";
@@ -1076,7 +1102,7 @@ async function getBothTokens() {
       importTemplateButton.style.display = "none";
 
       configField(a, "inline", "Recipient, ex. example@mail.com (optional)");
-      configField(b, "inline", "Subject");
+      configField(b, "inline", "Subject"); // this is good, it's being disabled somewhere else
       configField(c, "inline", "Body");
       }
 
@@ -1287,7 +1313,7 @@ async function getBothTokens() {
       }
       if(subConfig == "Email"){
         let recipient = a.value;
-        let subject = b.value;
+        let subject = pseudoB.value;
         let body = c.value;
         target = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
       }

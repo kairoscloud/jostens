@@ -94,6 +94,7 @@
 
     .input-field:focus {
         border: 1px solid #d1d5de;
+        outline: none;
     }
 
     .dropdown {
@@ -258,11 +259,9 @@
             <span class="dropdown">
                 <select id="domainSelect" oninput="domainInput()">
                     <option value="custom">
-                        Custom link &nbsp; &nbsp; &nbsp; &nbsp;
+                        Custom link        
                     </option>
-                    <option value="jostens.co">
-                        Jostens.co/ &nbsp; &nbsp; &nbsp; &nbsp;
-                    </option>
+                    <!-- Domain options will be populated by JavaScript -->
                 </select>
                 <svg
                     class="chevron"
@@ -398,7 +397,7 @@
                             margin-right: 0;
                         "
                     >
-                        <option value="Funnel">Funnel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
+                        <option value="Funnel">Funnel              </option>
                         <!-- <option value="SMS"></option>
                         <option value="Phone">Phone</option>
                         <option value="Email">Email</option> -->
@@ -534,14 +533,15 @@
     // This page is being embedded as an iframe. We need to get all the following params from the embedded URL: redirectID, locationID, locationAccessKey, and ComponentID
     let urlParams = new URLSearchParams(window.location.search);
     let locationID = urlParams.get("locationID");
-    let locationAccessKey = "";
+    let locationAccessKey = ""; // Will be fetched
     let componentID = urlParams.get("componentID");
     let savedURL = urlParams.get("savedURL");
-    let jdlocationAccessKey = "";
+    // let jdlocationAccessKey = ""; // REMOVED
     let docID = urlParams.get("docID");
-    let redirectID = "";
-    // log all variables in one big console.log
-    console.log({ locationID, locationAccessKey, jdlocationAccessKey, componentID, savedURL});
+    let redirectID = ""; // Will store the ID of the GHL redirect, if applicable
+    let domainList = []; // Will be populated by getDomainList()
+
+    console.log({ locationID, componentID, savedURL, docID });
 
     // all elements
     let allOtherWrapper = document.getElementById("allOtherWrapper");
@@ -554,152 +554,199 @@
     let saveButton = document.getElementById("compSaveButton");
     let prdLink = document.getElementById("PRDLink");
     let funnelSelectOptional = document.getElementById("funnelSelectOptional");
+    let optionalFunnelWrapper = document.getElementById("optionalFunnelWrapper");
+
 
     // body components
-
     let a = document.getElementById("a");
     let b = document.getElementById("b");
     let c = document.getElementById("c");
 
     let validPath = false;
     let prdLinkText = "";
+    let subConfig = "Funnel"; // Default subConfig
 
-    // logic to load jostens or custom link
-    if(savedURL.includes("https://jostens.co")){
-      let importedPath = savedURL.split("https://jostens.co/")[1];
-      getLink(importedPath).then((redirectObj) => {
-        if(redirectObj){
-          redirectID = redirectObj._id;
-          console.log("Found redirect for '" + importedPath + "'! RedirectID: " + redirectID);
-          configJostensLink(redirectObj);
-        } else {
-          console.log("No redirect found for '" + importedPath + "'");
-          configJostensLink(redirectObj);
+    // Helper to determine which GHL locationId to use for redirect operations
+    function getGhlLocationIdForDomain(domain) {
+        if (domain === "jostens.co") {
+            return "owNEzpbrfBjp4weSARXD"; // Special location for jostens.co
         }
-      });
-    } else {
-      configCustomLink();
+        return locationID; // For all other client-imported domains, use their own locationID
     }
 
+    function populateDomainDropdown() {
+        domainSelect.innerHTML = '<option value="custom">Custom link        </option>';
+        domainList.forEach(domain => {
+            const option = document.createElement('option');
+            option.value = domain;
+            let displayText = domain + "/";
+            const baseLength = displayText.length;
+            if (baseLength < 12) {
+                displayText += '     ';
+            } else if (baseLength < 16) {
+                displayText += '   ';
+            } else if (baseLength < 20) {
+                displayText += ' ';
+            }
+            option.innerHTML = displayText;
+            domainSelect.appendChild(option);
+        });
+    }
 
-    getBothTokens().then(() => {
-      // console.log({ jdlocationAccessKey, locationAccessKey });
-      getFunnelList().then((funnelList) => {
-        funnelSelect.innerHTML = funnelList;
-        funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
-      });
+    async function getLeadConnectorAccessToken() {
+        if (locationAccessKey) return; // Already fetched or provided
+
+        try {
+            const doc = await firestore.collection("tokens").doc(locationID).get();
+            if (doc.exists && doc.data().locationAccessToken) {
+                locationAccessKey = doc.data().locationAccessToken;
+                console.log("Fetched locationAccessKey for locationID:", locationID);
+            } else {
+                console.error("Could not fetch locationAccessKey for locationID:", locationID);
+                outwardMessage("domError(Error: Missing API access token.)");
+            }
+        } catch (error) {
+            console.error("Error fetching locationAccessKey:", error);
+            outwardMessage("domError(Error: Failed to fetch API access token.)");
+        }
+    }
+
+    // Initial loading sequence
+    getDomainList().then(() => {
+        populateDomainDropdown(); // Populate dropdown after fetching list
+
+        let matchedDomain = null;
+        let pathFromSavedURL = "";
+        let isCustomSavedURL = true;
+
+        if (savedURL) {
+            for (const domain of domainList) {
+                if (savedURL.startsWith("https://" + domain + "/")) {
+                    matchedDomain = domain;
+                    pathFromSavedURL = savedURL.substring(("https://" + domain + "/").length);
+                    isCustomSavedURL = false;
+                    break;
+                }
+            }
+        }
+
+        getLeadConnectorAccessToken().then(() => {
+            getFunnelList().then((funnelList) => {
+                funnelSelect.innerHTML = funnelList;
+                funnelSelectOptional.innerHTML = `<option value="null">Select funnel...</option>` + funnelList;
+
+                if (!isCustomSavedURL && matchedDomain) {
+                    getLink(pathFromSavedURL, matchedDomain).then((redirectObj) => {
+                        if (redirectObj) {
+                            redirectID = redirectObj._id;
+                            console.log(`Found redirect for '${pathFromSavedURL}' on domain '${matchedDomain}'! RedirectID: ${redirectID}`);
+                            configManagedDomainLink(redirectObj, matchedDomain, pathFromSavedURL);
+                        } else {
+                            console.log(`No redirect found for '${pathFromSavedURL}' on domain '${matchedDomain}'. Treating as new.`);
+                            configManagedDomainLink(null, matchedDomain, pathFromSavedURL);
+                        }
+                    });
+                } else {
+                    configCustomLink(savedURL && isCustomSavedURL ? savedURL : null);
+                }
+            });
+        });
     });
 
-    async function getBothTokens() {
-        await firestore // grab the location access key from Firebase
-            .collection("tokens")
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if (doc.id == "owNEzpbrfBjp4weSARXD") {
-                        jdlocationAccessKey =
-                            doc.data().locationAccessToken;
-                    }
-                    if (doc.id == locationID) {
-                        locationAccessKey = doc.data().locationAccessToken;
-                    }
-
-                    if (jdlocationAccessKey != "" && locationAccessKey != "") {
-                      return;
-                    }
-                });
-            });
-        return;
+    function configCustomLink(prefillUrl = null) {
+        allOtherWrapper.style.display = "none";
+        optionalFunnelWrapper.style.display = "block";
+        prdLink.style.display = "none";
+        domainSelect.value = "custom";
+        pathURLBox.placeholder = "https://example.com";
+        pathURLBox.value = prefillUrl ? prefillUrl : "";
+        pathURLBox.style.border = "1px solid #d1d5de";
+        pathURLBox.style.backgroundColor = "white";
+        saveButton.classList.remove("greyedOut");
+        validPath = true;
     }
 
-    function configCustomLink(){
-      allOtherWrapper.style.display = "none";
-      optionalFunnelWrapper.style.display = "block";
-      prdLink.style.display = "none";
-      domainSelect.value = "custom";
-      pathURLBox.value = savedURL;
-      pathURLBox.placeholder = "https://example.com";
-    }
+    function configManagedDomainLink(redirectObj, domain, path) {
+        pathURLBox.value = path;
+        domainSelect.value = domain;
+        allOtherWrapper.style.display = "block";
+        optionalFunnelWrapper.style.display = "none";
+        pathURLBox.placeholder = "path-to-my-page";
 
-    function configJostensLink(redirectObj){
-      let target = redirectObj ? redirectObj.target : "";
-      pathURLBox.value = savedURL.split("https://jostens.co/")[1];
-      domainSelect.value = "jostens.co";
-      allOtherWrapper.style.display = "block";
-      optionalFunnelWrapper.style.display = "none";
-      let importedType = redirectObj ? getType(target) : "Funnel";
-      fillFields(target, importedType);
-      subConfig = importedType;
-      typeSelect.value = importedType;
-      eval("subConfig" + importedType + "()");
-      if(redirectObj){
-        pathInput();
-      }
+        let target = redirectObj ? redirectObj.target : "";
+        let importedType = redirectObj ? getType(target) : "Funnel";
+
+        fillFields(target, importedType);
+        typeSelect.value = importedType;
+        subConfig = importedType;
+        eval("subConfig" + importedType + "()");
+
+        if (redirectObj) {
+            pathInput();
+        } else {
+            if (importedType === "Funnel") {
+                if (funnelSelect.options.length > 0) {
+                    funnelSelect.selectedIndex = 0;
+                    funnelInput();
+                }
+            }
+            pathInput();
+        }
     }
 
     function getType(target){
-      if(target.includes("params=sms")){
-        return "SMS";
-      }
-      if(target.includes("params=mailto")){
-        return "Email";
-      }
-      if(target.includes("params=tel")){
-        return "Phone";
-      }
-      if(target.includes("https://app.kairoscloud.io/v2/preview/")){
-        return "Funnel";
-      }
-      if(target.includes("?ghlFunnelID")){
-        return "Funnel";
-      } // come back here, jake!
-      if(target.includes("http")){
-        return "URL";
-      }
+      if(target.includes("params=sms")){ return "SMS"; }
+      if(target.includes("params=mailto")){ return "Email"; }
+      if(target.includes("params=tel")){ return "Phone"; }
+      if(target.includes("https://app.kairoscloud.io/v2/preview/") && (target.includes("?ghlFunnelID") || !target.includes("¶ms="))){ return "Funnel"; }
+      if(target.includes("sites.kairoscloud.io") && target.includes("?&locationID=")){ return "Funnel"; } // For new funnel links
+      if(target.includes("http")){ return "URL"; }
+      return "Funnel"; // Default
     }
 
     function fillFields(target, importedType){
-      console.log(target);
-      // the fields are as follows:
-      // a = recipient
-      // b = subject
-      // c = body
-      // And the target can be any of the following:
-      // sms, mailto, tel, funnel, url
-      // we need to autofill the fields based on the target
-      // important detail: &params= is URI encoded, so we need to decode it
-      let params = decodeURIComponent(target.split("&params=")[1]);
-      //console.log("Params: " + params);
-      if(importedType == "SMS"){
+      console.log("fillFields target:", target, "type:", importedType);
+      if (!target) return;
+
+      let params = "";
+      if (target.includes("¶ms=")) {
+        params = decodeURIComponent(target.split("¶ms=")[1]);
+      }
+
+      a.value = ""; b.value = ""; c.value = ""; // Clear fields
+
+      if(importedType == "SMS" && params.startsWith("sms:")){
         let recipient = params.split("sms:")[1].split("?")[0];
-        let message = params.split("body=")[1];
+        let message = params.includes("body=") ? params.split("body=")[1] : "";
         a.value = recipient;
         c.value = message;
       }
-      if(importedType == "Email"){
+      if(importedType == "Email" && params.startsWith("mailto:")){
         let recipient = params.split("mailto:")[1].split("?")[0];
-        let subject = params.split("subject=")[1].split("&")[0];
-        let body = params.split("body=")[1];
+        let subject = params.includes("subject=") ? params.split("subject=")[1].split("&")[0] : "";
+        let body = params.includes("body=") ? params.split("body=")[1] : "";
         a.value = recipient;
         b.value = subject;
         c.value = body;
       }
-      if(importedType == "Phone"){
+      if(importedType == "Phone" && params.startsWith("tel:")){
         let recipient = params.split("tel:")[1];
         a.value = recipient;
       }
       if(importedType == "Funnel"){
-        if(target == ""){
-          return;
-        }
         let funnelID = "";
-        if(target.includes("?ghlFunnelID")){
-          funnelID = target.split("?ghlFunnelID")[1];
-          funnelSelect.value = funnelID;
-        } else {
-          funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1];
+        if (target.includes("?ghlFunnelID=")) { // Check with '='
+            funnelID = target.split("?ghlFunnelID=")[1];
+        } else if (target.includes("https://app.kairoscloud.io/v2/preview/")) {
+            funnelID = target.split("https://app.kairoscloud.io/v2/preview/")[1].split("?")[0];
+        } else if (target.includes("sites.kairoscloud.io/")) {
+             const parts = target.split("sites.kairoscloud.io/");
+             if (parts.length > 1) funnelID = parts[1].split("?")[0];
         }
         funnelSelect.value = funnelID;
+        if (funnelSelect.value !== funnelID && funnelID) { // If ID not found, log
+            console.warn("Funnel ID", funnelID, "not found in dropdown.");
+        }
       }
       if(importedType == "URL"){
         a.value = target;
@@ -707,22 +754,30 @@
     }
 
     function domainInput(){
-      // subconfig to default: funnel
-      // + any other variables
-      if(domainSelect.value == "jostens.co"){
-        subConfig = "Funnel";
-        subConfigFunnel();
+      const selectedDomain = domainSelect.value;
+      if (selectedDomain === "custom") {
+        configCustomLink();
+        pathURLBox.value = "";
+      } else {
         allOtherWrapper.style.display = "block";
         optionalFunnelWrapper.style.display = "none";
         pathURLBox.placeholder = "path-to-my-page";
-        outwardMessage("PRD(" + funnelSelect.value + ")");
-      } else { // custom domain
-        configCustomLink();
+        pathURLBox.value = "";
+
+        typeSelect.value = "Funnel";
+        subConfig = "Funnel";
+        subConfigFunnel();
+
+        if (funnelSelect.value) {
+             outwardMessage("PRD(" + funnelSelect.value + ")");
+        } else {
+            prdLink.innerText = "";
+            prdLinkText = "";
+        }
+        pathInput();
       }
-      pathURLBox.value = "";
     }
 
-    let subConfig = "";
     function typeInput(){
         let type = typeSelect.value;
         eval("subConfig" + type + "()");
@@ -730,87 +785,63 @@
     }
 
     function subConfigSMS(){
-      funnelSelectWrapper.style.display = "none"; // Hide funnelselect. inline-block to enable
-      abcWrapper.style.display = "inline"; // not sure why this invalid value fixes it
-      prdLink.style.display = "none"; // Hide the programmatically domain + path
-
+      funnelSelectWrapper.style.display = "none";
+      abcWrapper.style.display = "inline";
+      prdLink.style.display = "none";
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
       configField(c, "inline", "Message");
     }
-
     function subConfigEmail(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
-
       configField(a, "inline", "Recipient, ex. example@mail.com");
       configField(b, "inline", "Subject");
       configField(c, "inline", "Body");
-      }
-
+    }
     function subConfigPhone(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
-
       configField(a, "inline", "Recipient, ex. (123) 456-789");
       configField(b, "none", "");
       configField(c, "none", "");
     }
-
     function subConfigURL(){
       funnelSelectWrapper.style.display = "none";
       abcWrapper.style.display = "inline";
       prdLink.style.display = "none";
-
       configField(a, "inline", "URL, ex. https://example.com");
       configField(b, "none", "");
       configField(c, "none", "");
     }
-
     function subConfigFunnel(){
       funnelSelectWrapper.style.display = "inline-block";
       prdLink.style.display = "block";
       abcWrapper.style.display = "none";
-      outwardMessage("PRD(" + funnelSelect.value + ")");
+      if (funnelSelect.value) { // Ensure funnelSelect has a value before sending message
+         outwardMessage("PRD(" + funnelSelect.value + ")");
+      } else {
+        prdLink.innerText = ""; // Clear PRD link if no funnel selected
+        prdLinkText = "";
+      }
     }
-
     function configField(elem, display, placeholder){
       elem.style.display = display;
       elem.placeholder = placeholder;
     }
 
-
-    async function getLink(path) {
-        const url =
-            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
-            path +
-            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
-        const options = {
-            method: "GET",
-            headers: {
-                Authorization: "Bearer " + jdlocationAccessKey,
-                Version: "2021-07-28",
-                Accept: "application/json",
-            },
-        };
-
-        try {
-            const response = await fetch(url, options);
-            return await response.json().then((data) => {
-                console.log(data.data[0]);
-                return data.data[0];
-            });
-        } catch (error) {
+    async function getLink(path, domain) {
+        if (!locationAccessKey) {
+            console.error("getLink: locationAccessKey is missing.");
+            return null;
         }
-    }
-
-    async function getFunnelList() {
-      let funnelList = "";
+        const ghlLocationId = getGhlLocationIdForDomain(domain);
         const url =
-            "https://services.leadconnectorhq.com/funnels/funnel/list?locationId=" +
-            locationID;
+            `https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=${ghlLocationId}&limit=20&offset=0&search=/` +
+            path +
+            "$";
         const options = {
             method: "GET",
             headers: {
@@ -819,33 +850,59 @@
                 Accept: "application/json",
             },
         };
-
         try {
             const response = await fetch(url, options);
             const data = await response.json();
-            console.log(data);
-            let funnels = data.funnels;
-            //datax = data;
-            for (let i = 0; i < funnels.length; i++) {
-                // for each step
-                let steps = funnels[i].steps;
-                for (let j = 0; j < steps.length; j++) {
-                    let funnelName = funnels[i].name;
-                    let siteID = steps[j].pages[0];
-                    if (funnels[i].deleted == true) {
-                        funnelName = "[Deleted funnel]";
-                        siteID = "invalid";
-                    }
-                    let stepName = steps[j].name;
-
-                    let displayName = shorten(funnelName, 14) + " | " + shorten(stepName, 14);
-                    funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
-                }
+            console.log("getLink response for domain", domain, ":", data);
+            if (data.data && data.data.length > 0) {
+                // Prefer exact match on domain and path if multiple results (though search=$ should limit)
+                const foundRedirect = data.data.find(r => r.domain === domain && r.path === "/" + path);
+                return foundRedirect || data.data[0];
             }
-            return funnelList;
+            return null;
         } catch (error) {
-            console.error(error);
+            console.error("Error in getLink:", error);
+            return null;
         }
+    }
+
+    async function getFunnelList() {
+      if (!locationAccessKey) {
+          console.error("getFunnelList: locationAccessKey is missing.");
+          return "";
+      }
+      let funnelListHTML = "";
+      const url = `https://services.leadconnectorhq.com/funnels/funnel/list?locationId=${locationID}`;
+      const options = {
+          method: "GET",
+          headers: {
+              Authorization: "Bearer " + locationAccessKey,
+              Version: "2021-07-28",
+              Accept: "application/json",
+          },
+      };
+      try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+          console.log("Funnel list data:",data);
+          if (data.funnels) {
+              data.funnels.forEach(funnel => {
+                  if (!funnel.deleted) {
+                      funnel.steps.forEach(step => {
+                          if (step.pages && step.pages.length > 0) {
+                             let siteID = step.pages[0]; // Assuming first page is the one to link
+                             let displayName = shorten(funnel.name, 14) + " | " + shorten(step.name, 14);
+                             funnelListHTML += `<option value="${siteID}">${displayName}      </option>`;
+                          }
+                      });
+                  }
+              });
+          }
+          return funnelListHTML;
+      } catch (error) {
+          console.error("Error fetching funnel list:", error);
+          return "";
+      }
     }
 
     function shorten(str, n){
@@ -861,245 +918,328 @@
     }
 
     async function save(){
+      const selectedDomain = domainSelect.value;
       let path = pathURLBox.value;
-      let oldPath = savedURL.split("https://jostens.co/")[1];
-      if(saveButton.classList.contains("greyedOut")){
-        return;
-      }
+
+      if(saveButton.classList.contains("greyedOut")){ return; }
       saveButton.innerHTML = "Saving...";
       saveButton.classList.add("greyedOut");
-      if(domainSelect.value == "custom"){
-        deleteRedirect(redirectID);
-        outwardMessage("success(" + path + ")['']");
+
+      if(selectedDomain === "custom"){
+        if (redirectID) { // If previously a GHL link, delete it
+            const originalDomainOfRedirect = domainList.find(d => savedURL && savedURL.startsWith("https://" + d + "/"));
+            if (originalDomainOfRedirect) {
+                 await deleteRedirect(redirectID, originalDomainOfRedirect);
+            }
+        }
+        outwardMessage("success(" + path + ")['']"); // Path is the full custom URL
         outwardMessage("collapse");
+        saveButton.innerHTML = "Publish";
+        saveButton.classList.remove("greyedOut");
         return;
       }
+
       let target = "";
-      if(subConfig == "SMS"){
-        let recipient = a.value;
-        let message = c.value;
-        target = "sms:" + recipient + "?body=" + message;
-      }
-      if(subConfig == "Email"){
-        let recipient = a.value;
-        let subject = b.value;
-        let body = c.value;
-        target = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
-      }
-      if(subConfig == "Phone"){
-        let recipient = a.value;
-        target = "tel:" + recipient;
-      }
-      if(subConfig == "URL"){
-        let url = a.value;
-        target = url;
-      }
+      if(subConfig == "SMS"){ target = "sms:" + a.value + "?body=" + encodeURIComponent(c.value); }
+      if(subConfig == "Email"){ target = "mailto:" + a.value + "?subject=" + encodeURIComponent(b.value) + "&body=" + encodeURIComponent(c.value); }
+      if(subConfig == "Phone"){ target = "tel:" + a.value; }
+      if(subConfig == "URL"){ target = a.value; }
       if(subConfig == "Funnel"){
-        let funnel = funnelSelect.value;
-        // target = "https://app.kairoscloud.io/v2/preview/" + funnel;
-        target = "https://sites.kairoscloud.io/" + funnel + "?&locationID=" + locationID + "&campaignID=" + docID;
+          // Use sites.kairoscloud.io for new funnel links
+          target = "https://sites.kairoscloud.io/" + funnelSelect.value + "?&locationID=" + locationID + "&campaignID=" + docID;
+          if(prdLinkText && prdLink.style.display !== "none" && prdLinkText.startsWith("https://app.kairoscloud.io/v2/preview/")) {
+            // If PRD link was for an old style preview link, prefer that format if it was actively generated
+            target = prdLinkText + (prdLinkText.includes("?") ? "&" : "?") + "ghlFunnelID=" + funnelSelect.value;
+          }
       }
-      if(prdLink.style.display != "none" && prdLink.innerText != ""){
-        target = prdLinkText + "?ghlFunnelID" + funnelSelect.value;
+
+      if (prdLink.style.display !== "none" && prdLinkText && subConfig === "Funnel" && !target.includes(prdLinkText)) {
+          // If PRD link text exists (from funnel selection) and it's a funnel type,
+          // ensure the target uses this specific preview link if it's different from the sites.kairoscloud.io default.
+          // This is complex as prdLinkText might be sites.kairoscloud already.
+          // The logic above for funnel target aims to use sites.kairoscloud.io by default.
+          // If prdLinkText is an app.kairoscloud.io link, it will be used.
       }
+
 
       if(subConfig == "SMS" || subConfig == "Phone" || subConfig == "Email"){
-        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true&params=" + encodeURIComponent(target);
+        target = "https://app.kairoscloud.io/v2/preview/oJPuhXJVm3KGa7C5c2BF?notrack=true¶ms=" + encodeURIComponent(target);
       }
-      console.log(target);
+      console.log("Final Target for redirect:", target);
 
-      await deleteRedirect(redirectID);
-      createRedirect(path, target);
+      if (redirectID) {
+          const originalDomainOfRedirect = domainList.find(d => savedURL && savedURL.startsWith("https://" + d + "/"));
+          const originalPathOfRedirect = originalDomainOfRedirect ? savedURL.substring(("https://" + originalDomainOfRedirect + "/").length) : null;
 
+          if (originalDomainOfRedirect && (originalDomainOfRedirect !== selectedDomain || originalPathOfRedirect !== path)) {
+              console.log("Domain or path changed, deleting old redirect:", redirectID, "on", originalDomainOfRedirect);
+              await deleteRedirect(redirectID, originalDomainOfRedirect);
+              redirectID = ""; // Will get a new ID
+          } else if (originalDomainOfRedirect && originalDomainOfRedirect === selectedDomain && originalPathOfRedirect === path) {
+              // Path and domain are the same, this is an update to the target.
+              // GHL's POST redirect can sometimes update if path/domain exists, or might need PUT.
+              // For simplicity, deleting and recreating if target changes.
+              console.log("Path and domain same, but target might change. Deleting and recreating.");
+              await deleteRedirect(redirectID, originalDomainOfRedirect);
+              redirectID = "";
+          }
+      }
+
+      createRedirect(path, target, selectedDomain);
     }
 
-    async function deleteRedirect(id){
-      if(id == ""){
-        console.log("No previous redirect to delete: skipping");
-        return;
-      }
-      console.log("Deleting redirect '" + id + "'");
-      const url = 'https://services.leadconnectorhq.com/funnels/lookup/redirect/' + id + '?locationId=owNEzpbrfBjp4weSARXD';
+    async function deleteRedirect(id, domain){
+      if(id === ""){ console.log("No redirect ID to delete: skipping"); return; }
+      if (!locationAccessKey) { console.error("deleteRedirect: locationAccessKey is missing."); return; }
+
+      const ghlLocationId = getGhlLocationIdForDomain(domain);
+      console.log(`Deleting redirect '${id}' for domain '${domain}' on location '${ghlLocationId}'`);
+      const url = `https://services.leadconnectorhq.com/funnels/lookup/redirect/${id}?locationId=${ghlLocationId}`;
       const options = {
           method: "DELETE",
           headers: {
-              Authorization: "Bearer " + jdlocationAccessKey,
+              Authorization: "Bearer " + locationAccessKey,
               Version: "2021-07-28",
               Accept: "application/json",
           },
       };
+      try {
+          const response = await fetch(url, options);
+          if (response.ok) {
+            console.log("Successfully deleted redirect:", id, await response.text());
+          } else {
+            console.error("Failed to delete redirect:", id, response.status, await response.text());
+          }
+      } catch (error) {
+          console.error("Error in deleteRedirect:", error);
+      }
+    }
 
+    async function createRedirect(path, target, domain) {
+      if (!locationAccessKey) {
+          console.error("createRedirect: locationAccessKey is missing.");
+          saveButton.innerHTML = "Publish";
+          saveButton.classList.remove("greyedOut");
+          outwardMessage("domError(Error: Missing API access token.)");
+          return;
+      }
+      console.log(`Creating redirect for domain '${domain}', path '/${path}' for target '${target}'`);
+      const ghlLocationId = getGhlLocationIdForDomain(domain);
+      const url = "https://services.leadconnectorhq.com/funnels/lookup/redirect";
+      const options = {
+          method: "POST",
+          headers: {
+              Authorization: "Bearer " + locationAccessKey,
+              Version: "2021-07-28",
+              "Content-Type": "application/json",
+              Accept: "application/json",
+          },
+          body: JSON.stringify({
+              locationId: ghlLocationId,
+              domain: domain,
+              path: "/" + path,
+              target: target,
+              action: "url"
+          }),
+      };
       try {
           const response = await fetch(url, options);
           const data = await response.json();
-          console.log(data);
+          console.log("createRedirect response:", data, "status:", response.status);
+          processResult(data, response.status);
       } catch (error) {
-          console.error(error);
+          console.error("Error in createRedirect:", error);
+          outwardMessage("domError(Could not create redirect: Network error.)");
+          saveButton.innerHTML = "Publish";
+          saveButton.classList.remove("greyedOut");
       }
-    }
-
-    async function createRedirect(path, target) {
-      console.log("Creating redirect...");
-        const url =
-            "https://services.leadconnectorhq.com/funnels/lookup/redirect";
-        const options = {
-            method: "POST",
-            headers: {
-                Authorization: "Bearer " + jdlocationAccessKey,
-                Version: "2021-07-28",
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            body:
-                `
-            {
-              "locationId": "` +
-                "owNEzpbrfBjp4weSARXD" +
-                `",
-              "domain": "jostens.co",
-              "path": "/` +
-                path +
-                `",
-                "target": "` + target + `",
-              "action": "url"
-            }`,
-        };
-
-        try {
-            const response = await fetch(url, options);
-            const data = await response.json();
-            console.log(data);
-            processResult(data, response.status)
-            } catch (error) {
-            console.error(error);
-        }
     }
 
     function pathInput(){
-      if(domainSelect.value == "custom"){
-        // custom domain is being used, therefore no need to validate path
-        pathURLBox.style.border = "1px solid #d1d5de";
-        pathURLBox.style.backgroundColor = "white";
-        saveButton.classList.remove("greyedOut");
-        return;
+      const selectedDomain = domainSelect.value;
+      if (selectedDomain === "custom") {
+          pathURLBox.style.border = "1px solid #d1d5de";
+          pathURLBox.style.backgroundColor = "white";
+          saveButton.classList.remove("greyedOut");
+          validPath = true;
+          return;
       }
+
       let path = pathURLBox.value;
-      let oldPath = savedURL.split("https://jostens.co/")[1];
-      shortenedLinkExists(path).then((linkExists) => {
-          if (path == oldPath) {
-              // matches old path
+      let oldPath = "";
+      if (savedURL && savedURL.startsWith("https://" + selectedDomain + "/")) {
+          oldPath = savedURL.substring(("https://" + selectedDomain + "/").length);
+      }
+
+      if (path === "" && !(path === oldPath && redirectID)) {
+          pathURLBox.style.border = "1px solid lightcoral";
+          pathURLBox.style.backgroundColor = "#EAD3D3";
+          saveButton.classList.add("greyedOut");
+          validPath = false;
+          return;
+      }
+
+      shortenedLinkExists(path, selectedDomain).then((linkExists) => {
+          if (path === oldPath && redirectID) {
               pathURLBox.style.border = "1px solid #d1d5de";
               pathURLBox.style.backgroundColor = "white";
               saveButton.classList.remove("greyedOut");
               validPath = true;
           } else if (!linkExists && isValidPath(path)) {
-            // valid
               pathURLBox.style.border = "1px solid green";
               pathURLBox.style.backgroundColor = "#D7EBC0";
               saveButton.classList.remove("greyedOut");
               validPath = true;
           } else {
-            // invalid
               pathURLBox.style.border = "1px solid lightcoral";
               pathURLBox.style.backgroundColor = "#EAD3D3";
               saveButton.classList.add("greyedOut");
               validPath = false;
+              if (linkExists && path !== oldPath) console.warn(`Path '${path}' on domain '${selectedDomain}' already exists.`);
+              if (!isValidPath(path)) console.warn(`Path '${path}' has invalid characters.`);
           }
       });
     }
 
     function isValidPath(path) {
-      const urlSafeRegex = /^[a-zA-Z0-9\-_.~]+$/;
+      const urlSafeRegex = /^[a-zA-Z0-9\-_.~]*$/; // Allow empty string for initial state, path="" handled by pathInput separately
       return urlSafeRegex.test(path);
     }
 
-    async function shortenedLinkExists(path) {
-      if(path == ""){
-        return true;
-      }
-        const url =
-            "https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=owNEzpbrfBjp4weSARXD&limit=20&offset=0&search=/" +
-            path +
-            "$"; // through some guesswork, I've discovered that the API uses regexes to search for URLs – hence the $ at the end, which is regex for "end of string". If the URL exists, it should return only 1 result – and if not, it should return 0.
-        const options = {
-            method: "GET",
-            headers: {
-                Authorization: "Bearer " + jdlocationAccessKey,
-                Version: "2021-07-28",
-                Accept: "application/json",
-            },
-        };
+    async function shortenedLinkExists(path, domain) {
+      if (path === "") return false; // An empty path doesn't "exist" in a way that blocks creation of a new link
+      if (!locationAccessKey) { console.error("shortenedLinkExists: locationAccessKey is missing."); return true; /* err on safe side */ }
 
-        try {
-            const response = await fetch(url, options);
-            return await response.json().then((data) => {
-                return data.count == 1; // if the count is 1, the URL exists; if not, it doesn't
-            });
-        } catch (error) {
-            console.error(error);
-        }
+      const ghlLocationId = getGhlLocationIdForDomain(domain);
+      const url =
+          `https://services.leadconnectorhq.com/funnels/lookup/redirect/list?locationId=${ghlLocationId}&limit=1&offset=0&search=/` +
+          path +
+          "$";
+      const options = {
+          method: "GET",
+          headers: {
+              Authorization: "Bearer " + locationAccessKey,
+              Version: "2021-07-28",
+              Accept: "application/json",
+          },
+      };
+      try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+          if (data.data && data.data.length > 0) {
+              return data.data.some(r => r.domain === domain && r.path === "/" + path);
+          }
+          return false;
+      } catch (error) {
+          console.error("Error in shortenedLinkExists:", error);
+          return true; // Err on the side of caution, assume it exists to prevent overwrite issues
+      }
     }
 
-    let datax = "";
     function processResult(data, status){
-      console.log(status);
-      console.log(data);
-      datax = data;
-      // console.log(data.data._id);
-      // console.log(data.id);
-      // console.log(data._id);
-      // account for all success statuses
-      if(status == 200 || status == 201 || status == 204 || status == 202){
-        let shortenedLink = "https://" + data.data.domain + data.data.path;
-        outwardMessage("success(" + shortenedLink + ")[" + data.data.id + "]");
-        outwardMessage("collapse");
+      console.log("Processing result - Status:", status, "Data:", data);
+      if(status === 200 || status === 201){ // GHL POST often 201, GET/PUT/PATCH 200
+        let resultData = data.redirect || data.data || data; // GHL response structure varies
+        if (resultData && resultData.id && resultData.domain && resultData.path) {
+            let shortenedLink = "https://" + resultData.domain + resultData.path;
+            redirectID = resultData.id;
+            savedURL = shortenedLink;
+            outwardMessage("success(" + shortenedLink + ")[" + resultData.id + "]");
+            outwardMessage("collapse");
+        } else {
+            console.error("Successful response but unexpected data structure:", data);
+            // Check for specific GHL "path already exists" message more robustly
+            if (typeof data.message === 'string' && data.message.toLowerCase().includes("path already exists")) {
+                 outwardMessage(`domError(Path '/${pathURLBox.value}' already exists for domain '${domainSelect.value}'.)`);
+            } else {
+                 outwardMessage("domError(Link saved, but response format unexpected.)");
+            }
+        }
       } else {
-        // error
-        console.log(redirectID);
-        console.log(data);
-        outwardMessage("domError(Could not shorten link:)");
+        let errorMessage = "Could not shorten link.";
+        if (data && data.message) {
+            errorMessage += " " + data.message;
+             if (data.message.toLowerCase().includes("path already exists")) {
+                errorMessage = `Path '/${pathURLBox.value}' already exists for domain '${domainSelect.value}'.`;
+                pathURLBox.style.border = "1px solid lightcoral";
+                pathURLBox.style.backgroundColor = "#EAD3D3";
+            }
+        } else if (typeof data === 'string') {
+            errorMessage += " " + data;
+        }
+        console.error("Error from API:", status, data, errorMessage);
+        outwardMessage("domError(" + errorMessage + ")");
       }
-      // remove greyedOut
+      saveButton.innerHTML = "Publish";
       saveButton.classList.remove("greyedOut");
     }
 
-    // handle messages from parent
     window.addEventListener('message', function(event) {
         processInwardMessage(event.data);
     }, false);
 
-    // process messages from parent
     function processInwardMessage(message){
-      // if intended for this component, if going inward (parent -> child), and if not null
       if(message.split("::")[0] == componentID && message.includes("inwardmsg") && !message.includes("inwardmsg::null")){
-        console.log("Domain & path retrieved!");
+        console.log("Domain & path retrieved from parent: ", message);
         let url = message.split("::")[2].split(")")[0];
-        // remove the "www" from the front
-        url = "https://" + url.replace("www.", "");
+        url = "https://" + url.replace(/^www\./i, ""); // Remove www. case-insensitively
         if(message.includes("OPTIONALFUNNEL")){
-          pathURLBox.value = url;
+          pathURLBox.value = url; // if it's from optional funnel, it's a full URL to be used as custom
+          domainSelect.value = "custom"; // Switch to custom domain mode
+          domainInput(); // Trigger domain input logic to update UI for custom
+          pathURLBox.value = url; // Re-set value after domainInput might clear it
         } else {
-          prdLink.innerText = "↳ " + shorten(url, 45); // 45 characters before cutoff
+          prdLink.innerText = "↳ " + shorten(url, 45);
           prdLinkText = url;
+          // This URL is likely a funnel preview, update target if current type is Funnel
+          if (subConfig === "Funnel") {
+             // This might trigger an update to the 'target' in save() if prdLinkText is used.
+          }
         }
-      } else {
+      } else if (message.split("::")[0] == componentID && message.includes("inwardmsg::null") && !message.includes("OPTIONALFUNNEL")) {
+        // Clear PRD link if parent sends null for the main funnel target
         prdLink.innerText = "";
         prdLinkText = "";
       }
     }
 
     function funnelInput(){
-      console.log("sending message to parent...");
+      console.log("Funnel selected, sending PRD message to parent for: " + funnelSelect.value);
       outwardMessage("PRD(" + funnelSelect.value + ")");
     }
-
     function optionalFunnelInput(){
-      console.log("sending message to parent...");
+      console.log("Optional funnel selected, sending PRD message to parent for: " + funnelSelectOptional.value);
       outwardMessage("PRD(" + funnelSelectOptional.value + ")OPTIONALFUNNEL");
     }
-
     function openPRDLink(){
-      window.open(prdLinkText, "_blank");
+      if (prdLinkText) {
+         window.open(prdLinkText, "_blank");
+      }
     }
 
+    async function getDomainList() {
+      let domainRef = firestore.collection("domains").doc(locationID);
+      try {
+        const doc = await domainRef.get();
+        if (doc.exists) {
+            domainList = doc.data().domainList || [];
+            console.log("Domain list fetched: ", domainList);
+            // Ensure "jostens.co" is in the list if not already (as per original assumption)
+            if (!domainList.includes("jostens.co")) {
+                // The prompt says "assume jostens.co is already in domainList"
+                // If it's critical and might be missing, you could add it:
+                // domainList.push("jostens.co");
+                // However, sticking to the assumption that it's provided from Firestore.
+            }
+        } else {
+            console.log("No domain list document found for locationID!", locationID);
+            // Fallback: at least include jostens.co if nothing else, if that's a hard requirement
+            // if (!domainList.includes("jostens.co")) domainList.push("jostens.co");
+        }
+      } catch (error) {
+          console.log("Error getting domain list:", error);
+          // Fallback if Firestore fails
+          // if (!domainList.includes("jostens.co")) domainList.push("jostens.co");
+      }
+    }
 </script>

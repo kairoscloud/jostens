@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="https://kairoscloud.github.io/main/globalFirebase.js"></script>
+<script src="https://kairoscloud.github.io/main/globalFirebase.js?v2"></script>
 <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet"
@@ -612,7 +612,7 @@
     }
 
     // Initial loading sequence
-    getDomainList().then(() => {
+    getDomainList(locationID).then(() => {
         populateDomainDropdown(); // Populate dropdown after fetching list
 
         let matchedDomain = null;
@@ -1217,29 +1217,128 @@
       }
     }
 
-    async function getDomainList() {
-      let domainRef = firestore.collection("domains").doc(locationID);
-      try {
-        const doc = await domainRef.get();
-        if (doc.exists) {
-            domainList = doc.data().domainList || [];
-            console.log("Domain list fetched: ", domainList);
-            // Ensure "jostens.co" is in the list if not already (as per original assumption)
-            if (!domainList.includes("jostens.co")) {
-                // The prompt says "assume jostens.co is already in domainList"
-                // If it's critical and might be missing, you could add it:
-                // domainList.push("jostens.co");
-                // However, sticking to the assumption that it's provided from Firestore.
-            }
-        } else {
-            console.log("No domain list document found for locationID!", locationID);
-            // Fallback: at least include jostens.co if nothing else, if that's a hard requirement
-            // if (!domainList.includes("jostens.co")) domainList.push("jostens.co");
-        }
-      } catch (error) {
-          console.log("Error getting domain list:", error);
-          // Fallback if Firestore fails
-          // if (!domainList.includes("jostens.co")) domainList.push("jostens.co");
-      }
+    function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
     }
+
+    async function getDomainList(locationID) {
+        while(window.ghlToken == undefined){ // wait until apiToken is grabbed
+          await sleep(200);
+        }
+        const companyId = "eRzyNWgO7fUGsvSQv7eR"; // Hard-coded from HAR
+        const baseUrl = "https://backend.leadconnectorhq.com/domains/hub";
+        const limit = 20; // Max limit as per note, even if HAR showed 5
+        let offset = 0;
+        let allDomainsAndSubdomains = new Set(); // Use a Set to automatically handle duplicates
+        let hasMore = true;
+        let totalCount = Infinity; // Initialize with a large number, will be updated from API response
+
+        const headers = {
+            accept: "application/json, text/plain, */*",
+            "accept-language": "en-US,en;q=0.9", // Optional, but good to include
+            "cache-control": "no-cache",
+            channel: "APP", // From HAR
+            origin: "https://app.kairoscloud.io", // From HAR, important for CORS
+            pragma: "no-cache",
+            priority: "u=1, i", // Optional
+            referer: "https://app.kairoscloud.io/", // From HAR, important for CORS
+            "sec-ch-ua":
+                '"Brave";v="135", "Not-A.Brand";v="8", "Chromium";v="135"', // Optional
+            "sec-ch-ua-mobile": "?0", // Optional
+            "sec-ch-ua-platform": '"macOS"', // Optional
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "sec-gpc": "1", // Optional
+            source: "WEB_USER", // From HAR
+            "token-id": window.ghlToken, // Parameterized
+            "user-agent":
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36", // Optional, but good practice
+            version: "2021-07-28", // From HAR
+            // ":authority", ":method", ":path", ":scheme" are pseudo-headers handled by the browser/fetch
+            // "baggage", "sentry-trace" are for Sentry.io, likely not needed for basic API call
+        };
+
+        console.log(`Fetching domains for locationID: ${locationID}`);
+
+        while (hasMore && offset < totalCount) {
+            const params = new URLSearchParams({
+                locationId: locationID,
+                companyId: companyId,
+                isNative: "false", // Hard-coded from HAR
+                limit: limit.toString(),
+                offset: offset.toString(),
+                search: "", // Hard-coded from HAR
+            });
+
+            const url = `${baseUrl}?${params.toString()}`;
+
+            try {
+                console.log(`Fetching: ${url} with offset ${offset}`);
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: headers,
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(
+                        `API Error: ${response.status} - ${response.statusText}`,
+                        errorText,
+                    );
+                    throw new Error(
+                        `API request failed with status ${response.status}: ${errorText}`,
+                    );
+                }
+
+                const responseJson = await response.json();
+
+                if (responseJson.count !== undefined) {
+                    totalCount = responseJson.count; // Update total count from the first valid response
+                }
+
+                if (responseJson.data && responseJson.data.length > 0) {
+                    responseJson.data.forEach((item) => {
+                        if (item.domain) {
+                            allDomainsAndSubdomains.add(item.domain);
+                        }
+                        if (
+                            item.connectedProducts &&
+                            Array.isArray(item.connectedProducts)
+                        ) {
+                            item.connectedProducts.forEach((product) => {
+                                if (product.domain) {
+                                    allDomainsAndSubdomains.add(product.domain);
+                                }
+                            });
+                        }
+                    });
+
+                    if (
+                        responseJson.data.length < limit ||
+                        offset + responseJson.data.length >= totalCount
+                    ) {
+                        hasMore = false; // No more items to fetch or reached total
+                    } else {
+                        offset += limit; // Prepare for the next page
+                    }
+                } else {
+                    hasMore = false; // No data returned, stop fetching
+                }
+            } catch (error) {
+                console.error("Error during fetch operation:", error);
+                hasMore = false; // Stop fetching on error
+                // Depending on requirements, you might want to re-throw or return partial results
+                throw error; // Re-throw to signal failure to the caller
+            }
+        }
+
+        console.log(
+            `Fetched a total of ${allDomainsAndSubdomains.size} unique domains/subdomains.`,
+        );
+        domainList = Array.from(allDomainsAndSubdomains);
+        return;
+    }
+
+
 </script>

@@ -568,9 +568,6 @@
 
     // Helper to determine which GHL locationId to use for redirect operations
     function getGhlLocationIdForDomain(domain) {
-        if (domain === "jostens.co") {
-            return "owNEzpbrfBjp4weSARXD"; // Special location for jostens.co
-        }
         return locationID; // For all other client-imported domains, use their own locationID
     }
 

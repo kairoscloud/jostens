@@ -1,16 +1,16 @@
-let cScript_ver = 26;
+let cScript_ver = 27;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL
 //  - Autofills & hides the action label/field
 //  - Autoclicks "ok, proceed"
-// To-do:
-//  - Hide each of the toolbar elements (5 total)
+//  - Hides each of the toolbar elements (5 total):
 //    - pipeline change
 //    - Send review requests
 //    - Email verification
 //    - Add/edit to company
 //    - Merge up to 10 contacts
+//    - Bulk WhatsApp
 // This script takes the place of the old directory.js
 // Runs on https://app.kairoscloud.io/v2/location/*/contacts/smart_list/All
 // Loads from (github link here)
@@ -61,9 +61,7 @@ function main_contacts() {
     'input[placeholder="Enter a description for the action (to be shown in tracking report)"]',
     true,
     function (element) {
-      element.value = "null";
-      element.dispatchEvent(new Event("input", { bubbles: true }));
-      element.style.display = "none";
+      fillAndHide(element);
     },
   );
 
@@ -72,9 +70,17 @@ function main_contacts() {
     'input[placeholder="Enter a description for the action"]',
     true,
     function (element) {
-      element.value = "null";
-      element.dispatchEvent(new Event("input", { bubbles: true }));
-      element.style.display = "none";
+      fillAndHide(element);
+    },
+  );
+
+  // autofill ANOTHER version of the action field
+  // was this GHL dev having a stroke? Why are we on version 3 of this? They don't even include the closing ) parenthesis.
+  waitForElement(
+    'input[placeholder="Write a name for the action (to be shown in tracking report"]',
+    true,
+    function (element) {
+      fillAndHide(element);
     },
   );
 
@@ -83,9 +89,7 @@ function main_contacts() {
     true,
     function (element) {
       if (element.innerText == "Action") {
-        element.value = "null";
-        element.dispatchEvent(new Event("input", { bubbles: true }));
-        element.style.display = "none";
+        fillAndHide(element);
       }
     },
   );
@@ -120,6 +124,7 @@ function main_contacts() {
   hideToolbarElement("Email Verification");
   hideToolbarElement("Add/Edit to Company");
   hideToolbarElement("Merge up to 10 Contacts");
+  hideToolbarElement("Bulk WhatsApp");
 }
 
 function hideToolbarElement(title) {
@@ -159,4 +164,10 @@ function waitForElement(query, continuous, callback) {
     console.log("Found element '" + query + "'");
     callback(element);
   }
+}
+
+function fillAndHide(element) {
+  element.value = "null";
+  element.dispatchEvent(new Event("input", { bubbles: true }));
+  element.style.display = "none";
 }

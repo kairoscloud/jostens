@@ -1,4 +1,4 @@
-let cScript_ver = 32;
+let cScript_ver = 33;
 // The Kairos Cloud contacts custom script
 // What does it do?
 //  - Autofills the search field with whatever query is passed through the URL

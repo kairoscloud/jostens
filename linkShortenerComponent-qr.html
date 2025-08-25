@@ -1342,6 +1342,7 @@ async function getBothTokens() {
         target = "https://sites.kairoscloud.io/form/" + formSelect.value + "?notrack=true" + c.value ? ("&text_home=" + customEncodeURIComponent("sms:" + a.value + "?&body=" + c.value) : "") + "&campaign_name=CAMPAIGNID_" + campaignSelect.value + "&locationID=" + locationID;
       }
 
+
       console.log(target);
 
       await deleteRedirect(redirectID);

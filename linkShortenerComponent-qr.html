@@ -754,7 +754,7 @@
           validSave(c.value != "");
           break;
         case "FormSMS":
-          validSave(campaignSelect.value != "null");
+          validSave(campaignSelect.value != "null" && formSelect.value != "null");
           break;
       }
     }
@@ -1339,7 +1339,7 @@ async function getBothTokens() {
 
       if(subConfig == "FormSMS"){
         //target = "https://cdn.kairoscloud.io/widget/form/hn1vNmCF1fd7aV3BvRvd?notrack=true&text_home=" + customEncodeURIComponent("sms:" + b.value + "?&body=" + c.value) + "&campaign_name=CAMPAIGNID_" + campaignSelect.value;
-        target = "https://sites.kairoscloud.io/form/" + formSelect.value + "?notrack=true" + (c.value == "" ? ("&text_home=" + customEncodeURIComponent("sms:" + a.value + "?&body=" + c.value)) : "") + "&campaign_name=CAMPAIGNID_" + campaignSelect.value + "&locationID=" + locationID;
+        target = "https://sites.kairoscloud.io/widget/form/" + formSelect.value + "?notrack=true" + (c.value == "" ? ("&text_home=" + customEncodeURIComponent("sms:" + a.value + "?&body=" + c.value)) : "") + "&campaign_name=CAMPAIGNID_" + campaignSelect.value + "&locationID=" + locationID;
       }
 
 

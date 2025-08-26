@@ -1609,8 +1609,13 @@ async function getBothTokens() {
               }
             );
             // add it to the dropdown
-            campaignSelect.innerHTML += `<option value="${doc.id}">${doc.data().name} &nbsp; &nbsp; &nbsp;</option>`;
           });
+          campaignList.sort((a, b) => a.data.name.localeCompare(b.data.name));
+          for(let i = 0; i < campaignList.length; i++){
+            let doc = campaignList[i];
+            let id = doc.id;
+            campaignSelect.innerHTML += `<option value="${id}">${doc.data.name} &nbsp; &nbsp; &nbsp;</option>`;
+          }
           console.log(campaignList);
     }
 

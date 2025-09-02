@@ -1224,8 +1224,8 @@ async function getBothTokens() {
                     }
                     let stepName = steps[j].name;
 
-                    let displayName = shorten(funnelName, 17) + " | " + shorten(stepName, 19);
-                    funnelList += `<option value="${siteID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
+                    let displayName = abridge(funnelName, 17) + " | " + shorten(stepName, 19);
+                    funnelList += `<option value="${siteID}" title="${funnelName} | ${stepName}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
                 }
             }
             return funnelList;
@@ -1276,6 +1276,16 @@ async function getBothTokens() {
     function shorten(str, n){
       if(str.length > n){
         return str.substring(0, n) + "...";
+      } else {
+        return str;
+      }
+    }
+
+    // the same as shorten(), but add "..." in the middle
+    function abridge(str, n){
+      if(str.length - 5 > n){
+        let half = Math.floor(n / 2) - 1;
+        return str.substring(0, half) + " ... " + str.substring(str.length - half);
       } else {
         return str;
       }

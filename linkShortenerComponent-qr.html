@@ -1236,11 +1236,18 @@ async function getBothTokens() {
 
     // now do the same thing, but for forms
 
-    async function getFormList() {
-      let formList = `<option value="null">Select Form...</option>`;
+    async function getFormList(skip, accumulatedForms) {
+      if(!skip){
+        skip = 0;
+      }
+      // Initialize the list on the first call (when accumulatedForms is undefined)
+      if (!accumulatedForms) {
+        accumulatedForms = `<option value="null">Select Form...</option>`;
+      }
+
         const url =
             "https://services.leadconnectorhq.com/forms/?locationId=" +
-            locationID;
+            locationID + "&limit=50&skip=" + skip;
         const options = {
             method: "GET",
             headers: {
@@ -1265,11 +1272,21 @@ async function getBothTokens() {
                     formID = "invalid";
                 }
                 let displayName = shorten(formName, 35);
-                formList += `<option value="${formID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
+                accumulatedForms += `<option value="${formID}">${displayName} &nbsp; &nbsp; &nbsp;</option>`;
             }
-            return formList;
+
+            const fetchedCount = skip + forms.length;
+            if (data.total > fetchedCount) {
+                // More forms to fetch, so we recurse
+                return await getFormList(fetchedCount, accumulatedForms);
+            } else {
+                // All forms have been fetched
+                return accumulatedForms;
+            }
         } catch (error) {
             console.error(error);
+            // In case of an error, return what has been gathered so far
+            return accumulatedForms;
         }
     }
 

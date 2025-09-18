@@ -888,7 +888,7 @@
                       funnel.steps.forEach(step => {
                           if (step.pages && step.pages.length > 0) {
                              let siteID = step.pages[0]; // Assuming first page is the one to link
-                             let displayName = shorten(funnel.name, 14) + " | " + shorten(step.name, 14);
+                             let displayName = shorten(funnel.name, 21) + " | " + shorten(step.name, 14);
                              funnelListHTML += `<option value="${siteID}" title="${funnel.name} | ${step.name}">${displayName}      </option>`;
                           }
                       });

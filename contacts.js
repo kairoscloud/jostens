@@ -56,76 +56,76 @@ function main_contacts() {
     );
   }
 
-//   // autofill the action field
-//   waitForElement(
-//     'input[placeholder="Enter a description for the action (to be shown in tracking report)"]',
-//     true,
-//     function (element) {
-//       fillAndHide(element);
-//     },
-//   );
+  //   // autofill the action field
+  //   waitForElement(
+  //     'input[placeholder="Enter a description for the action (to be shown in tracking report)"]',
+  //     true,
+  //     function (element) {
+  //       fillAndHide(element);
+  //     },
+  //   );
 
-//   // autofill another version of the action field
-//   waitForElement(
-//     'input[placeholder="Enter a description for the action"]',
-//     true,
-//     function (element) {
-//       fillAndHide(element);
-//     },
-//   );
+  //   // autofill another version of the action field
+  //   waitForElement(
+  //     'input[placeholder="Enter a description for the action"]',
+  //     true,
+  //     function (element) {
+  //       fillAndHide(element);
+  //     },
+  //   );
 
-//   // autofill ANOTHER version of the action field
-//   // was this GHL dev having a stroke? Why are we on version 3 of this? They don't even include the closing ) parenthesis.
-//   waitForElement(
-//     'input[placeholder="Write a name for the action (to be shown in tracking report"]',
-//     true,
-//     function (element) {
-//       fillAndHide(element);
-//     },
-//   );
+  //   // autofill ANOTHER version of the action field
+  //   // was this GHL dev having a stroke? Why are we on version 3 of this? They don't even include the closing ) parenthesis.
+  //   waitForElement(
+  //     'input[placeholder="Write a name for the action (to be shown in tracking report"]',
+  //     true,
+  //     function (element) {
+  //       fillAndHide(element);
+  //     },
+  //   );
 
-//   waitForElement(
-//     ".text-sm.font-medium.text-gray-700",
-//     true,
-//     function (element) {
-//       if (element.innerText == "Action") {
-//         fillAndHide(element);
-//       }
-//     },
-//   );
+  //   waitForElement(
+  //     ".text-sm.font-medium.text-gray-700",
+  //     true,
+  //     function (element) {
+  //       if (element.innerText == "Action") {
+  //         fillAndHide(element);
+  //       }
+  //     },
+  //   );
 
-//   // hide the action label + field
-//   waitForElement(
-//     "#bulk-action-form > div:nth-child(5)",
-//     true,
-//     function (element) {
-//       element.style.display = "none";
-//     },
-//   );
+  //   // hide the action label + field
+  //   waitForElement(
+  //     "#bulk-action-form > div:nth-child(5)",
+  //     true,
+  //     function (element) {
+  //       element.style.display = "none";
+  //     },
+  //   );
 
-//   // hide the info/warning box ("Please note the actions will be performed over a period of time...")
-//   waitForElement("#info", true, function (element) {
-//     element.style.display = "none";
-//   });
+  //   // hide the info/warning box ("Please note the actions will be performed over a period of time...")
+  //   waitForElement("#info", true, function (element) {
+  //     element.style.display = "none";
+  //   });
 
-//   // autoclick the "ok, proceed" button
-//   waitForElement(
-//     ".hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
-//     true,
-//     function (element) {
-//       if (element.innerText.toLowerCase().includes("proceed")) {
-//         element.click();
-//       }
-//     },
-//   );
+  //   // autoclick the "ok, proceed" button
+  //   waitForElement(
+  //     ".hl-btn.inline-flex.items-center.px-4.py-2.border-2.border-curious-blue-400.text-sm.font-medium.rounded.text-curious-blue-500.hover\\:bg-curious-blue-100.focus\\:outline-none.focus\\:ring-2.focus\\:ring-offset-2.focus\\:ring-curious-blue-500",
+  //     true,
+  //     function (element) {
+  //       if (element.innerText.toLowerCase().includes("proceed")) {
+  //         element.click();
+  //       }
+  //     },
+  //   );
 
-//   hideToolbarElement("Pipeline Change");
-//   hideToolbarElement("Send Review Requests");
-//   hideToolbarElement("Email Verification");
-//   hideToolbarElement("Add/Edit to Company");
-//   hideToolbarElement("Merge up to 10 Contacts");
-//   hideToolbarElement("Bulk WhatsApp");
-// }
+  //   hideToolbarElement("Pipeline Change");
+  //   hideToolbarElement("Send Review Requests");
+  //   hideToolbarElement("Email Verification");
+  //   hideToolbarElement("Add/Edit to Company");
+  //   hideToolbarElement("Merge up to 10 Contacts");
+  //   hideToolbarElement("Bulk WhatsApp");
+}
 
 function hideToolbarElement(title) {
   waitForElement(
